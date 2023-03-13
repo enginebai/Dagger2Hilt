@@ -1,6 +1,5 @@
 package com.enginebai.poc.di;
 
-import com.enginebai.poc.MainActivity;
 import com.enginebai.poc.ShopBackApplication;
 
 import javax.inject.Singleton;
@@ -10,7 +9,7 @@ import dagger.Component;
 
 @Singleton
 // TODO: Add modules AndroidInjectionModule
-// TODO: Add some app modules
+// TODO: Add app module
 @Component(modules = {})
 // TODO: extended interfaces
 public interface AppComponent {
@@ -22,10 +21,30 @@ public interface AppComponent {
         AppComponent build();
     }
 
-    // TODO: add plus() method
+    // TODO: add DomainModule
+    DomainComponent plus();
 
-    // TODO: add some inject methods
-    void inject(MainActivity activity);
+    /*
+     * TODO: add some inject methods
+     * inject(Fragment)
+     * inject(WorkerManager)
+     */
 
-    // TODO: add some dependencies binding methods: A getA();
+    /*
+     * TODO: add some dependencies binding methods: A getA();
+     * Call by:
+     *  Activity
+     *  Activity.start() / non-Android class static function
+     *  Fragment
+     *  BaseMvvmFragment + BaseMvvmDialogFragment
+     *  ViewModel
+     *  ApplicationDelegate
+     *  Object.doSomething() function
+     *  FirebaseMessagingService()
+     *  SafeJobIntentService
+     *  OneSignal.OSRemoteNotificationReceivedHandler
+     *  Application
+     *  FragmentActivity.extension function
+     *  View
+     */
 }
