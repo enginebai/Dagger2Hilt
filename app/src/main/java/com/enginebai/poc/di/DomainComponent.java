@@ -1,6 +1,6 @@
 package com.enginebai.poc.di;
 
-import com.enginebai.poc.ShopBackApplication;
+import com.enginebai.poc.MyApplication;
 
 import dagger.Subcomponent;
 
@@ -11,7 +11,7 @@ import dagger.Subcomponent;
 public interface DomainComponent {
     // TODO: add plus() methods, TBD!
 
-    void inject(ShopBackApplication application);
+    void inject(MyApplication application);
     /*
      * TODO: inject methods
      * fragment

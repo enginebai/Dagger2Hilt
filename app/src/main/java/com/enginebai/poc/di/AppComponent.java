@@ -1,6 +1,6 @@
 package com.enginebai.poc.di;
 
-import com.enginebai.poc.ShopBackApplication;
+import com.enginebai.poc.MyApplication;
 
 import javax.inject.Singleton;
 
@@ -16,7 +16,7 @@ public interface AppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        Builder application(ShopBackApplication application);
+        Builder application(MyApplication application);
 
         AppComponent build();
     }
