@@ -14,6 +14,7 @@ public interface DomainComponent {
     void inject(MyApplication application);
     /*
      * TODO: inject methods
+     * application
      * fragment
      * dialog
      * view model

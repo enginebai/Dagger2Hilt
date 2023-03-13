@@ -2,7 +2,7 @@ package com.enginebai.poc;
 
 import android.app.Application;
 
-// TODO: implement HasAndroidInjector
+// TODO: implement HasAndroidInjector (dagger.android)
 // TODO: implement HasSingletonComponent
 // TODO: implement HasDomainComponent
 public class MyApplication extends Application {

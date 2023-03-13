@@ -11,7 +11,7 @@ import dagger.Component;
 // TODO: Add modules AndroidInjectionModule
 // TODO: Add app module
 @Component(modules = {})
-// TODO: extended interfaces
+// TODO: extended SingletonComponent interface
 public interface AppComponent {
     @Component.Builder
     interface Builder {
