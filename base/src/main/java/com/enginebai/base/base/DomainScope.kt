@@ -1,4 +1,4 @@
-package com.enginebai.poc.di
+package com.enginebai.base.base
 
 import javax.inject.Scope
 

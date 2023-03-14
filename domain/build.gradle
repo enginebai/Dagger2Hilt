@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace 'com.enginebai.base'
+    namespace 'com.enginebai.domain'
     compileSdk 33
 
     defaultConfig {
@@ -33,4 +33,5 @@ android {
 
 apply from: "$rootDir/commons.gradle"
 dependencies {
+    implementation project(':base')
 }
