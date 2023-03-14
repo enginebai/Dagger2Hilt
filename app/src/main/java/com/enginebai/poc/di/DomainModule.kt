@@ -7,19 +7,20 @@ import dagger.Provides
 
 @Module
 class DomainModule {
-
-    @DomainScope
     @Provides
+    @DomainScope
     fun provideDefaultDomainType(): DomainType {
         return DomainType.DYNAMIC_PROGRAMMING
     }
 
     @Provides
+    @DomainScope
     fun provideDomainApi(defaultType: DomainType): DomainApi {
         return DomainApiInMemory(defaultType)
     }
 
     @Provides
+    @DomainScope
     fun provideDomainRepository(api: DomainApi): DomainRepository {
         return DomainRepositoryImpl(api)
     }

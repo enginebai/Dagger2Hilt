@@ -26,7 +26,7 @@ public interface AppComponent {
     }
 
     // TODO: add DomainModule
-    DomainComponent plus();
+    DomainComponent plus(DomainModule domainModule);
 
     /*
      * TODO: add some inject methods

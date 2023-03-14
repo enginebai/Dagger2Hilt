@@ -13,7 +13,6 @@ import kotlin.random.nextInt
 
 @Module
 class AppModule {
-
     @Provides
     fun provideCalendar(): Calendar {
         return Calendar.getInstance()
