@@ -8,9 +8,18 @@
     tools:context=".ui.singleton.SingletonFragment1">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewSingleton1"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewSingleton1"/>
+        android:text="Singleton Fragment 1"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:layout_width="match_parent"

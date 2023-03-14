@@ -2,8 +2,11 @@ package com.enginebai.poc.data
 
 import android.content.Context
 import com.enginebai.poc.R
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class UserDataHelper(
+@Singleton
+class UserDataHelper @Inject constructor(
     private val context: Context,
     private val name: String,
     private val randomNumber: Int) {

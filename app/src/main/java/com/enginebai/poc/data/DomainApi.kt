@@ -11,6 +11,10 @@ class DomainApiInMemory(
 
     private val list = mutableListOf<DomainData>()
 
+    init {
+        list.add(DomainData(defaultType))
+    }
+
     override fun getDataList(): List<DomainData> {
         return list
     }
