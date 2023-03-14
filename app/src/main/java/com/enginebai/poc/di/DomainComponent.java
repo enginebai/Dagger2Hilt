@@ -1,6 +1,6 @@
 package com.enginebai.poc.di;
 
-import com.enginebai.base.base.DomainScope;
+import com.enginebai.core.di.DomainScope;
 import com.enginebai.poc.MyApplication;
 
 import dagger.Subcomponent;
