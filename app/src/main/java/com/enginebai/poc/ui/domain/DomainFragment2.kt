@@ -1,11 +1,16 @@
 package com.enginebai.poc.ui.domain
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import com.enginebai.poc.R
+import com.enginebai.poc.ui.singleton.SingletonFragment2
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +40,16 @@ class DomainFragment2 : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_domain2, container, false)
+        return inflater.inflate(R.layout.fragment_domain, container, false)
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.findViewById<ViewGroup>(R.id.root).setBackgroundColor(Color.parseColor("#e56b6f"))
+        with(view.findViewById<Button>(R.id.buttonNext)) {
+            text = "Domain Fragment 2222"
+        }
     }
 
     companion object {

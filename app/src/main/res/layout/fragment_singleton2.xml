@@ -8,7 +8,7 @@
     tools:context=".ui.singleton.SingletonFragment2">
 
     <Button
-        android:id="@+id/buttonGoNext"
+        android:id="@+id/buttonNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
@@ -18,7 +18,9 @@
     <TextView
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/white"
+        android:id="@+id/textViewSingleton2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Singleton Fragment 2" />
+        android:text="Singleton Fragment 2"
+        tools:ignore="HardcodedText" />
 </LinearLayout>

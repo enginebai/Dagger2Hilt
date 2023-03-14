@@ -42,7 +42,7 @@ class SingletonFragment1 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.buttonGoNext).setOnClickListener {
+        view.findViewById<Button>(R.id.buttonNext).setOnClickListener {
             requireActivity().supportFragmentManager
                 .beginTransaction()
                 .add(R.id.fragmentContainer, SingletonFragment2())

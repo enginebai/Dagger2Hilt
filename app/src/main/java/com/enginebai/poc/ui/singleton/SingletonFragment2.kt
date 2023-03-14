@@ -42,7 +42,7 @@ class SingletonFragment2 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<Button>(R.id.buttonGoNext).setOnClickListener {
+        view.findViewById<Button>(R.id.buttonNext).setOnClickListener {
             startActivity(Intent(it.context, SingletonDetailActivity::class.java))
         }
     }
