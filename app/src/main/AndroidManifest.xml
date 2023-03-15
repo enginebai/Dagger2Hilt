@@ -16,7 +16,7 @@
             android:name=".ui.domain.DomainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.domain.DomainMultipleFragmentsActivity"
+            android:name=".ui.domain.DomainFragmentsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.singleton.SingletonDetailActivity"

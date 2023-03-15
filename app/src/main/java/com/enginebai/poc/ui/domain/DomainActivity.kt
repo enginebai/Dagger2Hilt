@@ -3,7 +3,9 @@ package com.enginebai.poc.ui.domain
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
@@ -20,12 +22,12 @@ class DomainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as MyApplication).domainComponent.inject(this);
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_domain)
-        findViewById<Button>(R.id.buttonNext).setOnClickListener {
-            startActivity(Intent(this, DomainMultipleFragmentsActivity::class.java))
-        }
-
+        setContentView(R.layout.activity_detail)
         domainRepository.addData(DomainData(DomainType.DFS))
-        Log.d("qwer", domainRepository.getDataList().toString())
+        findViewById<TextView>(R.id.textTitle).text = this::class.java.simpleName
+        findViewById<TextView>(R.id.textValue).text = domainRepository.getDataList().toString()
+        findViewById<ViewGroup>(R.id.root).setOnClickListener {
+            startActivity(Intent(this, DomainFragmentsActivity::class.java))
+        }
     }
 }

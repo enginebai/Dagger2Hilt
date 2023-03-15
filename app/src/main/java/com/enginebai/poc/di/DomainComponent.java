@@ -3,6 +3,7 @@ package com.enginebai.poc.di;
 import com.enginebai.core.di.DomainScope;
 import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.ui.domain.DomainActivity;
+import com.enginebai.poc.ui.domain.DomainFragment;
 
 import dagger.Subcomponent;
 
@@ -15,6 +16,7 @@ public interface DomainComponent {
 
     void inject(MyApplication application);
     void inject(DomainActivity activity);
+    void inject(DomainFragment fragment);
     /*
      * TODO: inject methods
      * fragment
