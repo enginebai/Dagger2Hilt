@@ -3,14 +3,12 @@ package com.enginebai.poc.ui.domain
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.poc.R
-import com.enginebai.poc.ui.singleton.SingletonFragment2
 
 class DomainFragment1 : BaseFragment() {
 

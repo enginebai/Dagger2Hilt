@@ -1,7 +1,6 @@
 package com.enginebai.poc.ui.domain
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.poc.R
-import com.enginebai.poc.ui.singleton.SingletonFragment2
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

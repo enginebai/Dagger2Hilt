@@ -4,8 +4,7 @@ import android.content.Context;
 
 import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.ui.singleton.SingletonDetailActivity;
-import com.enginebai.poc.ui.singleton.SingletonFragment1;
-import com.enginebai.poc.ui.singleton.SingletonFragment2;
+import com.enginebai.poc.ui.singleton.SingletonFragment;
 
 import javax.inject.Singleton;
 
@@ -30,12 +29,10 @@ public interface AppComponent {
 
     /*
      * TODO: add some inject methods
-     * inject(Fragment)
      * inject(WorkerManager)
      */
     void inject(MyApplication application);
-    void inject(SingletonFragment1 fragment);
-    void inject(SingletonFragment2 fragment);
+    void inject(SingletonFragment fragment);
     void inject(SingletonDetailActivity activity);
 
     /*
