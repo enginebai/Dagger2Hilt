@@ -10,13 +10,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.enginebai.core.base.BaseFragment
+import com.enginebai.core.di.MyFragmentScope
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainData
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.DomainTopic
 import com.enginebai.poc.ui.singleton.SingletonFragment
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
+
+@Module
+abstract class DomainFragmentBuilderModule {
+    @MyFragmentScope
+    @ContributesAndroidInjector
+    abstract fun contributeDomainFragment(): DomainFragment
+}
 
 class DomainFragment : BaseFragment() {
 

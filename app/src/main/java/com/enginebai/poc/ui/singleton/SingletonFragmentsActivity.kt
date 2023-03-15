@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.R
 
-class SingletonMultipleFragmentsActivity : BaseActivity() {
+class SingletonFragmentsActivity : BaseActivity() {
 
     val pageCount = 2
     override fun onCreate(savedInstanceState: Bundle?) {

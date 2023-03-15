@@ -22,7 +22,7 @@
             android:name=".ui.singleton.SingletonDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.singleton.SingletonMultipleFragmentsActivity"
+            android:name=".ui.singleton.SingletonFragmentsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

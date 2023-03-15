@@ -10,12 +10,23 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.enginebai.core.base.BaseFragment
+import com.enginebai.core.di.MyFragmentScope
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
+import com.enginebai.poc.ui.domain.DomainFragment
+import dagger.Module
+import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
 
 private const val PAGE_INDEX = "page_index"
+
+@Module
+abstract class SingletonFragmentBuilderModule {
+    @MyFragmentScope
+    @ContributesAndroidInjector
+    abstract fun contributeSingletonFragment(): SingletonFragment
+}
 
 class SingletonFragment : BaseFragment() {
 
@@ -50,7 +61,7 @@ class SingletonFragment : BaseFragment() {
         view.findViewById<TextView>(R.id.textTitle).text = "${SingletonFragment::class.java.simpleName}-$pageIndex"
         view.findViewById<TextView>(R.id.textValue).text = userDataHelper.getUser().id
         view.findViewById<Button>(R.id.buttonNext).setOnClickListener {
-            (requireActivity() as SingletonMultipleFragmentsActivity).let { activity ->
+            (requireActivity() as SingletonFragmentsActivity).let { activity ->
                 if (pageIndex < activity.pageCount) {
                     val nextIndex = pageIndex + 1
                     activity.supportFragmentManager

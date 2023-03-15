@@ -8,11 +8,11 @@ import com.enginebai.poc.ui.domain.DomainFragment;
 import dagger.Subcomponent;
 
 @DomainScope
-// TODO: add ActivityBuilderModule, FragmentBuilderModule modules
 // ActivityBuilderModule provide @ContributesAndroidInjector(modules) and scope with Activity.
 @Subcomponent(modules = {
         DomainModule.class,
-        ApiModule.class
+        ApiModule.class,
+        ActivityBuilderModule.class
 })
 public interface DomainComponent {
     // TODO: add plus() methods, TBD!

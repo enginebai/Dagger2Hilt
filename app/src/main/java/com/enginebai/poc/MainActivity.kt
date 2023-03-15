@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.widget.Button
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.ui.domain.DomainActivity
-import com.enginebai.poc.ui.singleton.SingletonMultipleFragmentsActivity
+import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
 
 class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.buttonStartSingleton).setOnClickListener {
-            startActivity(Intent(this, SingletonMultipleFragmentsActivity::class.java))
+            startActivity(Intent(this, SingletonFragmentsActivity::class.java))
         }
         findViewById<Button>(R.id.buttonStartDomain).setOnClickListener {
             startActivity(Intent(this, DomainActivity::class.java))

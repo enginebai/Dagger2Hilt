@@ -43,3 +43,14 @@ public class MyApplication extends Application {
         domainComponent.inject(this);
     }
 }
+
+// MainActivity
+// |-- SingleFragmentsActivity
+// |---- SingletonFragment 1
+// |---- SingletonFragment ..
+// |---- SingletonFragment n
+// |------ SingletonDetailActivity
+// |
+// |-- DomainActivity
+// |-- DomainFragmentsActivity
+// |---- DomainFragment
