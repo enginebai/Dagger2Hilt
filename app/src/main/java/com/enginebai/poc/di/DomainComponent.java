@@ -10,16 +10,20 @@ import dagger.Subcomponent;
 @DomainScope
 // TODO: add ActivityBuilderModule, FragmentBuilderModule modules
 // ActivityBuilderModule provide @ContributesAndroidInjector(modules) and scope with Activity.
-@Subcomponent(modules = {DomainModule.class})
+@Subcomponent(modules = {
+        DomainModule.class,
+        ApiModule.class
+})
 public interface DomainComponent {
     // TODO: add plus() methods, TBD!
 
     void inject(MyApplication application);
+
     void inject(DomainActivity activity);
+
     void inject(DomainFragment fragment);
     /*
      * TODO: inject methods
-     * fragment
      * dialog
      * view model
      * intent service

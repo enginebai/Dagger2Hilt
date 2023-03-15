@@ -13,7 +13,10 @@ import dagger.Component;
 
 @Singleton
 // TODO: Add modules AndroidInjectionModule
-@Component(modules = {AppModule.class})
+@Component(modules = {
+        AppModule.class,
+        UtilModule.class
+})
 // TODO: extended SingletonComponent interface
 public interface AppComponent {
     @Component.Builder

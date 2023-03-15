@@ -15,12 +15,6 @@ class DomainModule {
 
     @Provides
     @DomainScope
-    fun provideDomainApi(defaultType: DomainTopic): DomainApi {
-        return DomainApiInMemory(defaultType)
-    }
-
-    @Provides
-    @DomainScope
     fun provideDomainRepository(api: DomainApi): DomainRepository {
         return DomainRepositoryImpl(api)
     }

@@ -12,26 +12,10 @@ import kotlin.random.nextInt
 @Module
 class AppModule {
     @Provides
-    fun provideCalendar(): Calendar {
-        return Calendar.getInstance()
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    @Provides
-    fun provideDateFormatter(): DateFormat {
-        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-    }
-
-    @Provides
     fun provideUserName(
         calendar: Calendar,
         formatter: DateFormat
     ): String {
         return formatter.format(calendar.time)
-    }
-
-    @Provides
-    fun provideRandomNumber(): Int {
-        return Random.nextInt(0..100)
     }
 }
