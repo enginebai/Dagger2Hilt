@@ -1,25 +1,19 @@
 package com.enginebai.poc.ui.domain
 
-import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.core.di.Injectable
-import com.enginebai.core.di.MyFragmentScope
-import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
-import com.enginebai.poc.data.DomainData
 import com.enginebai.poc.data.DomainRepository
-import com.enginebai.poc.data.DomainTopic
-import com.enginebai.poc.ui.singleton.SingletonFragment
+import com.google.android.material.snackbar.Snackbar
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject
 
 @Module
@@ -37,6 +31,8 @@ class DomainFragment : BaseFragment(), Injectable {
 
     @Inject
     lateinit var domainRepository: DomainRepository
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory<DomainFragmentViewModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,13 +43,16 @@ class DomainFragment : BaseFragment(), Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO: check how to instantiate the view model
-        viewModel = ViewModelProvider(this).get(DomainFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
 
+        Snackbar.make(view, "${domainRepository.getDataList()}", Snackbar.LENGTH_SHORT).show()
         view.findViewById<TextView>(R.id.textTitle).text = DomainFragment::class.java.simpleName
-        view.findViewById<TextView>(R.id.textValue).text = domainRepository.getDataList().toString()
+
+        viewModel.data.observe(viewLifecycleOwner) {
+            view.findViewById<TextView>(R.id.textValue).text = it
+        }
         view.findViewById<Button>(R.id.buttonNext).setOnClickListener {
-            domainRepository.addRandomData()
+            viewModel.addData()
         }
     }
 }

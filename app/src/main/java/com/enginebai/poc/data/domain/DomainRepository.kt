@@ -1,5 +1,7 @@
 package com.enginebai.poc.data
 
+import com.enginebai.poc.data.domain.DomainData
+import com.enginebai.poc.data.domain.DomainTopic
 import kotlin.random.Random
 
 interface DomainRepository {

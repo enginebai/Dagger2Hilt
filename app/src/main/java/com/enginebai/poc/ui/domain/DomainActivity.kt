@@ -5,11 +5,8 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
 import com.enginebai.core.base.BaseActivity
-import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
-import com.enginebai.poc.data.DomainData
 import com.enginebai.poc.data.DomainRepository
-import com.enginebai.poc.data.DomainTopic
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -29,9 +26,13 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         findViewById<TextView>(R.id.textTitle).text = this::class.java.simpleName
-        findViewById<TextView>(R.id.textValue).text = domainRepository.getDataList().toString()
         findViewById<ViewGroup>(R.id.root).setOnClickListener {
             startActivity(Intent(this, DomainFragmentsActivity::class.java))
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        findViewById<TextView>(R.id.textValue).text = domainRepository.getDataList().toString()
     }
 }

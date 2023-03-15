@@ -42,7 +42,7 @@ public class MyApplication extends Application implements HasAndroidInjector {
     DispatchingAndroidInjector<Object> dispatchingAndroidInjector;
     @Inject
     AppInjector appInjector;
-    
+
     @Override
     public AndroidInjector<Object> androidInjector() {
         return dispatchingAndroidInjector;

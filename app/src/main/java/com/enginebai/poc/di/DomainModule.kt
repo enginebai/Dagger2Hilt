@@ -2,6 +2,7 @@ package com.enginebai.poc.di
 
 import com.enginebai.core.di.DomainScope
 import com.enginebai.poc.data.*
+import com.enginebai.poc.data.domain.DomainTopic
 import dagger.Module
 import dagger.Provides
 
