@@ -10,10 +10,25 @@ import com.enginebai.poc.di.DomainModule;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasAndroidInjector;
+
 // TODO: implement HasAndroidInjector (dagger.android)
 // TODO: implement HasSingletonComponent
 // TODO: implement HasDomainComponent
-public class MyApplication extends Application {
+
+// MainActivity
+// |-- SingleFragmentsActivity
+// |---- SingletonFragment 1
+// |---- SingletonFragment ..
+// |---- SingletonFragment n
+// |------ SingletonDetailActivity
+// |
+// |-- DomainActivity
+// |-- DomainFragmentsActivity
+// |---- DomainFragment
+public class MyApplication extends Application implements HasAndroidInjector {
 
     // Accessing the interfaces
     public AppComponent appComponent;
@@ -21,6 +36,10 @@ public class MyApplication extends Application {
 
     @Inject
     UserDataHelper userDataHelper;
+
+    // For dagger.android
+    @Inject
+    DispatchingAndroidInjector<Object> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
@@ -42,15 +61,9 @@ public class MyApplication extends Application {
         domainComponent = appComponent.plus(new DomainModule());
         domainComponent.inject(this);
     }
-}
 
-// MainActivity
-// |-- SingleFragmentsActivity
-// |---- SingletonFragment 1
-// |---- SingletonFragment ..
-// |---- SingletonFragment n
-// |------ SingletonDetailActivity
-// |
-// |-- DomainActivity
-// |-- DomainFragmentsActivity
-// |---- DomainFragment
+    @Override
+    public AndroidInjector<Object> androidInjector() {
+        return dispatchingAndroidInjector;
+    }
+}

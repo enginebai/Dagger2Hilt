@@ -3,12 +3,21 @@ package com.enginebai.poc
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
+import dagger.android.AndroidInjection
+import java.util.Calendar
+import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
+
+    @Inject
+    lateinit var calendar: Calendar
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         findViewById<Button>(R.id.buttonStartSingleton).setOnClickListener {
@@ -20,5 +29,6 @@ class MainActivity : BaseActivity() {
         findViewById<Button>(R.id.buttonChangeDomain).setOnClickListener {
             (application as MyApplication).instantiateDomainComponent()
         }
+        Toast.makeText(this, calendar.time.toString(), Toast.LENGTH_SHORT).show()
     }
 }

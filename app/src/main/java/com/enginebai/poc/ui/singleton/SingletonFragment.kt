@@ -14,7 +14,6 @@ import com.enginebai.core.di.MyFragmentScope
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
-import com.enginebai.poc.ui.domain.DomainFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import javax.inject.Inject

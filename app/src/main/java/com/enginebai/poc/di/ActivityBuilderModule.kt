@@ -1,6 +1,7 @@
 package com.enginebai.poc.di
 
 import com.enginebai.core.di.MyActivityScope
+import com.enginebai.poc.MainActivity
 import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.ui.domain.DomainFragmentBuilderModule
 import com.enginebai.poc.ui.domain.DomainFragmentsActivity
@@ -12,6 +13,10 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class ActivityBuilderModule {
+
+    @ContributesAndroidInjector
+    abstract fun contributeMainActivity(): MainActivity
+
     @MyActivityScope
     @ContributesAndroidInjector(
         modules = [SingletonFragmentBuilderModule::class]
