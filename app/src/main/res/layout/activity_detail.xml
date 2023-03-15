@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/root"
     android:background="#1d3557"
+    android:padding="20dp"
     tools:context=".ui.singleton.SingletonDetailActivity">
 
     <TextView

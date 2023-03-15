@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
-import com.enginebai.poc.data.UserDataHelper
+import com.enginebai.poc.data.user.UserDataHelper
 import javax.inject.Inject
 
 private const val PAGE_INDEX = "page_index"

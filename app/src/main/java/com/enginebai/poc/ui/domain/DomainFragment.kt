@@ -12,7 +12,9 @@ import android.widget.TextView
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
+import com.enginebai.poc.data.DomainData
 import com.enginebai.poc.data.DomainRepository
+import com.enginebai.poc.data.DomainTopic
 import com.enginebai.poc.ui.singleton.SingletonFragment
 import javax.inject.Inject
 
@@ -29,6 +31,7 @@ class DomainFragment : BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        // TODO: check how to instantiate the view model
         viewModel = ViewModelProvider(this).get(DomainFragmentViewModel::class.java)
         (requireActivity().application as MyApplication).domainComponent.inject(this)
     }
@@ -44,5 +47,8 @@ class DomainFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<TextView>(R.id.textTitle).text = DomainFragment::class.java.simpleName
         view.findViewById<TextView>(R.id.textValue).text = domainRepository.getDataList().toString()
+        view.findViewById<Button>(R.id.buttonNext).setOnClickListener {
+            domainRepository.addRandomData()
+        }
     }
 }

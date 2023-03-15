@@ -18,7 +18,7 @@ class MainActivity : BaseActivity() {
             startActivity(Intent(this, DomainActivity::class.java))
         }
         findViewById<Button>(R.id.buttonChangeDomain).setOnClickListener {
-            // TODO: change domain dependencies
+            (application as MyApplication).instantiateDomainComponent()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.enginebai.poc.data
+package com.enginebai.poc.data.user
 
 import android.content.Context
 import com.enginebai.poc.R

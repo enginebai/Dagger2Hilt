@@ -1,8 +1,6 @@
 package com.enginebai.poc.di
 
 import android.annotation.SuppressLint
-import android.content.Context
-import com.enginebai.poc.data.UserDataHelper
 import dagger.Module
 import dagger.Provides
 import java.text.DateFormat
@@ -21,7 +19,7 @@ class AppModule {
     @SuppressLint("SimpleDateFormat")
     @Provides
     fun provideDateFormatter(): DateFormat {
-        return SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     }
 
     @Provides

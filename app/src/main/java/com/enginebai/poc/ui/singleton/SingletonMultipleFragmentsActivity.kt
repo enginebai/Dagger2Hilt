@@ -6,8 +6,7 @@ import com.enginebai.poc.R
 
 class SingletonMultipleFragmentsActivity : BaseActivity() {
 
-    val pageCount = 10
-
+    val pageCount = 2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_with_multiple_fragments)

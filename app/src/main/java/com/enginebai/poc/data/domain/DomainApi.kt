@@ -6,7 +6,7 @@ interface DomainApi {
 }
 
 class DomainApiInMemory(
-    private val defaultType: DomainType
+    private val defaultType: DomainTopic
 ) : DomainApi {
 
     private val list = mutableListOf<DomainData>()

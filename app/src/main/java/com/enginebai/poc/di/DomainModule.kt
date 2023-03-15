@@ -9,13 +9,13 @@ import dagger.Provides
 class DomainModule {
     @Provides
     @DomainScope
-    fun provideDefaultDomainType(): DomainType {
-        return DomainType.DYNAMIC_PROGRAMMING
+    fun provideDefaultDomainType(): DomainTopic {
+        return DomainTopic.DYNAMIC_PROGRAMMING
     }
 
     @Provides
     @DomainScope
-    fun provideDomainApi(defaultType: DomainType): DomainApi {
+    fun provideDomainApi(defaultType: DomainTopic): DomainApi {
         return DomainApiInMemory(defaultType)
     }
 

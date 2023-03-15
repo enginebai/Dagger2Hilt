@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
-import com.enginebai.poc.data.UserDataHelper
+import com.enginebai.poc.data.user.UserDataHelper
 import javax.inject.Inject
 
 class SingletonDetailActivity : BaseActivity() {

@@ -1,18 +1,12 @@
 package com.enginebai.poc;
 
 import android.app.Application;
-import android.util.Log;
 
-import com.enginebai.poc.data.DomainData;
-import com.enginebai.poc.data.DomainRepository;
-import com.enginebai.poc.data.DomainType;
-import com.enginebai.poc.data.UserDataHelper;
+import com.enginebai.poc.data.user.UserDataHelper;
 import com.enginebai.poc.di.AppComponent;
 import com.enginebai.poc.di.DaggerAppComponent;
 import com.enginebai.poc.di.DomainComponent;
 import com.enginebai.poc.di.DomainModule;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,7 +19,6 @@ public class MyApplication extends Application {
     public AppComponent appComponent;
     public DomainComponent domainComponent;
 
-    // TODO: Add some inject fields
     @Inject
     UserDataHelper userDataHelper;
 
@@ -41,9 +34,12 @@ public class MyApplication extends Application {
         // TODO: call function from injected filed
         userDataHelper.generateNewUser();
 
+        instantiateDomainComponent();
+    }
+
+    // onConfigAvailable() method
+    public void instantiateDomainComponent() {
         domainComponent = appComponent.plus(new DomainModule());
         domainComponent.inject(this);
     }
-
-    // TODO: add DomainComponent field
 }
