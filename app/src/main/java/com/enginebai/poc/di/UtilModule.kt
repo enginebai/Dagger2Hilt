@@ -6,11 +6,19 @@ import dagger.Provides
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Singleton
 import kotlin.random.Random
 import kotlin.random.nextInt
 
 @Module
 class UtilModule {
+
+    @Singleton
+    @Provides
+    fun provideId(): UUID {
+        return UUID.randomUUID()
+    }
+
     @Provides
     fun provideCalendar(): Calendar {
         return Calendar.getInstance()

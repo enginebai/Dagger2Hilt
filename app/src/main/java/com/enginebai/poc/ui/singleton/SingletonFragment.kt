@@ -43,7 +43,7 @@ class SingletonFragment : BaseFragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<TextView>(R.id.textTitle).text = "${SingletonFragment::class.java.simpleName}-$pageIndex"
-        view.findViewById<TextView>(R.id.textValue).text = userDataHelper.getUser().id
+        view.findViewById<TextView>(R.id.textValue).text = userDataHelper.getUser().toString()
         view.findViewById<Button>(R.id.buttonNext).setOnClickListener {
             (requireActivity() as SingletonFragmentsActivity).let { activity ->
                 val nextIndex = pageIndex + 1

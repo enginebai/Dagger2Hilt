@@ -34,4 +34,13 @@
         android:layout_margin="12dp"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/buttonChangeUserBody"
+        android:text="Change User Body"
+        android:layout_margin="12dp"
+        />
+
 </LinearLayout>

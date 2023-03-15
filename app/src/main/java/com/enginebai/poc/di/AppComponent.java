@@ -3,6 +3,7 @@ package com.enginebai.poc.di;
 import android.content.Context;
 
 import com.enginebai.poc.MyApplication;
+import com.enginebai.poc.data.user.UserDataHelper;
 
 import javax.inject.Singleton;
 
@@ -39,7 +40,7 @@ public interface AppComponent {
     /*
      * TODO: add some dependencies binding methods: A getA();
      * Call by:
-     *  Activity
+     *  [O]Activity
      *  Activity.start() / non-Android class static function
      *  Fragment
      *  BaseMvvmFragment + BaseMvvmDialogFragment
@@ -53,4 +54,5 @@ public interface AppComponent {
      *  FragmentActivity.extension function
      *  View
      */
+    UserDataHelper userDataHelper();
 }

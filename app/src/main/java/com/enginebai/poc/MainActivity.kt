@@ -11,6 +11,7 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import javax.inject.Inject
 
@@ -18,6 +19,8 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
 
     @Inject
     lateinit var calendar: Calendar
+    @Inject
+    lateinit var dateFormat: SimpleDateFormat
 
     // For dagger.android
     @Inject
@@ -36,8 +39,11 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
         findViewById<Button>(R.id.buttonChangeDomain).setOnClickListener {
             (application as MyApplication).instantiateDomainComponent()
         }
-        Toast.makeText(this, calendar.time.toString(), Toast.LENGTH_SHORT).show()
+        findViewById<Button>(R.id.buttonChangeUserBody).setOnClickListener {
+            val body = (application as MyApplication).component().userDataHelper().getUser().body
+            body.becomeTallest()
+            body.becomeStrongest()
+        }
+        Toast.makeText(this, "Now is ${dateFormat.format(calendar.time)}", Toast.LENGTH_SHORT).show()
     }
-
-
 }

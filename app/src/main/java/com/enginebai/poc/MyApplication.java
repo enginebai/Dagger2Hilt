@@ -31,8 +31,8 @@ import dagger.android.HasAndroidInjector;
 public class MyApplication extends Application implements HasAndroidInjector {
 
     // Accessing the interfaces
-    public AppComponent appComponent;
-    public DomainComponent domainComponent;
+    private AppComponent appComponent;
+    private DomainComponent domainComponent;
 
     @Inject
     UserDataHelper userDataHelper;
@@ -68,5 +68,13 @@ public class MyApplication extends Application implements HasAndroidInjector {
     public void instantiateDomainComponent() {
         domainComponent = appComponent.plus(new DomainModule());
         domainComponent.inject(this);
+    }
+
+    public AppComponent component() {
+        return appComponent;
+    }
+
+    public DomainComponent domainComponent() {
+        return domainComponent;
     }
 }

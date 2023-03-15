@@ -25,6 +25,6 @@ class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         findViewById<TextView>(R.id.textTitle).text = this::class.java.simpleName
-        findViewById<TextView>(R.id.textValue).text = userDataHelper.getUser().id
+        findViewById<TextView>(R.id.textValue).text = userDataHelper.getUser().toString()
     }
 }
