@@ -10,21 +10,28 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:id="@+id/buttonStartSingleton"
         android:text="Start Singleton"
+        android:layout_margin="12dp"
         />
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:id="@+id/buttonStartDomain"
         android:text="Start Domain"
+        android:layout_margin="12dp"
         />
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:id="@+id/buttonChangeDomain"
-        android:text="Change Domain"/>
+        android:text="Change Domain"
+        android:layout_margin="12dp"
+        />
 
 </LinearLayout>

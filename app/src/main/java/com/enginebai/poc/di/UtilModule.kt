@@ -19,7 +19,7 @@ class UtilModule {
     @SuppressLint("SimpleDateFormat")
     @Provides
     fun provideDateFormatter(): DateFormat {
-        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        return SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
     }
 
     @Provides

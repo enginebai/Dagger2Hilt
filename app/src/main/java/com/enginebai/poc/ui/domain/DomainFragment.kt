@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.enginebai.core.base.BaseFragment
+import com.enginebai.core.di.Injectable
 import com.enginebai.core.di.MyFragmentScope
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
@@ -23,12 +24,10 @@ import javax.inject.Inject
 
 @Module
 abstract class DomainFragmentBuilderModule {
-    @MyFragmentScope
-    @ContributesAndroidInjector
-    abstract fun contributeDomainFragment(): DomainFragment
+
 }
 
-class DomainFragment : BaseFragment() {
+class DomainFragment : BaseFragment(), Injectable {
 
     companion object {
         fun newInstance() = DomainFragment()
@@ -39,13 +38,6 @@ class DomainFragment : BaseFragment() {
     @Inject
     lateinit var domainRepository: DomainRepository
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        // TODO: check how to instantiate the view model
-        viewModel = ViewModelProvider(this).get(DomainFragmentViewModel::class.java)
-        (requireActivity().application as MyApplication).domainComponent.inject(this)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,6 +47,9 @@ class DomainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // TODO: check how to instantiate the view model
+        viewModel = ViewModelProvider(this).get(DomainFragmentViewModel::class.java)
+
         view.findViewById<TextView>(R.id.textTitle).text = DomainFragment::class.java.simpleName
         view.findViewById<TextView>(R.id.textValue).text = domainRepository.getDataList().toString()
         view.findViewById<Button>(R.id.buttonNext).setOnClickListener {

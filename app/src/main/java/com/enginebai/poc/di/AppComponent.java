@@ -3,8 +3,6 @@ package com.enginebai.poc.di;
 import android.content.Context;
 
 import com.enginebai.poc.MyApplication;
-import com.enginebai.poc.ui.singleton.SingletonDetailActivity;
-import com.enginebai.poc.ui.singleton.SingletonFragment;
 
 import javax.inject.Singleton;
 
@@ -28,16 +26,15 @@ public interface AppComponent {
         AppComponent build();
     }
 
-    // TODO: add DomainModule
     DomainComponent plus(DomainModule domainModule);
 
     /*
-     * TODO: add some inject methods
-     * inject(WorkerManager)
+     * TODO: add inject(WorkerManager) function
      */
     void inject(MyApplication application);
-    void inject(SingletonFragment fragment);
-    void inject(SingletonDetailActivity activity);
+    // We don't need this injection function because we use the classes in dagger.android package
+//    void inject(SingletonFragment fragment);
+//    void inject(SingletonDetailActivity activity);
 
     /*
      * TODO: add some dependencies binding methods: A getA();

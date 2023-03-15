@@ -10,15 +10,22 @@ import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainData
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.DomainTopic
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class DomainActivity : BaseActivity() {
+class DomainActivity : BaseActivity(), HasAndroidInjector {
 
     @Inject
     lateinit var domainRepository: DomainRepository
 
+    // For dagger.android
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).domainComponent.inject(this);
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         findViewById<TextView>(R.id.textTitle).text = this::class.java.simpleName

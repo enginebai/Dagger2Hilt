@@ -3,10 +3,8 @@ package com.enginebai.poc.di
 import com.enginebai.core.di.MyActivityScope
 import com.enginebai.poc.MainActivity
 import com.enginebai.poc.ui.domain.DomainActivity
-import com.enginebai.poc.ui.domain.DomainFragmentBuilderModule
 import com.enginebai.poc.ui.domain.DomainFragmentsActivity
 import com.enginebai.poc.ui.singleton.SingletonDetailActivity
-import com.enginebai.poc.ui.singleton.SingletonFragmentBuilderModule
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -18,9 +16,7 @@ abstract class ActivityBuilderModule {
     abstract fun contributeMainActivity(): MainActivity
 
     @MyActivityScope
-    @ContributesAndroidInjector(
-        modules = [SingletonFragmentBuilderModule::class]
-    )
+    @ContributesAndroidInjector
     abstract fun contributeSingletonFragmentsActivity(): SingletonFragmentsActivity
 
     @ContributesAndroidInjector
@@ -30,9 +26,7 @@ abstract class ActivityBuilderModule {
     abstract fun contributeDomainActivity(): DomainActivity
 
     @MyActivityScope
-    @ContributesAndroidInjector(
-        modules = [DomainFragmentBuilderModule::class]
-    )
+    @ContributesAndroidInjector
     abstract fun contributeDomainFragmentsActivity(): DomainFragmentsActivity
 
 }

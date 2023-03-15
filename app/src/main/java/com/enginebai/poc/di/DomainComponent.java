@@ -2,8 +2,6 @@ package com.enginebai.poc.di;
 
 import com.enginebai.core.di.DomainScope;
 import com.enginebai.poc.MyApplication;
-import com.enginebai.poc.ui.domain.DomainActivity;
-import com.enginebai.poc.ui.domain.DomainFragment;
 
 import dagger.Subcomponent;
 
@@ -12,16 +10,17 @@ import dagger.Subcomponent;
 @Subcomponent(modules = {
         DomainModule.class,
         ApiModule.class,
-        ActivityBuilderModule.class
+        ActivityBuilderModule.class,
+        FragmentBuilderModule.class
 })
 public interface DomainComponent {
     // TODO: add plus() methods, TBD!
 
     void inject(MyApplication application);
 
-    void inject(DomainActivity activity);
-
-    void inject(DomainFragment fragment);
+    // We don't need this injection function because we use the classes in dagger.android package
+//    void inject(DomainActivity activity);
+//    void inject(DomainFragment fragment);
     /*
      * TODO: inject methods
      * dialog
