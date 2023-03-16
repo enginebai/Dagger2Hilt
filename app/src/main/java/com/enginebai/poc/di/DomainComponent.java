@@ -2,6 +2,8 @@ package com.enginebai.poc.di;
 
 import com.enginebai.core.di.DomainScope;
 import com.enginebai.poc.MyApplication;
+import com.enginebai.poc.data.DomainRepository;
+import com.enginebai.poc.ui.widget.RandomTopicButton;
 
 import dagger.Subcomponent;
 
@@ -22,16 +24,14 @@ public interface DomainComponent {
 //    void inject(DomainActivity activity);
 //    void inject(DomainFragment fragment);
     /*
-     * TODO: inject methods
-     * dialog
-     * view model
-     * intent service
-     * view
+     * TODO: inject methods: dialog, view model, intent service
      */
+    void inject(RandomTopicButton customButton);
 
     /*
-     * TODO: add some dependencies binding methods: A getA();
-     * interface
-     * dagger provider itself or injector
+     * add some dependencies binding methods: A getA();
+     * 1. interface
+     * 2. dagger provider itself or injector
      */
+    DomainRepository domainRepository();
 }

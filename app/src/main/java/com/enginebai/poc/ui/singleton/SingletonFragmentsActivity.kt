@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.R
-import com.enginebai.poc.extension.getCurrentUser
-import com.google.android.material.snackbar.Snackbar
+import com.enginebai.poc.util.getCurrentUser
 
 class SingletonFragmentsActivity : BaseActivity() {
 

@@ -1,4 +1,4 @@
-package com.enginebai.poc.extension
+package com.enginebai.poc.util
 
 import androidx.fragment.app.FragmentActivity
 import com.enginebai.poc.MyApplication

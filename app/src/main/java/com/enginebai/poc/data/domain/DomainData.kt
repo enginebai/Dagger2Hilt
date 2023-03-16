@@ -1,6 +1,13 @@
 package com.enginebai.poc.data.domain
 
-enum class DomainTopic(val type: String) {
+import kotlin.random.Random
+
+fun pickRandomTopic(): DomainTopic {
+    val values = DomainTopic.values()
+    return values[Random.nextInt(0, values.size)]
+}
+
+enum class DomainTopic(val courseName: String) {
     DYNAMIC_PROGRAMMING("Dynamic Programming"),
     DFS("Depth First Search"),
     BFS("Breadth First Search"),
@@ -12,7 +19,7 @@ enum class DomainTopic(val type: String) {
     TREE("Tree"),
     LINKED_LIST("Linked List"),
     Stack("Stack"),
-    Queue("Queue")
+    Queue("Queue");
 }
 
 data class DomainData(

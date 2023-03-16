@@ -1,8 +1,7 @@
 package com.enginebai.poc.data
 
 import com.enginebai.poc.data.domain.DomainData
-import com.enginebai.poc.data.domain.DomainTopic
-import kotlin.random.Random
+import com.enginebai.poc.data.domain.pickRandomTopic
 
 interface DomainRepository {
     fun getDataList(): List<String>
@@ -14,7 +13,7 @@ class DomainRepositoryImpl(
     private val api: DomainApi
 ) : DomainRepository {
     override fun getDataList(): List<String> {
-        return api.getDataList().map { it.domainTopic.type }
+        return api.getDataList().map { it.domainTopic.courseName }
     }
 
     override fun addData(domainData: DomainData) {
@@ -22,8 +21,7 @@ class DomainRepositoryImpl(
     }
 
     override fun addRandomData() {
-        val topics = DomainTopic.values()
-        api.addData(DomainData(topics[Random.nextInt(0, topics.size)]))
+        api.addData(DomainData(pickRandomTopic()))
     }
 }
 
