@@ -1,7 +1,5 @@
 package com.enginebai.poc.di;
 
-import android.content.Context;
-
 import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.data.user.UserDataHelper;
 
@@ -22,7 +20,7 @@ public interface AppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        Builder application(Context context);
+        Builder application(MyApplication application);
 
         AppComponent build();
     }
@@ -44,9 +42,9 @@ public interface AppComponent {
      *  Activity.start() / non-Android class static function
      *  Fragment
      *  BaseMvvmFragment + BaseMvvmDialogFragment
-     *  ViewModel
+     *  [O]ViewModel
      *  [O]ApplicationDelegate
-     *  Object.doSomething() function
+     *  Object.doSomething() function: AppComponent.userDataHelper() at ActivityCooperator object
      *  FirebaseMessagingService()
      *  SafeJobIntentService
      *  OneSignal.OSRemoteNotificationReceivedHandler

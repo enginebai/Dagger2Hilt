@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
@@ -21,6 +23,9 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
     lateinit var calendar: Calendar
     @Inject
     lateinit var dateFormat: DateFormat
+    @Inject
+    lateinit var factory: ViewModelFactory<MainViewModel>
+    private lateinit var viewModel: MainViewModel
 
     // For dagger.android
     @Inject
@@ -30,6 +35,8 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+
         findViewById<Button>(R.id.buttonStartSingleton).setOnClickListener {
             startActivity(Intent(this, SingletonFragmentsActivity::class.java))
         }
@@ -44,6 +51,6 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
             body.becomeTallest()
             body.becomeMostWeighted()
         }
-        Toast.makeText(this, "Now is ${dateFormat.format(calendar.time)}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${viewModel.greeting()}. Now is ${dateFormat.format(calendar.time)}", Toast.LENGTH_SHORT).show()
     }
 }
