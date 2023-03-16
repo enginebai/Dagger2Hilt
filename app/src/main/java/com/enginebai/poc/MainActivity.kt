@@ -7,10 +7,10 @@ import android.widget.Toast
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
-import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import javax.inject.Inject
@@ -20,7 +20,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
     @Inject
     lateinit var calendar: Calendar
     @Inject
-    lateinit var dateFormat: SimpleDateFormat
+    lateinit var dateFormat: DateFormat
 
     // For dagger.android
     @Inject
@@ -42,7 +42,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
         findViewById<Button>(R.id.buttonChangeUserBody).setOnClickListener {
             val body = (application as MyApplication).component().userDataHelper().getUser().body
             body.becomeTallest()
-            body.becomeStrongest()
+            body.becomeMostWeighted()
         }
         Toast.makeText(this, "Now is ${dateFormat.format(calendar.time)}", Toast.LENGTH_SHORT).show()
     }

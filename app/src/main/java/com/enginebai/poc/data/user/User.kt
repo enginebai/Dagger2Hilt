@@ -38,13 +38,15 @@ data class Body(
         weight -= 100
     }
 
-    fun becomeStrongest() {
+    fun becomeMostWeighted() {
         weight = WEIGHT_MAX_VALUE
     }
 
     fun noGravity() {
         weight = WEIGHT_MIN_VALUE
     }
+
+    fun isStrongest() = height == HEIGHT_MAX_VALUE && weight == WEIGHT_MAX_VALUE
 
     override fun toString(): String {
         return "H: $height\nW: $weight"

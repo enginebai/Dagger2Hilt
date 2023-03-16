@@ -1,11 +1,15 @@
 package com.enginebai.poc.ui.singleton
 
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
+import com.enginebai.core.CoreModule
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
+import com.enginebai.poc.delegate.CoreApp
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -26,5 +30,12 @@ class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
         setContentView(R.layout.activity_detail)
         findViewById<TextView>(R.id.textTitle).text = this::class.java.simpleName
         findViewById<TextView>(R.id.textValue).text = userDataHelper.getUser().toString()
+        findViewById<ViewGroup>(R.id.root).setOnClickListener {
+            Toast.makeText(
+                it.context,
+                "Is 18 years old? ${CoreModule.getAppDelegate().is18YearsOld()}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }

@@ -45,7 +45,7 @@ public interface AppComponent {
      *  Fragment
      *  BaseMvvmFragment + BaseMvvmDialogFragment
      *  ViewModel
-     *  ApplicationDelegate
+     *  [O]ApplicationDelegate
      *  Object.doSomething() function
      *  FirebaseMessagingService()
      *  SafeJobIntentService
