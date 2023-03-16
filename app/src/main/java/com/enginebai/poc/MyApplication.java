@@ -2,6 +2,8 @@ package com.enginebai.poc;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+
 import com.enginebai.core.CoreModule;
 import com.enginebai.poc.data.user.UserDataHelper;
 import com.enginebai.poc.delegate.CoreApp;
@@ -10,6 +12,8 @@ import com.enginebai.poc.di.AppInjector;
 import com.enginebai.poc.di.DaggerAppComponent;
 import com.enginebai.poc.di.DomainComponent;
 import com.enginebai.poc.di.DomainModule;
+import com.enginebai.poc.di.HasSingletonComponent;
+import com.enginebai.poc.di.SingletonComponent;
 
 import javax.inject.Inject;
 
@@ -30,7 +34,7 @@ import dagger.android.HasAndroidInjector;
 // |-- DomainActivity
 // |-- DomainFragmentsActivity
 // |---- DomainFragment
-public class MyApplication extends Application implements HasAndroidInjector {
+public class MyApplication extends Application implements HasAndroidInjector, HasSingletonComponent {
 
     // Accessing the interfaces
     private AppComponent appComponent;
@@ -84,5 +88,11 @@ public class MyApplication extends Application implements HasAndroidInjector {
 
     public void initDelegate() {
         CoreModule.INSTANCE.init(new CoreApp(this));
+    }
+
+    @NonNull
+    @Override
+    public SingletonComponent getSingletonComponent() {
+        return appComponent;
     }
 }

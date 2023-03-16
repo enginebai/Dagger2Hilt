@@ -2,6 +2,7 @@ package com.enginebai.poc
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -37,6 +38,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
+        findViewById<ViewGroup>(R.id.root).setBackgroundColor((application as MyApplication).component().appColor().color.toColor())
         findViewById<Button>(R.id.buttonStartSingleton).setOnClickListener {
             startActivity(Intent(this, SingletonFragmentsActivity::class.java))
         }

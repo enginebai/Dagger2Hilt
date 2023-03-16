@@ -11,8 +11,10 @@ import android.widget.Button
 import android.widget.TextView
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.core.di.Injectable
+import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
+import com.enginebai.poc.di.singletonComponent
 import javax.inject.Inject
 
 private const val PAGE_INDEX = "page_index"
@@ -42,8 +44,15 @@ class SingletonFragment : BaseFragment(), Injectable {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.findViewById<TextView>(R.id.textTitle).text = "${SingletonFragment::class.java.simpleName}-$pageIndex"
-        view.findViewById<TextView>(R.id.textValue).text = userDataHelper.getUser().toString()
+        val color = view.context.singletonComponent.singletonColor.color.toColor()
+        view.findViewById<TextView>(R.id.textTitle).apply {
+            text = "${SingletonFragment::class.java.simpleName}-$pageIndex"
+            setTextColor(color)
+        }
+        view.findViewById<TextView>(R.id.textValue).apply {
+            text = userDataHelper.getUser().toString()
+            setTextColor(color)
+        }
         view.findViewById<Button>(R.id.buttonNext).setOnClickListener {
             (requireActivity() as SingletonFragmentsActivity).let { activity ->
                 val nextIndex = pageIndex + 1

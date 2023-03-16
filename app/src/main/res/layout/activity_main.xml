@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#f1faee"
+    android:id="@+id/root"
     tools:ignore="HardcodedText"
     tools:context=".MainActivity">
 

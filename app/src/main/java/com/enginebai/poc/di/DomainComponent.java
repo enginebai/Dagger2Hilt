@@ -16,7 +16,6 @@ import dagger.Subcomponent;
         FragmentBuilderModule.class
 })
 public interface DomainComponent {
-    // TODO: add plus() methods, TBD!
 
     void inject(MyApplication application);
 

@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.ContextCompat
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.DomainData
@@ -36,7 +35,8 @@ class RandomTopicButton @JvmOverloads constructor(
         setTextColor(Color.WHITE)
         gravity = Gravity.CENTER
 
-        setBackgroundColor(ColorManager.generateColor())
+        val rgb = ColorManager.generateColor()
+        setBackgroundColor(rgb.toColor())
         setOnClickListener {
             // Re-inject with new instance when changing the domain
             (context.applicationContext as MyApplication).domainComponent().inject(this)

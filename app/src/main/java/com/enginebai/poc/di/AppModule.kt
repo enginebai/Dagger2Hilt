@@ -3,7 +3,11 @@ package com.enginebai.poc.di
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
 import com.enginebai.poc.MyApplication
+import com.enginebai.poc.util.ColorDefinition
+import com.enginebai.poc.util.ColorManager
+import com.enginebai.poc.util.RGB
 import dagger.Module
 import dagger.Provides
 import java.text.DateFormat
@@ -15,7 +19,6 @@ import kotlin.random.nextInt
 
 @Module
 class AppModule {
-
     @Provides
     @Singleton
     fun providesContext(app: MyApplication): Context {
@@ -34,5 +37,17 @@ class AppModule {
         formatter: DateFormat
     ): String {
         return formatter.format(calendar.time)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppColor(): ColorDefinition.AppColor {
+        return ColorDefinition.AppColor(ColorManager.generateColor())
+    }
+
+    @Provides
+    @Singleton
+    fun provideSingletonColor(): ColorDefinition.SingletonColor {
+        return ColorDefinition.SingletonColor(ColorManager.generateColor())
     }
 }

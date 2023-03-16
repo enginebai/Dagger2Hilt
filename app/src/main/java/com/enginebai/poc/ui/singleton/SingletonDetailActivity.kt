@@ -11,6 +11,7 @@ import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.data.user.WorkoutCoach
 import com.enginebai.poc.delegate.CoreApp
+import com.enginebai.poc.di.singletonComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -29,8 +30,16 @@ class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        findViewById<TextView>(R.id.textTitle).text = this::class.java.simpleName
-        findViewById<TextView>(R.id.textValue).text = userDataHelper.getUser().toString()
+
+        val color = this.singletonComponent.singletonColor.color.toColor()
+        findViewById<TextView>(R.id.textTitle).apply {
+            text = this::class.java.simpleName
+            setTextColor(color)
+        }
+        findViewById<TextView>(R.id.textValue).apply {
+            text = userDataHelper.getUser().toString()
+            setTextColor(color)
+        }
         findViewById<ViewGroup>(R.id.root).setOnClickListener {
             Toast.makeText(
                 it.context,
