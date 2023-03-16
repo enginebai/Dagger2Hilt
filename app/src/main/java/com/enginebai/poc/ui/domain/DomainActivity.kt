@@ -1,10 +1,13 @@
 package com.enginebai.poc.ui.domain
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.enginebai.core.base.BaseActivity
+import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
 import dagger.android.AndroidInjector
@@ -13,6 +16,13 @@ import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
 class DomainActivity : BaseActivity(), HasAndroidInjector {
+
+    companion object {
+        fun start(context: Context) {
+            (context.applicationContext as MyApplication).component().userDataHelper().getUser().body.noGravity()
+            context.startActivity(Intent(context, DomainActivity::class.java))
+        }
+    }
 
     @Inject
     lateinit var domainRepository: DomainRepository

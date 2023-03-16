@@ -1,5 +1,8 @@
 package com.enginebai.poc.data.user
 
+import android.content.Context
+import com.enginebai.poc.MyApplication
+
 private const val HEIGHT_MAX_VALUE = 1000
 private const val WEIGHT_MAX_VALUE = 8888
 private const val WEIGHT_MIN_VALUE = 0
@@ -50,5 +53,15 @@ data class Body(
 
     override fun toString(): String {
         return "H: $height\nW: $weight"
+    }
+}
+
+object WorkoutCoach {
+    fun train(context: Context) {
+        val body = (context.applicationContext as MyApplication).component().userDataHelper().getUser().body
+        for (i in 1..10) {
+            body.gainHeight()
+            body.gainWeight()
+        }
     }
 }

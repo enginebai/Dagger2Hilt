@@ -9,6 +9,7 @@ import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
+import com.enginebai.poc.data.user.WorkoutCoach
 import com.enginebai.poc.delegate.CoreApp
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -37,5 +38,6 @@ class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
                 Toast.LENGTH_SHORT
             ).show()
         }
+        WorkoutCoach.train(this)
     }
 }

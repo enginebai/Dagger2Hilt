@@ -41,7 +41,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
             startActivity(Intent(this, SingletonFragmentsActivity::class.java))
         }
         findViewById<Button>(R.id.buttonStartDomain).setOnClickListener {
-            startActivity(Intent(this, DomainActivity::class.java))
+            DomainActivity.start(this)
         }
         findViewById<Button>(R.id.buttonChangeDomain).setOnClickListener {
             (application as MyApplication).instantiateDomainComponent()

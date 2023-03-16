@@ -36,21 +36,17 @@ public interface AppComponent {
 //    void inject(SingletonDetailActivity activity);
 
     /*
-     * TODO: add some dependencies binding methods: A getA();
+     * Those extended methods provides the dependencies from the same modules here.
      * Call by:
-     *  [O]Activity
-     *  Activity.start() / non-Android class static function
-     *  Fragment
-     *  BaseMvvmFragment + BaseMvvmDialogFragment
-     *  [O]ViewModel
-     *  [O]ApplicationDelegate
-     *  Object.doSomething() function: AppComponent.userDataHelper() at ActivityCooperator object
+     *  [O] Application, Activity, Fragment, View
+     *  [O] Activity.start() / non-Android class static function
+     *  [O] ViewModel
+     *  [O] ApplicationDelegate
+     *  [O] Object.doSomething() function: AppComponent.userDataHelper() at ActivityCooperator object
+     *  [O] FragmentActivity.extension function
      *  FirebaseMessagingService()
      *  SafeJobIntentService
      *  OneSignal.OSRemoteNotificationReceivedHandler
-     *  Application
-     *  FragmentActivity.extension function
-     *  View
      */
     UserDataHelper userDataHelper();
 }
