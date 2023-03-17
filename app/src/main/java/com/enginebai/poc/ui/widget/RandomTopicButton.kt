@@ -35,12 +35,10 @@ class RandomTopicButton @JvmOverloads constructor(
         setTextColor(Color.WHITE)
         gravity = Gravity.CENTER
 
-        val rgb = ColorManager.generateColor()
-        setBackgroundColor(rgb.toColor())
         setOnClickListener {
             // Re-inject with new instance when changing the domain
             (context.applicationContext as MyApplication).domainComponent().inject(this)
-            domainRepository.addData(DomainData(topic))
+            domainRepository.addTopic(topic)
             count++
             text = "${topic.courseName}-$count"
             Log.d(RandomTopicButton::class.java.simpleName, "Add random topic $topic to domain repository.")

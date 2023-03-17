@@ -5,6 +5,7 @@ import android.widget.Toast
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.R
 import com.enginebai.poc.util.getCurrentUser
+import com.google.android.material.snackbar.Snackbar
 
 class SingletonFragmentsActivity : BaseActivity() {
 
@@ -17,6 +18,10 @@ class SingletonFragmentsActivity : BaseActivity() {
             .beginTransaction()
             .add(R.id.fragmentContainer, SingletonFragment.newInstance(0))
             .commit()
-        Toast.makeText(this, "Activity Extension: ${getCurrentUser().toString()}", Toast.LENGTH_SHORT).show()
+        Snackbar.make(
+            findViewById(R.id.fragmentContainer),
+            "Activity Extension: ${getCurrentUser()}",
+            Snackbar.LENGTH_SHORT
+        ).show()
     }
 }

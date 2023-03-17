@@ -41,8 +41,10 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideAppColor(): ColorDefinition.AppColor {
-        return ColorDefinition.AppColor(ColorManager.generateColor())
+    fun provideAppColor(): List<ColorDefinition.AppColor> {
+        val list = mutableListOf<ColorDefinition.AppColor>()
+        for (i in 1..5) list.add( ColorDefinition.AppColor(ColorManager.generateColor()))
+        return list
     }
 
     @Provides

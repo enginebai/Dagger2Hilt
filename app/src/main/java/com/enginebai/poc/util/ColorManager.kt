@@ -31,7 +31,7 @@ object ColorManager {
     fun generateColor(): RGB {
         return RGB(
             Random.nextInt(0..255),
-            Random.nextInt(0..255),
+            Random.nextInt(0,255),
             Random.nextInt(0..255)
         )
     }

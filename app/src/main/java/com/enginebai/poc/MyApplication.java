@@ -2,8 +2,6 @@ package com.enginebai.poc;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
-
 import com.enginebai.core.CoreModule;
 import com.enginebai.poc.data.user.UserDataHelper;
 import com.enginebai.poc.delegate.CoreApp;
@@ -13,27 +11,41 @@ import com.enginebai.poc.di.DaggerAppComponent;
 import com.enginebai.poc.di.DomainComponent;
 import com.enginebai.poc.di.DomainModule;
 import com.enginebai.poc.di.HasSingletonComponent;
-import com.enginebai.poc.di.SingletonComponent;
+import com.enginebai.poc.di.MySingletonComponent;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;
 
-// TODO: implement HasSingletonComponent
-// TODO: implement HasDomainComponent
-
-// MainActivity
-// |-- SingleFragmentsActivity
-// |---- SingletonFragment 1
-// |---- SingletonFragment ..
-// |---- SingletonFragment n
-// |------ SingletonDetailActivity
-// |
-// |-- DomainActivity
-// |-- DomainFragmentsActivity
-// |---- DomainFragment
+/**
+ *  1. UI Flow:
+ *  MainActivity + MainViewModel
+ *  |-- SingleFragmentsActivity
+ *  |---- SingletonFragment 1
+ *  |---- SingletonFragment ..
+ *  |---- SingletonFragment n
+ *  |------ SingletonDetailActivity
+ *  |
+ *  |-- DomainActivity
+ *  |-- DomainFragmentsActivity
+ *  |---- DomainFragment + DomainFragmentViewModel
+ *
+ *  2. Dependency Graph:
+ * MyApplication -> Application -> MainViewModel (AndroidViewModel)
+ *
+ * MyApplication -> Context -> UserDataHelper
+ * Calendar -> UserDataHelper
+ * DateFormat -> UserDataHelper
+ * UUID -> UserDataHelper
+ * Random -> UserDataHelper
+ *
+ * RGB -> AppColor -> AppComponent.appColor() -> MainActivity.backgroundColor
+ * RGB -> SingletonColor -> SingletonComponent interface
+ *      -> SingleFragment / SingletonDetailActivity.backgroundColor
+ */
 public class MyApplication extends Application implements HasAndroidInjector, HasSingletonComponent {
 
     // Accessing the interfaces
@@ -78,7 +90,7 @@ public class MyApplication extends Application implements HasAndroidInjector, Ha
         domainComponent.inject(this);
     }
 
-    public AppComponent component() {
+    public AppComponent appComponent() {
         return appComponent;
     }
 
@@ -92,7 +104,7 @@ public class MyApplication extends Application implements HasAndroidInjector, Ha
 
     @NonNull
     @Override
-    public SingletonComponent getSingletonComponent() {
+    public MySingletonComponent getSingletonComponent() {
         return appComponent;
     }
 }

@@ -1,6 +1,8 @@
 package com.enginebai.poc.di
 
 import android.annotation.SuppressLint
+import com.enginebai.poc.util.ColorManager
+import com.enginebai.poc.util.RGB
 import dagger.Module
 import dagger.Provides
 import java.text.DateFormat
@@ -33,5 +35,10 @@ class UtilModule {
     @Provides
     fun provideRandomNumber(): Int {
         return Random.nextInt(0..100)
+    }
+
+    @Provides
+    fun provideRGB(): RGB {
+        return ColorManager.generateColor()
     }
 }

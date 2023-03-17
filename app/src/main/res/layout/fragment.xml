@@ -19,6 +19,14 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/buttonNext"
+        android:text="@string/button_next"
+        />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,11 +35,4 @@
         android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:id="@+id/buttonNext"
-        android:text="@string/button_next"
-        />
 </LinearLayout>

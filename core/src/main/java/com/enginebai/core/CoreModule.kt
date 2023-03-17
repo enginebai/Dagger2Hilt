@@ -12,5 +12,4 @@ object CoreModule {
 
 interface ApplicationDelegate {
     fun is18YearsOld(): Boolean
-    fun isStrongest(): Boolean
 }

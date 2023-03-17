@@ -18,7 +18,7 @@ class DomainFragmentViewModel @Inject constructor(
     }
 
     fun addData() {
-        domainRepository.addRandomData()
+        domainRepository.addRandomTopic()
         refreshData()
     }
 

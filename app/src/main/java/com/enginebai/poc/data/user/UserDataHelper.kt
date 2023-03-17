@@ -19,10 +19,7 @@ class UserDataHelper @Inject constructor(
         currentUser = User(
             "${getUserIdPrefix()}${id.leastSignificantBits}",
             name,
-            age,
-            body = Body(
-                175, 80
-            )
+            age
         )
     }
 

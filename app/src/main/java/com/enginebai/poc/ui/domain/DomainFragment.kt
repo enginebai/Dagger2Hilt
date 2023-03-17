@@ -1,5 +1,6 @@
 package com.enginebai.poc.ui.domain
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,11 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.Module
 import javax.inject.Inject
 
-@Module
-abstract class DomainFragmentBuilderModule {
-
-}
-
 class DomainFragment : BaseFragment(), Injectable {
 
     companion object {
@@ -31,6 +27,7 @@ class DomainFragment : BaseFragment(), Injectable {
 
     @Inject
     lateinit var domainRepository: DomainRepository
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<DomainFragmentViewModel>
 
@@ -41,12 +38,13 @@ class DomainFragment : BaseFragment(), Injectable {
         return inflater.inflate(R.layout.fragment, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
 
-        Snackbar.make(view, "${domainRepository.getDataList()}", Snackbar.LENGTH_SHORT).show()
-        view.findViewById<TextView>(R.id.textTitle).text = DomainFragment::class.java.simpleName
+        view.findViewById<TextView>(R.id.textTitle).text =
+            "${DomainFragment::class.java.simpleName}\n${domainRepository.getDataList()}"
 
         viewModel.data.observe(viewLifecycleOwner) {
             view.findViewById<TextView>(R.id.textValue).text = it

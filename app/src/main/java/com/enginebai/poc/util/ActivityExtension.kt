@@ -5,5 +5,5 @@ import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.user.User
 
 fun FragmentActivity.getCurrentUser(): User {
-    return (this.application as MyApplication).component().userDataHelper().getUser()
+    return (this.application as MyApplication).appComponent().userDataHelper().getUser()
 }

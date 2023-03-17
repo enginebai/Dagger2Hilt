@@ -1,12 +1,13 @@
 package com.enginebai.poc.data
 
 import com.enginebai.poc.data.domain.DomainData
+import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.domain.pickRandomTopic
 
 interface DomainRepository {
     fun getDataList(): List<String>
-    fun addData(domainData: DomainData)
-    fun addRandomData()
+    fun addTopic(topic: DomainTopic)
+    fun addRandomTopic()
 }
 
 class DomainRepositoryImpl(
@@ -16,11 +17,11 @@ class DomainRepositoryImpl(
         return api.getDataList().map { it.domainTopic.courseName }
     }
 
-    override fun addData(domainData: DomainData) {
-        api.addData(domainData)
+    override fun addTopic(topic: DomainTopic) {
+        api.addData(DomainData(topic))
     }
 
-    override fun addRandomData() {
+    override fun addRandomTopic() {
         api.addData(DomainData(pickRandomTopic()))
     }
 }

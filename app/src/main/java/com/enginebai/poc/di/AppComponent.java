@@ -4,6 +4,8 @@ import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.data.user.UserDataHelper;
 import com.enginebai.poc.util.ColorDefinition;
 
+import java.util.List;
+
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
@@ -16,7 +18,7 @@ import dagger.android.AndroidInjectionModule;
         AppModule.class,
         UtilModule.class
 })
-public interface AppComponent extends SingletonComponent {
+public interface AppComponent extends MySingletonComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
@@ -49,5 +51,5 @@ public interface AppComponent extends SingletonComponent {
      *  OneSignal.OSRemoteNotificationReceivedHandler
      */
     UserDataHelper userDataHelper();
-    ColorDefinition.AppColor appColor();
+    List<ColorDefinition.AppColor> appColors();
 }
