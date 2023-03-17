@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -34,6 +35,9 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+    kapt {
+        correctErrorTypes true
     }
 }
 apply from: "$rootDir/commons.gradle"
