@@ -1,23 +1,17 @@
 package com.enginebai.poc.di;
 
-import com.enginebai.core.di.DomainScope;
-import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.data.DomainRepository;
-import com.enginebai.poc.ui.widget.RandomTopicButton;
 
-import dagger.Subcomponent;
+import dagger.hilt.EntryPoint;
+import dagger.hilt.InstallIn;
+import dagger.hilt.components.SingletonComponent;
 
-@DomainScope
+@InstallIn(SingletonComponent.class)
+@EntryPoint
 // ActivityBuilderModule provide @ContributesAndroidInjector(modules) and scope with Activity.
-@Subcomponent(modules = {
-        DomainModule.class,
-        ApiModule.class,
-        ActivityBuilderModule.class,
-        FragmentBuilderModule.class
-})
 public interface DomainComponent {
 
-    void inject(MyApplication application);
+//    void inject(MyApplication application);
 
     // We don't need this injection function because we use the classes in dagger.android package
 //    void inject(DomainActivity activity);
@@ -25,7 +19,7 @@ public interface DomainComponent {
     /*
      * TODO: inject methods: dialog, view model, intent service
      */
-    void inject(RandomTopicButton customButton);
+//    void inject(RandomTopicButton customButton);
 
     /*
      * add some dependencies binding methods: A getA();

@@ -8,23 +8,27 @@ import com.enginebai.poc.util.ColorDefinition
 import com.enginebai.poc.util.ColorManager
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 class DomainModule {
     @Provides
-    @DomainScope
+    @Singleton
     fun provideDefaultDomainType(): DomainTopic {
         return pickRandomTopic()
     }
 
     @Provides
-    @DomainScope
+    @Singleton
     fun provideDomainRepository(api: DomainApi): DomainRepository {
         return DomainRepositoryImpl(api)
     }
 
     @Provides
-    @DomainScope
+    @Singleton
     fun provideDomainColor(): ColorDefinition.DomainColor {
         return ColorDefinition.DomainColor(ColorManager.generateColor())
     }

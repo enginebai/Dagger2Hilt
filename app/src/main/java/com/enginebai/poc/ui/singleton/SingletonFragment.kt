@@ -15,10 +15,12 @@ import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.di.singletonComponent
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 private const val PAGE_INDEX = "page_index"
 
+@AndroidEntryPoint
 class SingletonFragment : BaseFragment(), Injectable {
 
     private var pageIndex: Int = 0
@@ -44,6 +46,7 @@ class SingletonFragment : BaseFragment(), Injectable {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val color = view.context.singletonComponent.singletonColor.color.toColor()
         view.findViewById<TextView>(R.id.textTitle).apply {
             text = "${SingletonFragment::class.java.simpleName}-$pageIndex"

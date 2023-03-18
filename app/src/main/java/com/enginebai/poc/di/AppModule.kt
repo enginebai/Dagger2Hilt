@@ -10,6 +10,8 @@ import com.enginebai.poc.util.ColorManager
 import com.enginebai.poc.util.RGB
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -18,18 +20,8 @@ import kotlin.random.Random
 import kotlin.random.nextInt
 
 @Module
+@InstallIn(SingletonComponent::class)
 class AppModule {
-    @Provides
-    @Singleton
-    fun providesContext(app: MyApplication): Context {
-        return app
-    }
-
-    @Provides
-    @Singleton
-    fun provideApplication(app: MyApplication): Application {
-        return app
-    }
 
     @Provides
     fun provideUserName(

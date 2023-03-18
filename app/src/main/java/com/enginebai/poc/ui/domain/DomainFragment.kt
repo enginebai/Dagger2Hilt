@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.core.di.Injectable
@@ -15,21 +16,23 @@ import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
 import com.google.android.material.snackbar.Snackbar
 import dagger.Module
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DomainFragment : BaseFragment(), Injectable {
 
     companion object {
         fun newInstance() = DomainFragment()
     }
 
-    private lateinit var viewModel: DomainFragmentViewModel
+    private val viewModel: DomainFragmentViewModel by viewModels()
 
     @Inject
     lateinit var domainRepository: DomainRepository
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<DomainFragmentViewModel>
+//    @Inject
+//    lateinit var viewModelFactory: ViewModelFactory<DomainFragmentViewModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +44,7 @@ class DomainFragment : BaseFragment(), Injectable {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
+//        viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
 
         view.findViewById<TextView>(R.id.textTitle).text =
             "${DomainFragment::class.java.simpleName}\n${domainRepository.getDataList()}"

@@ -13,9 +13,11 @@ import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.DomainData
 import com.enginebai.poc.data.domain.pickRandomTopic
 import com.enginebai.poc.util.ColorManager
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @SuppressLint("SetTextI18n")
+@AndroidEntryPoint
 class RandomTopicButton @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -28,7 +30,7 @@ class RandomTopicButton @JvmOverloads constructor(
     lateinit var domainRepository: DomainRepository
 
     init {
-        (context.applicationContext as MyApplication).domainComponent().inject(this)
+//        (context.applicationContext as MyApplication).domainComponent().inject(this)
         val topic = pickRandomTopic()
         text = "${topic.courseName}-$count"
         textSize = 20f
@@ -37,7 +39,7 @@ class RandomTopicButton @JvmOverloads constructor(
 
         setOnClickListener {
             // Re-inject with new instance when changing the domain
-            (context.applicationContext as MyApplication).domainComponent().inject(this)
+//            (context.applicationContext as MyApplication).domainComponent().inject(this)
             domainRepository.addTopic(topic)
             count++
             text = "${topic.courseName}-$count"

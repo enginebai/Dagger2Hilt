@@ -14,9 +14,11 @@ import com.enginebai.poc.util.ColorDefinition
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class DomainActivity : BaseActivity(), HasAndroidInjector {
+@AndroidEntryPoint
+class DomainActivity : BaseActivity() {
 
     companion object {
         fun start(context: Context) {
@@ -31,9 +33,9 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
     lateinit var domainColor: ColorDefinition.DomainColor
 
     // For dagger.android
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+//    @Inject
+//    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+//    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

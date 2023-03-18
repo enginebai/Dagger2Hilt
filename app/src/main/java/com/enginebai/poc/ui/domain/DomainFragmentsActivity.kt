@@ -3,7 +3,9 @@ package com.enginebai.poc.ui.domain
 import android.os.Bundle
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DomainFragmentsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

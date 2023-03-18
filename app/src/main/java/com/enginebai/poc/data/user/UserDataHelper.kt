@@ -2,12 +2,14 @@ package com.enginebai.poc.data.user
 
 import android.content.Context
 import com.enginebai.poc.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UserDataHelper @Inject constructor(
+    @ApplicationContext
     private val context: Context,
     private val id: UUID,
     private val name: String,

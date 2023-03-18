@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
 
+// No more use after migrating to @HiltViewModel.
 class ViewModelFactory<T : ViewModel> @Inject constructor(private val viewModelProvider: Provider<T>) :
     ViewModelProvider.Factory {
 

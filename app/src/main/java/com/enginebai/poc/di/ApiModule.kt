@@ -6,11 +6,15 @@ import com.enginebai.poc.data.DomainApiInMemory
 import com.enginebai.poc.data.domain.DomainTopic
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 class ApiModule {
     @Provides
-    @DomainScope
+    @Singleton
     fun provideDomainApi(defaultType: DomainTopic): DomainApi {
         return DomainApiInMemory(defaultType)
     }

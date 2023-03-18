@@ -5,6 +5,8 @@ import com.enginebai.poc.util.ColorManager
 import com.enginebai.poc.util.RGB
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -13,6 +15,7 @@ import kotlin.random.Random
 import kotlin.random.nextInt
 
 @Module
+@InstallIn(SingletonComponent::class)
 class UtilModule {
 
     @Singleton

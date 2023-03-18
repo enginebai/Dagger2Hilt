@@ -14,17 +14,19 @@ import com.enginebai.poc.di.singletonComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
+@AndroidEntryPoint
+class SingletonDetailActivity : BaseActivity() {
 
     @Inject
     lateinit var userDataHelper: UserDataHelper
 
     // For dagger.android
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+//    @Inject
+//    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+//    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
