@@ -13,22 +13,19 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(DomainCustomComponent::class)
 class DomainModule {
     @Provides
-    @Singleton
     fun provideDefaultDomainType(): DomainTopic {
         return pickRandomTopic()
     }
 
     @Provides
-    @Singleton
     fun provideDomainRepository(api: DomainApi): DomainRepository {
         return DomainRepositoryImpl(api)
     }
 
     @Provides
-    @Singleton
     fun provideDomainColor(): ColorDefinition.DomainColor {
         return ColorDefinition.DomainColor(ColorManager.generateColor())
     }

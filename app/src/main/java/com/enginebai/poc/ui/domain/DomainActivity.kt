@@ -27,10 +27,10 @@ class DomainActivity : BaseActivity() {
         }
     }
 
-    @Inject
-    lateinit var domainRepository: DomainRepository
-    @Inject
-    lateinit var domainColor: ColorDefinition.DomainColor
+//    @Inject
+//    lateinit var domainRepository: DomainRepository
+//    @Inject
+//    lateinit var domainColor: ColorDefinition.DomainColor
 
     // For dagger.android
 //    @Inject
@@ -40,7 +40,7 @@ class DomainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        findViewById<View>(R.id.root).setBackgroundColor(domainColor.color.toColor())
+//        findViewById<View>(R.id.root).setBackgroundColor(domainColor.color.toColor())
         findViewById<TextView>(R.id.textTitle).text = this::class.java.simpleName
         findViewById<ViewGroup>(R.id.root).setOnClickListener {
             startActivity(Intent(this, DomainFragmentsActivity::class.java))
@@ -49,6 +49,7 @@ class DomainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
+        val domainRepository = (application as MyApplication).domainCustomComponent().domainRepository()
         findViewById<TextView>(R.id.textValue).text = domainRepository.getDataList().toString()
     }
 }

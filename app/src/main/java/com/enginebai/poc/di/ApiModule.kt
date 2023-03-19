@@ -11,10 +11,9 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(DomainCustomComponent::class)
 class ApiModule {
     @Provides
-    @Singleton
     fun provideDomainApi(defaultType: DomainTopic): DomainApi {
         return DomainApiInMemory(defaultType)
     }

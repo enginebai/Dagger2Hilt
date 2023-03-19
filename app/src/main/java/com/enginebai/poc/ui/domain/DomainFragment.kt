@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.core.di.Injectable
+import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
 import com.google.android.material.snackbar.Snackbar
@@ -28,8 +29,8 @@ class DomainFragment : BaseFragment(), Injectable {
 
     private val viewModel: DomainFragmentViewModel by viewModels()
 
-    @Inject
-    lateinit var domainRepository: DomainRepository
+//    @Inject
+//    lateinit var domainRepository: DomainRepository
 
 //    @Inject
 //    lateinit var viewModelFactory: ViewModelFactory<DomainFragmentViewModel>
@@ -46,6 +47,7 @@ class DomainFragment : BaseFragment(), Injectable {
         super.onViewCreated(view, savedInstanceState)
 //        viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
 
+        val domainRepository = (requireActivity().application as MyApplication).domainCustomComponent().domainRepository()
         view.findViewById<TextView>(R.id.textTitle).text =
             "${DomainFragment::class.java.simpleName}\n${domainRepository.getDataList()}"
 
