@@ -1,6 +1,6 @@
 package com.enginebai.poc.di
 
-import com.enginebai.core.di.InnerProviderQualifier
+import com.enginebai.core.di.CustomComponentBridge
 import com.enginebai.core.di.DomainScope
 import com.enginebai.poc.data.*
 import com.enginebai.poc.data.domain.*
@@ -21,14 +21,14 @@ class DomainModule {
 
     @Provides
     @DomainScope
-    @InnerProviderQualifier
+    @CustomComponentBridge
     fun provideDomainRepository(api: DomainApi): DomainRepository {
         return DomainRepositoryImpl(api)
     }
 
     @Provides
     @DomainScope
-    @InnerProviderQualifier
+    @CustomComponentBridge
     fun provideDomainColor(): ColorDefinition.DomainColor {
         return ColorDefinition.DomainColor(ColorManager.generateColor())
     }

@@ -1,6 +1,6 @@
 package com.enginebai.poc.di
 
-import com.enginebai.core.di.InnerProviderQualifier
+import com.enginebai.core.di.CustomComponentBridge
 import com.enginebai.core.di.DomainScope
 import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.util.ColorDefinition
@@ -28,9 +28,9 @@ interface DomainCustomComponent {
 @InstallIn(DomainCustomComponent::class)
 @EntryPoint
 internal interface DomainCustomComponentEntryPoint {
-    @InnerProviderQualifier
+    @CustomComponentBridge
     fun domainRepository(): DomainRepository
-    @InnerProviderQualifier
+    @CustomComponentBridge
     fun domainColor(): ColorDefinition.DomainColor
 }
 
