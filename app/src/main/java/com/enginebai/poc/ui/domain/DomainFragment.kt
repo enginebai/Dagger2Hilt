@@ -1,7 +1,6 @@
 package com.enginebai.poc.ui.domain
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,16 +8,11 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.viewModels
-import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.core.di.Injectable
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
-import com.enginebai.poc.data.DomainRepository
-import com.google.android.material.snackbar.Snackbar
-import dagger.Module
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class DomainFragment : BaseFragment(), Injectable {
@@ -30,6 +24,7 @@ class DomainFragment : BaseFragment(), Injectable {
     private val viewModel: DomainFragmentViewModel by viewModels()
 
 //    @Inject
+//    @BridgeScope
 //    lateinit var domainRepository: DomainRepository
 
 //    @Inject
@@ -55,7 +50,8 @@ class DomainFragment : BaseFragment(), Injectable {
             view.findViewById<TextView>(R.id.textValue).text = it
         }
         view.findViewById<Button>(R.id.buttonNext).setOnClickListener {
-            viewModel.addData()
+            domainRepository.addRandomTopic()
+//            viewModel.addData()
         }
     }
 }

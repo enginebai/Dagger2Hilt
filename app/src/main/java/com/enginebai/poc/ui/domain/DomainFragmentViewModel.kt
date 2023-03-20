@@ -2,15 +2,13 @@ package com.enginebai.poc.ui.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.enginebai.core.base.BaseViewModel
-import com.enginebai.poc.data.DomainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class DomainFragmentViewModel @Inject constructor(
-    private val domainRepository: DomainRepository
+//    private val domainRepository: DomainRepository
 ) : BaseViewModel() {
 
     private val _data = MutableLiveData<String>()
@@ -21,11 +19,11 @@ class DomainFragmentViewModel @Inject constructor(
     }
 
     fun addData() {
-        domainRepository.addRandomTopic()
+//        domainRepository.addRandomTopic()
         refreshData()
     }
 
     private fun refreshData() {
-        _data.value = domainRepository.getDataList().joinToString("\n")
+//        _data.value = domainRepository.getDataList().joinToString("\n")
     }
 }

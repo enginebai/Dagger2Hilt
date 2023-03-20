@@ -6,15 +6,10 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.enginebai.poc.MyApplication
-import com.enginebai.poc.data.DomainRepository
-import com.enginebai.poc.data.domain.DomainData
 import com.enginebai.poc.data.domain.pickRandomTopic
-import com.enginebai.poc.util.ColorManager
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @SuppressLint("SetTextI18n")
 @AndroidEntryPoint
@@ -26,8 +21,8 @@ class RandomTopicButton @JvmOverloads constructor(
 
     private var count = 0
 
-    @Inject
-    lateinit var domainRepository: DomainRepository
+//    @Inject
+//    lateinit var domainRepository: DomainRepository
 
     init {
 //        (context.applicationContext as MyApplication).domainComponent().inject(this)
@@ -39,13 +34,14 @@ class RandomTopicButton @JvmOverloads constructor(
 
         setOnClickListener {
             // Re-inject with new instance when changing the domain
-//            (context.applicationContext as MyApplication).domainComponent().inject(this)
-            domainRepository.addTopic(topic)
+            val repo = (context.applicationContext as MyApplication).domainCustomComponent().domainRepository()
+            repo.addRandomTopic()
+//            domainRepository.addTopic(topic)
             count++
             text = "${topic.courseName}-$count"
             Log.d(RandomTopicButton::class.java.simpleName, "Add random topic $topic to domain repository.")
-            val repo = (context.applicationContext as MyApplication).domainComponent().domainRepository();
-            Toast.makeText(context, "${repo.getDataList()}", Toast.LENGTH_SHORT).show()
+//            val repo = (context.applicationContext as MyApplication).domainComponent().domainRepository();
+//            Toast.makeText(context, "${repo.getDataList()}", Toast.LENGTH_SHORT).show()
         }
     }
 }

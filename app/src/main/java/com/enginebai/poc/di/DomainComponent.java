@@ -1,7 +1,5 @@
 package com.enginebai.poc.di;
 
-import com.enginebai.poc.data.DomainRepository;
-
 import dagger.hilt.EntryPoint;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
@@ -26,5 +24,5 @@ public interface DomainComponent {
      * 1. interface
      * 2. dagger provider itself or injector
      */
-    DomainRepository domainRepository();
+//    DomainRepository domainRepository();
 }

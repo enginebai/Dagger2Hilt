@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @InstallIn(DomainCustomComponent::class)
 class ApiModule {
     @Provides
+    @DomainScope
     fun provideDomainApi(defaultType: DomainTopic): DomainApi {
         return DomainApiInMemory(defaultType)
     }

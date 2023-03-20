@@ -2,8 +2,6 @@ package com.enginebai.poc;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
-
 import com.enginebai.core.CoreModule;
 import com.enginebai.poc.data.user.UserDataHelper;
 import com.enginebai.poc.delegate.CoreApp;
@@ -11,11 +9,13 @@ import com.enginebai.poc.di.AppComponent;
 import com.enginebai.poc.di.AppInjector;
 import com.enginebai.poc.di.DomainComponent;
 import com.enginebai.poc.di.DomainCustomComponentEntryPoint;
+import com.enginebai.poc.di.DomainCustomComponentManager;
 import com.enginebai.poc.di.HasSingletonComponent;
 import com.enginebai.poc.di.MySingletonComponent;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
 import dagger.hilt.EntryPoints;
 import dagger.hilt.android.HiltAndroidApp;
 
@@ -51,6 +51,8 @@ public class MyApplication extends Application implements HasSingletonComponent 
     // Accessing the interfaces
 //    private AppComponent appComponent;
 //    private DomainComponent domainComponent;
+    @Inject
+    DomainCustomComponentManager domainCustomComponentManager;
 
     @Inject
     UserDataHelper userDataHelper;
@@ -81,6 +83,7 @@ public class MyApplication extends Application implements HasSingletonComponent 
 
     // onConfigAvailable() method
     public void instantiateDomainComponent() {
+        domainCustomComponentManager.regenerateComponent();
 //        domainComponent = appComponent.plus(new DomainModule());
 //        domainComponent.inject(this);
     }
@@ -94,7 +97,7 @@ public class MyApplication extends Application implements HasSingletonComponent 
     }
 
     public DomainCustomComponentEntryPoint domainCustomComponent() {
-        return EntryPoints.get(this, DomainCustomComponentEntryPoint.class);
+        return EntryPoints.get(domainCustomComponentManager, DomainCustomComponentEntryPoint.class);
     }
 
     public void initDelegate() {

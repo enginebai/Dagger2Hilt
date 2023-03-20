@@ -1,8 +1,6 @@
-package com.enginebai.poc.data
+package com.enginebai.poc.data.domain
 
-import com.enginebai.poc.data.domain.DomainData
-import com.enginebai.poc.data.domain.DomainTopic
-import com.enginebai.poc.data.domain.pickRandomTopic
+import com.enginebai.poc.data.DomainApi
 
 interface DomainRepository {
     fun getDataList(): List<String>
