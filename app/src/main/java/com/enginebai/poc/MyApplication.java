@@ -7,7 +7,6 @@ import com.enginebai.poc.data.user.UserDataHelper;
 import com.enginebai.poc.delegate.CoreApp;
 import com.enginebai.poc.di.AppComponent;
 import com.enginebai.poc.di.AppInjector;
-import com.enginebai.poc.di.DomainComponent;
 import com.enginebai.poc.di.DomainCustomComponentEntryPoint;
 import com.enginebai.poc.di.DomainCustomComponentManager;
 import com.enginebai.poc.di.HasSingletonComponent;
@@ -50,7 +49,6 @@ public class MyApplication extends Application implements HasSingletonComponent 
 
     // Accessing the interfaces
 //    private AppComponent appComponent;
-//    private DomainComponent domainComponent;
     @Inject
     DomainCustomComponentManager domainCustomComponentManager;
 
@@ -90,10 +88,6 @@ public class MyApplication extends Application implements HasSingletonComponent 
 
     public AppComponent appComponent() {
         return EntryPoints.get(this, AppComponent.class);
-    }
-
-    public DomainComponent domainComponent() {
-        return EntryPoints.get(this, DomainComponent.class);
     }
 
     public DomainCustomComponentEntryPoint domainCustomComponent() {

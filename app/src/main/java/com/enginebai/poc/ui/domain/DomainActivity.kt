@@ -3,13 +3,14 @@ package com.enginebai.poc.ui.domain
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.enginebai.core.base.BaseActivity
-import com.enginebai.core.di.BridgeScope
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.domain.DomainRepository
+import com.enginebai.poc.util.ColorDefinition
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -23,10 +24,10 @@ class DomainActivity : BaseActivity() {
         }
     }
 
-//    @Inject
-//    lateinit var domainRepository: DomainRepository
-//    @Inject
-//    lateinit var domainColor: ColorDefinition.DomainColor
+    @Inject
+    lateinit var domainRepository: DomainRepository
+    @Inject
+    lateinit var domainColor: ColorDefinition.DomainColor
 
     // For dagger.android
 //    @Inject
@@ -36,7 +37,7 @@ class DomainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-//        findViewById<View>(R.id.root).setBackgroundColor(domainColor.color.toColor())
+        findViewById<View>(R.id.root).setBackgroundColor(domainColor.color.toColor())
         findViewById<TextView>(R.id.textTitle).text = this::class.java.simpleName
         findViewById<ViewGroup>(R.id.root).setOnClickListener {
             startActivity(Intent(this, DomainFragmentsActivity::class.java))
@@ -45,7 +46,6 @@ class DomainActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        val domainRepository = (application as MyApplication).domainCustomComponent().domainRepository()
         findViewById<TextView>(R.id.textValue).text = domainRepository.getDataList().toString()
     }
 }

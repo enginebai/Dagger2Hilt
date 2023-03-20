@@ -1,7 +1,5 @@
 package com.enginebai.poc.data.domain
 
-import com.enginebai.poc.data.DomainApi
-
 interface DomainRepository {
     fun getDataList(): List<String>
     fun addTopic(topic: DomainTopic)

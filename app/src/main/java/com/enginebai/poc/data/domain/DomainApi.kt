@@ -1,7 +1,4 @@
-package com.enginebai.poc.data
-
-import com.enginebai.poc.data.domain.DomainData
-import com.enginebai.poc.data.domain.DomainTopic
+package com.enginebai.poc.data.domain
 
 interface DomainApi {
     fun getDataList(): List<DomainData>

@@ -1,8 +1,9 @@
 package com.enginebai.poc.di
 
-import com.enginebai.core.di.BridgeScope
+import com.enginebai.core.di.InnerProviderQualifier
 import com.enginebai.core.di.DomainScope
 import com.enginebai.poc.data.domain.DomainRepository
+import com.enginebai.poc.util.ColorDefinition
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.DefineComponent
@@ -27,7 +28,10 @@ interface DomainCustomComponent {
 @InstallIn(DomainCustomComponent::class)
 @EntryPoint
 internal interface DomainCustomComponentEntryPoint {
+    @InnerProviderQualifier
     fun domainRepository(): DomainRepository
+    @InnerProviderQualifier
+    fun domainColor(): ColorDefinition.DomainColor
 }
 
 @Singleton
@@ -48,16 +52,22 @@ class DomainCustomComponentManager @Inject constructor(
     }
 }
 
-//@Module
-//@InstallIn(SingletonComponent::class)
-//internal object DomainCustomComponentBridge {
-//
-//    @BridgeScope
-//    @Provides
-//    internal fun provideDomainRepositoryFromBridge(
-//        componentManager: DomainCustomComponentManager
-//    ): DomainRepository {
-//        return EntryPoints.get(componentManager, DomainCustomComponentEntryPoint::class.java)
-//            .domainRepository()
-//    }
-//}
+@Module
+@InstallIn(SingletonComponent::class)
+internal object DomainCustomComponentBridge {
+    @Provides
+    internal fun provideDomainRepository(
+        componentManager: DomainCustomComponentManager
+    ): DomainRepository {
+        return EntryPoints.get(componentManager, DomainCustomComponentEntryPoint::class.java)
+            .domainRepository()
+    }
+
+    @Provides
+    internal fun provideDomainColor(
+        componentManager: DomainCustomComponentManager
+    ): ColorDefinition.DomainColor {
+        return EntryPoints.get(componentManager, DomainCustomComponentEntryPoint::class.java)
+            .domainColor()
+    }
+}

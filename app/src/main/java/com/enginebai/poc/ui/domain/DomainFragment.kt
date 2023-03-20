@@ -12,7 +12,9 @@ import com.enginebai.core.base.BaseFragment
 import com.enginebai.core.di.Injectable
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
+import com.enginebai.poc.data.domain.DomainRepository
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DomainFragment : BaseFragment(), Injectable {
@@ -23,9 +25,8 @@ class DomainFragment : BaseFragment(), Injectable {
 
     private val viewModel: DomainFragmentViewModel by viewModels()
 
-//    @Inject
-//    @BridgeScope
-//    lateinit var domainRepository: DomainRepository
+    @Inject
+    lateinit var domainRepository: DomainRepository
 
 //    @Inject
 //    lateinit var viewModelFactory: ViewModelFactory<DomainFragmentViewModel>
@@ -50,8 +51,7 @@ class DomainFragment : BaseFragment(), Injectable {
             view.findViewById<TextView>(R.id.textValue).text = it
         }
         view.findViewById<Button>(R.id.buttonNext).setOnClickListener {
-            domainRepository.addRandomTopic()
-//            viewModel.addData()
+            viewModel.addData()
         }
     }
 }
