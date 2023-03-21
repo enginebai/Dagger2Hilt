@@ -2,7 +2,10 @@ package com.enginebai.poc.di
 
 import com.enginebai.core.di.CustomComponentBridge
 import com.enginebai.core.di.DomainScope
+import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.domain.DomainRepository
+import com.enginebai.poc.data.user.User
+import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.util.ColorDefinition
 import dagger.Module
 import dagger.Provides
@@ -10,6 +13,7 @@ import dagger.hilt.DefineComponent
 import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.internal.GeneratedComponentManager
 import javax.inject.Inject
@@ -27,9 +31,10 @@ interface DomainCustomComponent {
 
 @InstallIn(DomainCustomComponent::class)
 @EntryPoint
-internal interface DomainCustomComponentEntryPoint {
+interface DomainCustomComponentEntryPoint {
     @CustomComponentBridge
     fun domainRepository(): DomainRepository
+
     @CustomComponentBridge
     fun domainColor(): ColorDefinition.DomainColor
 }
@@ -54,20 +59,23 @@ class DomainCustomComponentManager @Inject constructor(
 
 @Module
 @InstallIn(SingletonComponent::class)
-internal object DomainCustomComponentBridge {
+object DomainCustomComponentBridge {
     @Provides
-    internal fun provideDomainRepository(
+    fun provideDomainRepository(
         componentManager: DomainCustomComponentManager
     ): DomainRepository {
-        return EntryPoints.get(componentManager, DomainCustomComponentEntryPoint::class.java)
+        return componentManager.entryPoint()
             .domainRepository()
     }
 
     @Provides
-    internal fun provideDomainColor(
+    fun provideDomainColor(
         componentManager: DomainCustomComponentManager
     ): ColorDefinition.DomainColor {
-        return EntryPoints.get(componentManager, DomainCustomComponentEntryPoint::class.java)
+        return componentManager.entryPoint()
             .domainColor()
     }
+
+    private fun DomainCustomComponentManager.entryPoint() =
+        EntryPoints.get(this, DomainCustomComponentEntryPoint::class.java)
 }

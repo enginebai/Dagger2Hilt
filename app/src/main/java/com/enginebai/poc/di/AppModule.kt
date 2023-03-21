@@ -1,23 +1,14 @@
 package com.enginebai.poc.di
 
-import android.annotation.SuppressLint
-import android.app.Application
-import android.content.Context
-import android.graphics.Color
-import com.enginebai.poc.MyApplication
 import com.enginebai.poc.util.ColorDefinition
 import com.enginebai.poc.util.ColorManager
-import com.enginebai.poc.util.RGB
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.Calendar
+import java.util.*
 import javax.inject.Singleton
-import kotlin.random.Random
-import kotlin.random.nextInt
 
 @Module
 @InstallIn(SingletonComponent::class)

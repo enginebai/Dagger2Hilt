@@ -11,12 +11,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.data.user.TimeMachine
+import com.enginebai.poc.data.user.User
 import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.components.SingletonComponent
 import java.text.DateFormat
 import java.util.Calendar
 import javax.inject.Inject
@@ -28,7 +32,8 @@ class MainActivity : BaseActivity() {
     lateinit var calendar: Calendar
     @Inject
     lateinit var dateFormat: DateFormat
-//    @Inject
+
+    //    @Inject
 //    lateinit var factory: ViewModelFactory<MainViewModel>
     private val viewModel: MainViewModel by viewModels()
 
