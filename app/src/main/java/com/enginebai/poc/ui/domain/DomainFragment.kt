@@ -44,8 +44,7 @@ class DomainFragment : BaseFragment(), Injectable {
 //        viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
 
         val domainRepository = (requireActivity().application as MyApplication).domainCustomComponent().domainRepository()
-        view.findViewById<TextView>(R.id.textTitle).text =
-            "${DomainFragment::class.java.simpleName}\n${domainRepository.getDataList()}"
+        view.findViewById<TextView>(R.id.textTitle).text = "$domainRepository"
 
         viewModel.data.observe(viewLifecycleOwner) {
             view.findViewById<TextView>(R.id.textValue).text = it

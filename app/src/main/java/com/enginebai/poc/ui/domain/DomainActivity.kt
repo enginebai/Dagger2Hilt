@@ -41,7 +41,7 @@ class DomainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         findViewById<View>(R.id.root).setBackgroundColor(domainColor.color.toColor())
-        findViewById<TextView>(R.id.textTitle).text = "${this::class.java.simpleName}$testUser"
+        findViewById<TextView>(R.id.textTitle).text = "${domainRepository}, $testUser"
         findViewById<ViewGroup>(R.id.root).setOnClickListener {
             startActivity(Intent(this, DomainFragmentsActivity::class.java))
         }

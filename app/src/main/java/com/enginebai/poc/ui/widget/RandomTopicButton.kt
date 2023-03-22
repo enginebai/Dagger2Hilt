@@ -24,8 +24,9 @@ class RandomTopicButton @JvmOverloads constructor(
 
     private var count = 0
 
-    @Inject
-    lateinit var domainRepository: DomainRepository
+    // NOTE: This will be bound after creation, and will not refresh after changing the domain.
+//    @Inject
+//    lateinit var domainRepository: DomainRepository
 
     init {
 //        (context.applicationContext as MyApplication).domainComponent().inject(this)
@@ -36,13 +37,13 @@ class RandomTopicButton @JvmOverloads constructor(
         gravity = Gravity.CENTER
 
         setOnClickListener {
+            val domainRepository = (context.applicationContext as MyApplication).domainCustomComponent().domainRepository();
             // Re-inject with new instance when changing the domain
             domainRepository.addTopic(topic)
             count++
             text = "${topic.courseName}-$count"
-            Log.d(RandomTopicButton::class.java.simpleName, "Add random topic $topic to domain repository.")
-            val repo = (context.applicationContext as MyApplication).domainCustomComponent().domainRepository();
-            Toast.makeText(context, "${repo.getDataList()}", Toast.LENGTH_SHORT).show()
+            Log.d(RandomTopicButton::class.java.simpleName, "Add random topic $topic to domain repository ${domainRepository}.")
+            Toast.makeText(context, "$domainRepository, ${domainRepository.getDataList()}", Toast.LENGTH_SHORT).show()
         }
     }
 }
