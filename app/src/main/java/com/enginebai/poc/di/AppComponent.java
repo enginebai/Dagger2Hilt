@@ -1,5 +1,6 @@
 package com.enginebai.poc.di;
 
+import com.enginebai.core.di.AppColorModule;
 import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.data.user.UserDataHelper;
 import com.enginebai.core.util.ColorDefinition;
@@ -16,7 +17,8 @@ import dagger.android.AndroidInjectionModule;
 @Component(modules = {
         AndroidInjectionModule.class,
         AppModule.class,
-        UtilModule.class
+        UtilModule.class,
+        AppColorModule.class
 })
 public interface AppComponent extends MySingletonComponent {
     @Component.Builder

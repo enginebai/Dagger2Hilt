@@ -27,12 +27,6 @@ class DomainModule {
 
     @Provides
     @DomainScope
-    fun provideDomainColor(): ColorDefinition.DomainColor {
-        return ColorDefinition.DomainColor(ColorManager.generateColor())
-    }
-
-    @Provides
-    @DomainScope
     fun provideDomainUser(): User {
         val n = Random.nextInt(10000)
         return User("$n", "Domain User $n", n)

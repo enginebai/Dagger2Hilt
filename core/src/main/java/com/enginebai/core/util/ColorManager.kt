@@ -35,4 +35,10 @@ object ColorManager {
             Random.nextInt(0..255)
         )
     }
+
+    fun generateColors(): List<RGB> {
+        val list = mutableListOf<RGB>()
+        for (i in 1..5) list.add(generateColor())
+        return list
+    }
 }
