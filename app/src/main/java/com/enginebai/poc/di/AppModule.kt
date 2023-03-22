@@ -32,18 +32,4 @@ class AppModule {
     ): String {
         return formatter.format(calendar.time)
     }
-
-    @Provides
-    @Singleton
-    fun provideAppColor(): List<ColorDefinition.AppColor> {
-        val list = mutableListOf<ColorDefinition.AppColor>()
-        for (i in 1..5) list.add( ColorDefinition.AppColor(ColorManager.generateColor()))
-        return list
-    }
-
-    @Provides
-    @Singleton
-    fun provideSingletonColor(): ColorDefinition.SingletonColor {
-        return ColorDefinition.SingletonColor(ColorManager.generateColor())
-    }
 }

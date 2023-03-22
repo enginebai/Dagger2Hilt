@@ -1,5 +1,6 @@
 package com.enginebai.poc.di;
 
+import com.enginebai.core.di.DomainColorModule;
 import com.enginebai.core.di.DomainScope;
 import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.data.DomainRepository;
@@ -12,6 +13,7 @@ import dagger.Subcomponent;
 @Subcomponent(modules = {
         DomainModule.class,
         ApiModule.class,
+        DomainColorModule.class,
         ActivityBuilderModule.class,
         FragmentBuilderModule.class
 })
