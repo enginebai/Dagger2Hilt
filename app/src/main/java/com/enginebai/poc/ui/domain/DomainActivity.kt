@@ -10,7 +10,7 @@ import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
-import com.enginebai.poc.util.ColorDefinition
+import com.enginebai.core.util.ColorDefinition
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector

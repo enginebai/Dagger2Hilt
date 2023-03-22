@@ -1,21 +1,15 @@
 package com.enginebai.poc.di
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import android.graphics.Color
 import com.enginebai.poc.MyApplication
-import com.enginebai.poc.util.ColorDefinition
-import com.enginebai.poc.util.ColorManager
-import com.enginebai.poc.util.RGB
+import com.enginebai.core.util.ColorDefinition
+import com.enginebai.core.util.ColorManager
 import dagger.Module
 import dagger.Provides
 import java.text.DateFormat
-import java.text.SimpleDateFormat
 import java.util.Calendar
 import javax.inject.Singleton
-import kotlin.random.Random
-import kotlin.random.nextInt
 
 @Module
 class AppModule {
