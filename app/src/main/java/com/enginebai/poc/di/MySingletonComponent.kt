@@ -1,7 +1,7 @@
 package com.enginebai.poc.di
 
 import android.content.Context
-import com.enginebai.poc.util.ColorDefinition
+import com.enginebai.core.util.ColorDefinition
 
 interface MySingletonComponent {
     val singletonColor: ColorDefinition.SingletonColor

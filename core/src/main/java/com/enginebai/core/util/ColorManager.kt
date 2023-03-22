@@ -1,4 +1,4 @@
-package com.enginebai.poc.util
+package com.enginebai.core.util
 
 import android.graphics.Color
 import androidx.annotation.ColorInt
