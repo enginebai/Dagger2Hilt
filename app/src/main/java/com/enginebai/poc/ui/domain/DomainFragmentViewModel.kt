@@ -16,7 +16,7 @@ data class DomainFragmentUser(
 
 class DomainFragmentViewModel @Inject constructor(
     private val domainRepository: DomainRepository,
-    private val domainFragmentUser: DomainFragmentUser
+    domainFragmentUser: DomainFragmentUser
 ) : ViewModel() {
 
     private val _data = MutableLiveData<String>()
