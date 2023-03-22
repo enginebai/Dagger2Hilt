@@ -1,10 +1,10 @@
 package com.enginebai.poc.di
 
 import android.content.Context
-import com.enginebai.poc.util.ColorDefinition
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import com.enginebai.core.util.ColorDefinition
 
 @InstallIn(SingletonComponent::class)
 @EntryPoint

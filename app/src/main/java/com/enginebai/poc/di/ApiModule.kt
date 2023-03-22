@@ -1,5 +1,6 @@
 package com.enginebai.poc.di
 
+import com.enginebai.core.di.DomainCustomComponent
 import com.enginebai.core.di.DomainScope
 import com.enginebai.poc.data.domain.DomainApi
 import com.enginebai.poc.data.domain.DomainApiInMemory

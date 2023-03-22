@@ -1,8 +1,8 @@
 package com.enginebai.poc.di
 
 import android.annotation.SuppressLint
-import com.enginebai.poc.util.ColorManager
-import com.enginebai.poc.util.RGB
+import com.enginebai.core.util.ColorManager
+import com.enginebai.core.util.RGB
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

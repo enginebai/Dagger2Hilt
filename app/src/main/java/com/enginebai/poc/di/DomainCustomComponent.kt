@@ -1,33 +1,20 @@
 package com.enginebai.poc.di
 
 import com.enginebai.core.di.CustomComponentBridge
-import com.enginebai.core.di.DomainScope
-import com.enginebai.poc.MyApplication
+import com.enginebai.core.di.DomainCustomComponent
+import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.data.user.User
-import com.enginebai.poc.ui.domain.DomainActivity
-import com.enginebai.poc.util.ColorDefinition
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.DefineComponent
 import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.internal.GeneratedComponentManager
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
-
-@DomainScope
-@DefineComponent(parent = SingletonComponent::class)
-interface DomainCustomComponent {
-    @DefineComponent.Builder
-    interface Builder {
-        fun build(): DomainCustomComponent
-    }
-}
 
 @InstallIn(DomainCustomComponent::class)
 @EntryPoint
@@ -37,6 +24,9 @@ interface DomainCustomComponentEntryPoint {
 
     @CustomComponentBridge
     fun domainColor(): ColorDefinition.DomainColor
+
+    @CustomComponentBridge
+    fun domainUser(): User
 }
 
 @Singleton
@@ -74,6 +64,14 @@ object DomainCustomComponentBridge {
     ): ColorDefinition.DomainColor {
         return componentManager.entryPoint()
             .domainColor()
+    }
+
+    @Provides
+    fun provideDomainUser(
+        componentManager: DomainCustomComponentManager
+    ): User {
+        return componentManager.entryPoint()
+            .domainUser()
     }
 
     private fun DomainCustomComponentManager.entryPoint() =

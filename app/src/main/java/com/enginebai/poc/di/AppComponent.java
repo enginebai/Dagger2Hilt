@@ -1,7 +1,8 @@
 package com.enginebai.poc.di;
 
+import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.data.user.UserDataHelper;
-import com.enginebai.poc.util.ColorDefinition;
+import com.enginebai.core.util.ColorDefinition;
 
 import java.util.List;
 

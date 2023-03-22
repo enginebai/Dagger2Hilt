@@ -13,14 +13,25 @@ import com.enginebai.core.di.Injectable
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.domain.DomainRepository
+import com.enginebai.poc.data.user.User
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
+const val KEY_DOMAIN_USER = "domain_user"
 
 @AndroidEntryPoint
 class DomainFragment : BaseFragment(), Injectable {
 
     companion object {
-        fun newInstance() = DomainFragment()
+        fun newInstance(user: User) = DomainFragment().apply {
+            arguments = Bundle().apply{
+                putParcelable(KEY_DOMAIN_USER, DomainFragmentUser(user))
+            }
+        }
+
+        fun getUserData(arguments: Bundle?): DomainFragmentUser {
+            return arguments?.get(KEY_DOMAIN_USER) as DomainFragmentUser
+        }
     }
 
     private val viewModel: DomainFragmentViewModel by viewModels()
@@ -42,6 +53,7 @@ class DomainFragment : BaseFragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
+        viewModel.setDomainFragmentUser(getUserData(arguments))
 
         val domainRepository = (requireActivity().application as MyApplication).domainCustomComponent().domainRepository()
         view.findViewById<TextView>(R.id.textTitle).text = "$domainRepository"
