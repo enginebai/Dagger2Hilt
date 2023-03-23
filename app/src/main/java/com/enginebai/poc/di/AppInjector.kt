@@ -73,7 +73,6 @@ class AppInjector @Inject constructor() {
             obj.performInject()
         } else {
             when (obj) {
-                is Activity -> AndroidInjection.inject(obj)
                 is Fragment -> AndroidSupportInjection.inject(obj)
             }
         }

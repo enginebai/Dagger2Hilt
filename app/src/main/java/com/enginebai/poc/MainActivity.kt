@@ -21,11 +21,13 @@ import com.example.feature.ui.CardActivity
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
 import java.util.Calendar
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), HasAndroidInjector {
+@AndroidEntryPoint
+class MainActivity : BaseActivity() {
 
     @Inject
     lateinit var calendar: Calendar
@@ -39,11 +41,6 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
     @Inject
     lateinit var factory: ViewModelFactory<MainViewModel>
     private lateinit var viewModel: MainViewModel
-
-    // For dagger.android
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

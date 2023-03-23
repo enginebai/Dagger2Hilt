@@ -6,7 +6,9 @@ import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.R
 import com.enginebai.poc.util.getCurrentUser
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SingletonFragmentsActivity : BaseActivity() {
 
     val pageCount = 2

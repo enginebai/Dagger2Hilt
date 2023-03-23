@@ -7,17 +7,14 @@ import com.enginebai.poc.data.user.User
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class DomainFragmentsActivity : BaseActivity(), HasAndroidInjector {
+@AndroidEntryPoint
+class DomainFragmentsActivity : BaseActivity() {
 
     @Inject
     lateinit var domainUser: User
-
-    // For dagger.android
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
