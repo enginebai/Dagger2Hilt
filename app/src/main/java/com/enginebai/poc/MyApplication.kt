@@ -9,6 +9,8 @@ import com.enginebai.poc.di.*
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.hilt.EntryPoints
+import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
 /**
@@ -37,9 +39,9 @@ import javax.inject.Inject
  * RGB -> SingletonColor -> SingletonComponent interface
  * -> SingleFragment / SingletonDetailActivity.backgroundColor
  */
+@HiltAndroidApp
 class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
     // Accessing the interfaces
-    private lateinit var appComponent: AppComponent
     private lateinit var domainComponent: DomainComponent
 
     @Inject
@@ -58,11 +60,6 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent
-            .builder()
-            .application(this)
-            .build()
-        appComponent.inject(this)
         initDelegate()
 
         // call function from injected filed
@@ -74,12 +71,12 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
 
     // onConfigAvailable() method
     fun instantiateDomainComponent() {
-        domainComponent = appComponent.plus(DomainModule())
-        domainComponent.inject(this)
+//        domainComponent = appComponent.plus(DomainModule())
+//        domainComponent.inject(this)
     }
 
     fun appComponent(): AppComponent {
-        return appComponent
+        return EntryPoints.get(this, AppComponent::class.java)
     }
 
     fun domainComponent(): DomainComponent {
@@ -91,7 +88,7 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
     }
 
     override val singletonComponent: MySingletonComponent
-        get() = appComponent
+        get() = appComponent()
 
     private fun initDynamicFeatureModule() {
         val implementationName = "com.enginebai.dynamic.DynamicFeatureInitializer"
