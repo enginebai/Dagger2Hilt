@@ -71,10 +71,6 @@ class AppInjector @Inject constructor() {
     private fun performInject(obj: Any) {
         if (obj is HasCustomInjector) {
             obj.performInject()
-        } else {
-            when (obj) {
-                is Fragment -> AndroidSupportInjection.inject(obj)
-            }
         }
     }
 }

@@ -17,11 +17,13 @@ import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.user.User
 import com.google.android.material.snackbar.Snackbar
 import dagger.Module
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 const val KEY_DOMAIN_USER = "domain_user"
 
-class DomainFragment : BaseFragment(), Injectable {
+@AndroidEntryPoint
+class DomainFragment : BaseFragment() {
 
     companion object {
         fun newInstance(user: User) = DomainFragment().apply {
@@ -54,6 +56,7 @@ class DomainFragment : BaseFragment(), Injectable {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
+        viewModel.setDomainFragmentUser(getUserData(arguments))
 
         view.findViewById<TextView>(R.id.textTitle).text =
             "${DomainFragment::class.java.simpleName}\n${domainRepository.getDataList()}"
