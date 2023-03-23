@@ -22,23 +22,21 @@ class UtilModule {
     }
 
     @Provides
+    @Singleton
     fun provideCalendar(): Calendar {
         return Calendar.getInstance()
     }
 
     @SuppressLint("SimpleDateFormat")
     @Provides
+    @Singleton
     fun provideDateFormatter(): DateFormat {
         return SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
     }
 
     @Provides
+    @Singleton
     fun provideRandomNumber(): Int {
         return Random.nextInt(0..100)
-    }
-
-    @Provides
-    fun provideRGB(): RGB {
-        return ColorManager.generateColor()
     }
 }

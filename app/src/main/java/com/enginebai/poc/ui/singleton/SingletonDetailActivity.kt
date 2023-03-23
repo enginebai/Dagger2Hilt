@@ -14,12 +14,19 @@ import com.enginebai.poc.di.singletonComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import java.text.DateFormat
+import java.util.Calendar
 import javax.inject.Inject
 
 class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
 
     @Inject
     lateinit var userDataHelper: UserDataHelper
+
+    @Inject
+    lateinit var calendar: Calendar
+    @Inject
+    lateinit var dateFormat: DateFormat
 
     // For dagger.android
     @Inject
@@ -37,7 +44,7 @@ class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
         findViewById<ViewGroup>(R.id.root).apply {
             setBackgroundColor(color)
             setOnClickListener {
-                textValue.text = "Is 18 years old? ${CoreModule.getAppDelegate().is18YearsOld()}"
+                textValue.text = "Is 18 years old? ${CoreModule.getAppDelegate().is18YearsOld()} ${dateFormat.format(calendar.time)}"
             }
         }
     }
