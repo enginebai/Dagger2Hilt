@@ -27,8 +27,6 @@ interface AppAggregatorModule
 @EntryPoint
 interface AppComponent : MySingletonComponent, AppAggregatorModule {
 
-    fun plus(domainModule: DomainModule): DomainComponent
-
     // TODO: TODO: add inject(WorkerManager) function
     // We don't need this injection function because we use the classes in dagger.android package
 
