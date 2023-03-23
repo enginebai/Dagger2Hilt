@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @Module
 class AppModule {
     @Provides
+    @Singleton
     fun provideUserName(
         calendar: Calendar,
         formatter: DateFormat
