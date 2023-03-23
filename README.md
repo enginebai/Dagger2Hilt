@@ -242,4 +242,74 @@ class DomainCustomComponentManager @Inject constructor(
 }
 ```
 
-* 
+* Define the entry point and bridge interface of domain custom component:
+
+> For entry point, the steps are similar to `AppComponent` entry point.
+
+```kotlin
+// Modules are as same as legacy domain component.
+@InstallIn(DomainCustomDefineComponent::class)
+@Module(includes = [
+    DomainModule::class,
+    ApiModule::class,
+    DomainColorModule::class,
+])
+interface DomainAggregatorModule
+
+@InstallIn(DomainCustomDefineComponent::class)
+@EntryPoint
+interface DomainCustomComponentEntryPoint : DomainAggregatorModule {
+    fun domainRepository(): DomainRepository
+    fun domainUser(): User
+    fun domainColor(): ColorDefinition.DomainColor
+}
+
+@Module
+@InstallIn(ActivityRetainedComponent::class)
+object DomainCustomComponentBridge {
+    @Provides
+    fun provideDomainRepository(
+        componentManager: DomainCustomComponentManager
+    ): DomainRepository {
+        return componentManager.entryPoint()
+            .domainRepository()
+    }
+
+    @Provides
+    fun provideDomainUser(
+        componentManager: DomainCustomComponentManager
+    ): User {
+        return componentManager.entryPoint()
+            .domainUser()
+    }
+
+    @Provides
+    fun provideDomainColor(
+        componentManager: DomainCustomComponentManager
+    ): ColorDefinition.DomainColor {
+        return componentManager.entryPoint()
+            .domainColor()
+    }
+
+    private fun DomainCustomComponentManager.entryPoint() =
+        EntryPoints.get(this, DomainCustomComponentEntryPoint::class.java)
+}
+```
+
+* Manage the domain custom component and expose extry point in application:
+
+```kotlin
+@HiltAndroidApp
+class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
+    @Inject
+    lateinit var domainCustomComponentManager: DomainCustomComponentManager
+
+    fun instantiateDomainComponent() {
+        domainCustomComponentManager.regenerateComponent()
+    }
+
+    fun domainComponent(): DomainCustomComponentEntryPoint {
+        return EntryPoints.get(domainCustomComponentManager, DomainCustomComponentEntryPoint::class.java)
+    }
+}
+```
