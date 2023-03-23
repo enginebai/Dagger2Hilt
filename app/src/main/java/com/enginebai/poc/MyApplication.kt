@@ -5,6 +5,8 @@ import com.enginebai.core.CoreModule.init
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.delegate.CoreApp
 import com.enginebai.poc.di.*
+import com.enginebai.poc.di.custom.DomainCustomComponentEntryPoint
+import com.enginebai.poc.di.custom.DomainCustomComponentManager
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -47,6 +49,9 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
     @Inject
     lateinit var appInjector: AppInjector
 
+    @Inject
+    lateinit var domainCustomComponentManager: DomainCustomComponentManager
+
     // For dagger.android
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
@@ -67,16 +72,15 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
 
     // onConfigAvailable() method
     fun instantiateDomainComponent() {
-//        domainComponent = appComponent.plus(DomainModule())
-//        domainComponent.inject(this)
+        domainCustomComponentManager.regenerateComponent()
     }
 
     fun appComponent(): AppComponent {
         return EntryPoints.get(this, AppComponent::class.java)
     }
 
-    fun domainComponent(): DomainComponent {
-        return EntryPoints.get(this, DomainComponent::class.java)
+    fun domainComponent(): DomainCustomComponentEntryPoint {
+        return EntryPoints.get(domainCustomComponentManager, DomainCustomComponentEntryPoint::class.java)
     }
 
     private fun initDelegate() {

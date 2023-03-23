@@ -124,3 +124,45 @@ interface DomainComponent : DomainAggregatorModule {
 ```
 
 * Finish migrate application with temporary entry point migration, it can build successfully and singleton feature works as usual except for domain component feature, at this moment, we don't annotate any android class with `@AndroidEntryPoint` and still keep `dagger.android` components.
+
+## Migrate Domain Component 
+* Define the custom component anotation and remove `@AliasOf` from `DomainScope`:
+
+```kotlin
+@DomainScope
+@DefineComponent(parent = SingletonComponent::class)
+interface DomainCustomDefineComponent {
+    @DefineComponent.Builder
+    interface Builder {
+        fun build(): DomainCustomDefineComponent
+    }
+}
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class DomainScope
+```
+
+* Create the custom component manager:
+```kotlin
+@Singleton
+class DomainCustomComponentManager @Inject constructor(
+    private val componentProvider: Provider<DomainCustomDefineComponent.Builder>
+) : GeneratedComponentManager<DomainCustomDefineComponent> {
+
+    @Volatile
+    private var component: DomainCustomDefineComponent = generateComponent()
+
+    override fun generatedComponent(): DomainCustomDefineComponent = component
+
+    fun regenerateComponent() {
+        component = generateComponent()
+    }
+
+    @Synchronized private fun generateComponent(): DomainCustomDefineComponent {
+        return componentProvider.get().build()
+    }
+}
+```
+
+* 

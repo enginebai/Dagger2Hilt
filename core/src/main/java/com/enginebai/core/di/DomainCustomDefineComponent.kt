@@ -5,9 +5,9 @@ import dagger.hilt.components.SingletonComponent
 
 @DomainScope
 @DefineComponent(parent = SingletonComponent::class)
-interface DomainCustomComponent {
+interface DomainCustomDefineComponent {
     @DefineComponent.Builder
     interface Builder {
-        fun build(): DomainCustomComponent
+        fun build(): DomainCustomDefineComponent
     }
 }

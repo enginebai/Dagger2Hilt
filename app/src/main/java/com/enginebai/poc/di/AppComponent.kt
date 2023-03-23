@@ -18,7 +18,7 @@ import javax.inject.Singleton
     AndroidInjectionModule::class,
     AppModule::class,
     UtilModule::class,
-    AppColorModule::class
+    AppColorModule::class,
 ])
 interface AppAggregatorModule
 
