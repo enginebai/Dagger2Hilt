@@ -40,8 +40,6 @@ import javax.inject.Inject
  */
 @HiltAndroidApp
 class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
-    // Accessing the interfaces
-    private lateinit var domainComponent: DomainComponent
 
     @Inject
     lateinit var userDataHelper: UserDataHelper
@@ -78,7 +76,7 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
     }
 
     fun domainComponent(): DomainComponent {
-        return domainComponent
+        return EntryPoints.get(this, DomainComponent::class.java)
     }
 
     private fun initDelegate() {
