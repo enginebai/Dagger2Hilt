@@ -2,14 +2,10 @@ package com.enginebai.poc.di.custom
 
 import com.enginebai.core.di.DomainColorModule
 import com.enginebai.core.di.DomainCustomDefineComponent
-import com.enginebai.core.di.DomainScope
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.user.User
-import com.enginebai.poc.di.ActivityBuilderModule
-import com.enginebai.poc.di.ApiModule
-import com.enginebai.poc.di.DomainModule
-import com.enginebai.poc.di.FragmentBuilderModule
+import com.enginebai.poc.di.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.EntryPoint
@@ -22,8 +18,6 @@ import dagger.hilt.android.components.ActivityRetainedComponent
     DomainModule::class,
     ApiModule::class,
     DomainColorModule::class,
-    ActivityBuilderModule::class,
-    FragmentBuilderModule::class
 ])
 interface DomainAggregatorModule
 

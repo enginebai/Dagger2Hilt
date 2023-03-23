@@ -2,16 +2,12 @@ package com.enginebai.poc.di
 
 import com.enginebai.core.di.AppColorModule
 import com.enginebai.core.util.ColorDefinition
-import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.user.UserDataHelper
-import dagger.BindsInstance
-import dagger.Component
 import dagger.Module
 import dagger.android.AndroidInjectionModule
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module(includes = [

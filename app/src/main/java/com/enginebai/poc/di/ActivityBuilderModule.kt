@@ -1,5 +1,7 @@
 package com.enginebai.poc.di
 
+import com.enginebai.core.di.DomainCustomDefineComponent
+import com.enginebai.core.di.DomainScope
 import com.enginebai.core.di.MyActivityScope
 import com.enginebai.poc.MainActivity
 import com.enginebai.poc.ui.domain.DomainActivity
@@ -8,10 +10,15 @@ import com.enginebai.poc.ui.singleton.SingletonDetailActivity
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.components.ActivityRetainedComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-abstract class ActivityBuilderModule {
-
+@InstallIn(SingletonComponent::class)
+abstract class ActivityBuilderModuleForSingleton {
     @ContributesAndroidInjector
     abstract fun contributeMainActivity(): MainActivity
 
@@ -21,6 +28,11 @@ abstract class ActivityBuilderModule {
 
     @ContributesAndroidInjector
     abstract fun contributeSingletonDetailActivity(): SingletonDetailActivity
+}
+
+@Module
+@InstallIn(DomainCustomDefineComponent::class)
+abstract class ActivityBuilderModuleForDomain {
 
     @ContributesAndroidInjector
     abstract fun contributeDomainActivity(): DomainActivity
@@ -28,5 +40,4 @@ abstract class ActivityBuilderModule {
     @MyActivityScope
     @ContributesAndroidInjector
     abstract fun contributeDomainFragmentsActivity(): DomainFragmentsActivity
-
 }

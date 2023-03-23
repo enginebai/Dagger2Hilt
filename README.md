@@ -238,3 +238,12 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
     }
 }
 ```
+
+> After migrating domain custom component, we will build failed because of that the `dagger.android` components `AndroidBuilderModule` and `FragmentBuilderModule` are included in domain custom component, now we have to install to the responding component and remove from domain custom component. 
+> 
+> I had difficulty to setup this for domain flow correctly (but singleton flow works fine), it raises `No injector factory bound for class` exception when entering the `DomainActivity`, it means we can't get injection from `dagger.android`, but we could get injection from Hilt by annotating `@AndroidEntryPoint` or add `fun inject(activity: DomainActivity)` in `DomainCustomComponentEntryPoint`. 
+> 
+> That means all modules with `@ContributesAndroidInjector` does not work in custom component. Either we add injection function manually or migrate to Hilt directly. 
+>
+> Skip this problem first.
+
