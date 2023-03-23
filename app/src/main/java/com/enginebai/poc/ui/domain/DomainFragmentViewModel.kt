@@ -23,7 +23,7 @@ class DomainFragmentViewModel @Inject constructor(
     private val _data = MutableLiveData<String>()
     val data: LiveData<String> = _data
 
-    init {
+    fun setDomainFragmentUser(domainFragmentUser: DomainFragmentUser) {
         _data.value = "Injected domain user $domainFragmentUser"
     }
 

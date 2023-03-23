@@ -21,7 +21,6 @@ import dagger.hilt.components.SingletonComponent
     DomainModule::class,
     ApiModule::class,
     DomainColorModule::class,
-    FragmentBuilderModule::class,
     CardApiModule::class]
 )
 interface DomainAggregatorModule

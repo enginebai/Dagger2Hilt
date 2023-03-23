@@ -15,11 +15,13 @@ import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.di.singletonComponent
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 private const val PAGE_INDEX = "page_index"
 
-class SingletonFragment : BaseFragment(), Injectable {
+@AndroidEntryPoint
+class SingletonFragment : BaseFragment() {
 
     private var pageIndex: Int = 0
 
