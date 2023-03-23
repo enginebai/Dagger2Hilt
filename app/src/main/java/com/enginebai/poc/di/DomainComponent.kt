@@ -18,7 +18,6 @@ import dagger.hilt.components.SingletonComponent
     DomainModule::class,
     ApiModule::class,
     DomainColorModule::class,
-    ActivityBuilderModule::class,
     FragmentBuilderModule::class,
     CardApiModule::class]
 )
