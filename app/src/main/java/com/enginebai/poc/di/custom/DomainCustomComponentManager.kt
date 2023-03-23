@@ -1,6 +1,6 @@
 package com.enginebai.poc.di.custom
 
-import com.enginebai.core.di.DomainCustomComponent
+import com.enginebai.core.di.DomainCustomDefineComponent
 import dagger.hilt.internal.GeneratedComponentManager
 import javax.inject.Inject
 import javax.inject.Provider
@@ -8,19 +8,19 @@ import javax.inject.Singleton
 
 @Singleton
 class DomainCustomComponentManager @Inject constructor(
-    private val componentProvider: Provider<DomainCustomComponent.Builder>
-) : GeneratedComponentManager<DomainCustomComponent> {
+    private val componentProvider: Provider<DomainCustomDefineComponent.Builder>
+) : GeneratedComponentManager<DomainCustomDefineComponent> {
 
     @Volatile
-    private var component: DomainCustomComponent = generateComponent()
+    private var component: DomainCustomDefineComponent = generateComponent()
 
-    override fun generatedComponent(): DomainCustomComponent = component
+    override fun generatedComponent(): DomainCustomDefineComponent = component
 
     fun regenerateComponent() {
         component = generateComponent()
     }
 
-    @Synchronized private fun generateComponent(): DomainCustomComponent {
+    @Synchronized private fun generateComponent(): DomainCustomDefineComponent {
         return componentProvider.get().build()
     }
 }

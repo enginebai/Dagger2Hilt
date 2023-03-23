@@ -4,6 +4,7 @@ import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
 import javax.inject.Singleton
 
 @Module

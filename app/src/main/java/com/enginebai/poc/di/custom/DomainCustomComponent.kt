@@ -1,10 +1,14 @@
 package com.enginebai.poc.di.custom
 
-import com.enginebai.core.di.DomainCustomComponent
+import com.enginebai.core.di.DomainColorModule
+import com.enginebai.core.di.DomainCustomDefineComponent
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.data.DomainRepository
-import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.user.User
+import com.enginebai.poc.di.ApiModule
+import com.enginebai.poc.di.DomainModule
+import com.enginebai.poc.ui.widget.RandomTopicItem
+import com.example.feature.di.CardApiModule
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.EntryPoint
@@ -12,12 +16,23 @@ import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityRetainedComponent
 
-@InstallIn(DomainCustomComponent::class)
+@InstallIn(DomainCustomDefineComponent::class)
+@Module(includes = [
+    DomainModule::class,
+    ApiModule::class,
+    DomainColorModule::class,
+    CardApiModule::class
+])
+interface DomainAggregatorModule
+
+@InstallIn(DomainCustomDefineComponent::class)
 @EntryPoint
-interface DomainCustomComponentEntryPoint {
+interface DomainCustomComponentEntryPoint : DomainAggregatorModule {
     fun domainRepository(): DomainRepository
     fun domainUser(): User
     fun domainColor(): ColorDefinition.DomainColor
+
+    fun inject(nonAndroidClass: RandomTopicItem)
 }
 
 @Module

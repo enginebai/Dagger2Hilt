@@ -201,3 +201,45 @@ ava]
     ...
 }
 ```
+
+## Migrate Domain Component 
+* Define the custom component anotation and remove `@AliasOf` from `DomainScope`:
+
+```kotlin
+@DomainScope
+@DefineComponent(parent = SingletonComponent::class)
+interface DomainCustomDefineComponent {
+    @DefineComponent.Builder
+    interface Builder {
+        fun build(): DomainCustomDefineComponent
+    }
+}
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class DomainScope
+```
+
+* Create the custom component manager:
+```kotlin
+@Singleton
+class DomainCustomComponentManager @Inject constructor(
+    private val componentProvider: Provider<DomainCustomDefineComponent.Builder>
+) : GeneratedComponentManager<DomainCustomDefineComponent> {
+
+    @Volatile
+    private var component: DomainCustomDefineComponent = generateComponent()
+
+    override fun generatedComponent(): DomainCustomDefineComponent = component
+
+    fun regenerateComponent() {
+        component = generateComponent()
+    }
+
+    @Synchronized private fun generateComponent(): DomainCustomDefineComponent {
+        return componentProvider.get().build()
+    }
+}
+```
+
+* 
