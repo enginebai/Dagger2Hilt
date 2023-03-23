@@ -14,18 +14,6 @@ import javax.inject.Singleton
 @Module
 class AppModule {
     @Provides
-    @Singleton
-    fun providesContext(app: MyApplication): Context {
-        return app
-    }
-
-    @Provides
-    @Singleton
-    fun provideApplication(app: MyApplication): Application {
-        return app
-    }
-
-    @Provides
     fun provideUserName(
         calendar: Calendar,
         formatter: DateFormat

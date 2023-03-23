@@ -6,34 +6,30 @@ import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.user.UserDataHelper
 import dagger.BindsInstance
 import dagger.Component
+import dagger.Module
 import dagger.android.AndroidInjectionModule
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@Singleton
-@Component(
-    modules = [
-        AndroidInjectionModule::class,
-        AppModule::class,
-        UtilModule::class,
-        AppColorModule::class
-    ]
-)
-interface AppComponent : MySingletonComponent {
-    @Component.Builder
-    interface Builder {
-        @BindsInstance
-        fun application(application: MyApplication): Builder
-        fun build(): AppComponent
-    }
+@InstallIn(SingletonComponent::class)
+@Module(includes = [
+    AndroidInjectionModule::class,
+    AppModule::class,
+    UtilModule::class,
+    AppColorModule::class
+])
+interface AppAggregatorModule
+
+@InstallIn(SingletonComponent::class)
+@EntryPoint
+interface AppComponent : MySingletonComponent, AppAggregatorModule {
 
     fun plus(domainModule: DomainModule): DomainComponent
 
     // TODO: TODO: add inject(WorkerManager) function
-    fun inject(application: MyApplication)
-
     // We don't need this injection function because we use the classes in dagger.android package
-//    fun inject(fragment: SingletonFragment)
-//    fun inject(activity: SingletonDetailActivity)
 
     /*
      * Those extended methods provides the dependencies from the same modules here.
