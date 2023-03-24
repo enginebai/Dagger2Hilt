@@ -40,21 +40,10 @@ import javax.inject.Inject
  * -> SingleFragment / SingletonDetailActivity.backgroundColor
  */
 @HiltAndroidApp
-class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
+class MyApplication : Application(), HasSingletonComponent {
 
     @Inject
     lateinit var userDataHelper: UserDataHelper
-
-    @Inject
-    lateinit var appInjector: AppInjector
-
-    // For dagger.android
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
-    override fun androidInjector(): AndroidInjector<Any> {
-        return dispatchingAndroidInjector
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -63,7 +52,6 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
         // call function from injected filed
         userDataHelper.generateNewUser()
         instantiateDomainComponent()
-        appInjector.init(this)
         initDynamicFeatureModule()
     }
 
