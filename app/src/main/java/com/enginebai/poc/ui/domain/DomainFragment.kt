@@ -8,15 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseFragment
-import com.enginebai.core.di.Injectable
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.user.User
-import com.google.android.material.snackbar.Snackbar
-import dagger.Module
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

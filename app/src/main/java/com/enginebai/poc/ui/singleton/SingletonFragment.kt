@@ -1,7 +1,6 @@
 package com.enginebai.poc.ui.singleton
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.enginebai.core.base.BaseFragment
-import com.enginebai.core.di.Injectable
-import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.di.singletonComponent
