@@ -130,3 +130,74 @@ interface DomainComponent : DomainAggregatorModule {
 ```
 
 * Finish migrate application with temporary entry point migration, it can build successfully and singleton feature works as usual except for domain component feature, at this moment, we don't annotate any android class with `@AndroidEntryPoint` and still keep `dagger.android` components.
+
+## Migration Android Classes
+### Activity, Fragment, Custom View
+* Annotate with `@AndroidEntryPoint`.
+* Remove the `dagger.android` implementation (if exists):
+
+```diff
+-class MainActivity : BaseActivity(), HasAndroidInjector {
++@AndroidEntryPoint
++class MainActivity : BaseActivity() {
+
+-    // For dagger.android
+-    @Inject
+-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+    ...
+}
+
+@Module
+abstract class ActivityBuilderModule {
+-    @ContributesAndroidInjector
+-    abstract fun contributeMainActivity(): MainActivity
+    ...
+}
+```
+
+* Remove all injection function from component. (for custom view if exists)
+* After migrating **all** activities, fragments, we can remove the `dagger.android` implementation from application and any classes contain `@ContributesAndroidInjector`:
+
+```diff
+-class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
++class MyApplication : Application(), HasSingletonComponent {
+
+-    // For dagger.android
+-    @Inject
+-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+-
+-    override fun androidInjector(): AndroidInjector<Any> {
+-        return dispatchingAndroidInjector
+-    }
+    ...
+}
+```
+
+### ViewModel
+* Annotate with `@HiltViewModel` in view model.
+* Inheriting from `AndroidViewModel` is no more needed, just inherit `ViewModel()`, we can get `context` by annotated with `@ApplicationContext`.
+
+```kotlin
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    @ApplicationContext val context: Context
+) : BaseViewModel() {
+    ...
+}
+```
+
+* Remove view model instantiation function, and get injected from `viewModels<T>()` lambda delegation from android extension in activity or fragment.
+
+```diff
+-class DomainFragment : BaseFragment(), Injectable {
++@AndroidEntryPoint
++class DomainFragment : BaseFragment() {
+-    private lateinit var viewModel: DomainFragmentViewModel
++    private val viewModel: DomainFragmentViewModel by viewModels()
+
+-    viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.j
+ava]
+    ...
+}
+```
