@@ -5,6 +5,7 @@ import com.enginebai.core.di.AppColorModule
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.user.UserDataHelper
+import com.enginebai.poc.ui.widget.RandomTopicButton
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
@@ -28,7 +29,7 @@ interface AppAggregatorModule
 interface AppComponent : MySingletonComponent, AppAggregatorModule {
 
     // TODO: TODO: add inject(WorkerManager) function
-    // We don't need this injection function because we use the classes in dagger.android package
+    fun inject(customButton: RandomTopicButton)
 
     /*
      * Those extended methods provides the dependencies from the same modules here.
