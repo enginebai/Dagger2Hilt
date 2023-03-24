@@ -28,8 +28,6 @@ interface DomainComponent : DomainAggregatorModule {
     
     fun inject(nonAndroidClass: RandomTopicItem)
 
-    fun inject(customButton: RandomTopicButton)
-
     /*
      * add some dependencies binding methods: A getA();
      * 1. interface

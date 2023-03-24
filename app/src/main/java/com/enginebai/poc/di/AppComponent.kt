@@ -28,7 +28,6 @@ interface AppAggregatorModule
 interface AppComponent : MySingletonComponent, AppAggregatorModule {
 
     // TODO: TODO: add inject(WorkerManager) function
-    fun inject(customButton: RandomTopicButton)
 
     /*
      * Those extended methods provides the dependencies from the same modules here.

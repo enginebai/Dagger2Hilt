@@ -12,9 +12,11 @@ import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.pickRandomTopic
 import com.enginebai.poc.data.user.User
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @SuppressLint("SetTextI18n")
+@AndroidEntryPoint
 class RandomTopicButton @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -29,9 +31,6 @@ class RandomTopicButton @JvmOverloads constructor(
     private var count = 0
 
     init {
-        (context.applicationContext as MyApplication).appComponent().inject(this)
-        (context.applicationContext as MyApplication).domainComponent().inject(this)
-
         val topic = pickRandomTopic()
         text = "${topic.courseName}-$count"
         textSize = 20f
