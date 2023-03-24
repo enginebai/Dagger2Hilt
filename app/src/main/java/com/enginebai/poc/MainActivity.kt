@@ -6,23 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
-import com.enginebai.core.ViewModelFactory
+import androidx.activity.viewModels
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.core.util.ColorDefinition
-import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.data.user.TimeMachine
 import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
 import com.enginebai.poc.ui.widget.RandomTopicItem
 import com.enginebai.poc.util.ColorMixer
-import com.example.feature.ui.CardActivity
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
-import java.util.Calendar
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -37,14 +31,11 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var colorMixer: ColorMixer
 
-    @Inject
-    lateinit var factory: ViewModelFactory<MainViewModel>
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         findViewById<Button>(R.id.buttonStartSingleton).setOnClickListener {
             startActivity(Intent(this, SingletonFragmentsActivity::class.java))
         }

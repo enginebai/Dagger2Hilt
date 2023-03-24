@@ -1,14 +1,13 @@
 package com.enginebai.poc.ui.domain
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.enginebai.core.ViewModelFactory
+import androidx.fragment.app.viewModels
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
@@ -33,13 +32,10 @@ class DomainFragment : BaseFragment() {
         }
     }
 
-    private lateinit var viewModel: DomainFragmentViewModel
+    private val viewModel: DomainFragmentViewModel by viewModels()
 
     @Inject
     lateinit var domainRepository: DomainRepository
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<DomainFragmentViewModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +47,6 @@ class DomainFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
         viewModel.setDomainFragmentUser(getUserData(arguments))
 
         view.findViewById<TextView>(R.id.textTitle).text =
