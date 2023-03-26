@@ -5,6 +5,7 @@ import com.enginebai.core.di.DomainScope;
 import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.data.DomainRepository;
 import com.enginebai.poc.ui.widget.RandomTopicButton;
+import com.enginebai.poc.ui.widget.RandomTopicItem;
 import com.example.feature.di.CardApiModule;
 
 import dagger.Subcomponent;
@@ -30,6 +31,7 @@ public interface DomainComponent {
      * TODO: inject methods: dialog, view model, intent service
      */
     void inject(RandomTopicButton customButton);
+    void inject(RandomTopicItem nonAndroidClass);
 
     /*
      * add some dependencies binding methods: A getA();

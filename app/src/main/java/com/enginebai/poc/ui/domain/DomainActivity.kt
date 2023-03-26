@@ -11,6 +11,7 @@ import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.core.util.ColorDefinition
+import com.enginebai.poc.ui.widget.RandomTopicItem
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -43,10 +44,21 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
         findViewById<ViewGroup>(R.id.root).setOnClickListener {
             startActivity(Intent(this, DomainFragmentsActivity::class.java))
         }
+        addRandomTopicItem()
     }
 
     override fun onResume() {
         super.onResume()
+        refresh()
+    }
+
+    private fun addRandomTopicItem() {
+        val root = findViewById<ViewGroup>(R.id.root)
+        val item = RandomTopicItem(this)
+        item.attach(root) { refresh() }
+    }
+
+    private fun refresh() {
         findViewById<TextView>(R.id.textValue).text = domainRepository.getDataList().toString()
     }
 }

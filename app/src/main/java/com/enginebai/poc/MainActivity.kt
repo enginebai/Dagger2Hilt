@@ -14,6 +14,7 @@ import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.data.user.TimeMachine
 import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
+import com.enginebai.poc.ui.widget.RandomTopicItem
 import com.enginebai.poc.util.ColorMixer
 import com.example.feature.ui.CardActivity
 import dagger.android.AndroidInjector
