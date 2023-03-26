@@ -13,7 +13,7 @@ class CardApi @Inject constructor(
     }
 }
 
-// TODO: Domain 
+// TODO: Domain
 interface CardRepository {
     fun startNewGame(): Array<Card>
 }
