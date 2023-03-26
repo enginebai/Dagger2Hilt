@@ -2,9 +2,9 @@ package com.enginebai.poc.di
 
 import android.app.Application
 import android.content.Context
+import com.enginebai.core.card.Poker
 import com.enginebai.poc.MyApplication
-import com.enginebai.core.util.ColorDefinition
-import com.enginebai.core.util.ColorManager
+import com.enginebai.poc.data.domain.PokerGame
 import dagger.Module
 import dagger.Provides
 import java.text.DateFormat
@@ -31,5 +31,11 @@ class AppModule {
         formatter: DateFormat
     ): String {
         return formatter.format(calendar.time)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCardPoker(impl: PokerGame): Poker {
+        return impl
     }
 }

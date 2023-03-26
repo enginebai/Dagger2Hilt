@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.enginebai.core.base.BaseViewModel
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.user.User
 import kotlinx.parcelize.Parcelize
@@ -17,7 +18,7 @@ data class DomainFragmentUser(
 class DomainFragmentViewModel @Inject constructor(
     private val domainRepository: DomainRepository,
     domainFragmentUser: DomainFragmentUser
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _data = MutableLiveData<String>()
     val data: LiveData<String> = _data

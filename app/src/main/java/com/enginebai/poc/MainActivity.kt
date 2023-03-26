@@ -15,6 +15,7 @@ import com.enginebai.poc.data.user.TimeMachine
 import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
 import com.enginebai.poc.util.ColorMixer
+import com.example.feature.ui.CardActivity
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -59,6 +60,9 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
             TimeMachine.becomeYounger(this)
             setAppColors(colorMixer.mixColor(this))
         }
+        findViewById<Button>(R.id.buttonCardFeature).setOnClickListener {
+            startActivity(Intent(this, CardActivity::class.java))
+        }
         Toast.makeText(
             this,
             "${viewModel.greeting()}. Now is ${dateFormat.format(calendar.time)}",
@@ -75,6 +79,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
         views.add(findViewById<ViewGroup>(R.id.buttonChangeDomain))
         views.add(findViewById<ViewGroup>(R.id.buttonRandomTopic))
         views.add(findViewById<ViewGroup>(R.id.buttonMagic))
+        views.add(findViewById<ViewGroup>(R.id.buttonCardFeature))
         assert(views.size <= appColors.size)
         for (i in 0 until views.size) {
             views[i].setBackgroundColor(appColors[i].color.toColor())

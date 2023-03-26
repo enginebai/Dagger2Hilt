@@ -7,6 +7,8 @@ import com.enginebai.poc.data.domain.pickRandomTopic
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.data.user.User
+import com.example.feature.data.CardRepository
+import com.example.feature.data.CardRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import kotlin.random.Random
@@ -30,5 +32,11 @@ class DomainModule {
     fun provideDomainUser(): User {
         val n = Random.nextInt(10000)
         return User("$n", "Domain User $n", n)
+    }
+
+    @Provides
+    @DomainScope
+    fun provideCardRepository(impl: CardRepositoryImpl): CardRepository {
+        return impl
     }
 }

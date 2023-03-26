@@ -5,6 +5,7 @@ import com.enginebai.core.di.DomainScope;
 import com.enginebai.poc.MyApplication;
 import com.enginebai.poc.data.DomainRepository;
 import com.enginebai.poc.ui.widget.RandomTopicButton;
+import com.example.feature.di.CardApiModule;
 
 import dagger.Subcomponent;
 
@@ -15,7 +16,8 @@ import dagger.Subcomponent;
         ApiModule.class,
         DomainColorModule.class,
         ActivityBuilderModule.class,
-        FragmentBuilderModule.class
+        FragmentBuilderModule.class,
+        CardApiModule.class
 })
 public interface DomainComponent {
 

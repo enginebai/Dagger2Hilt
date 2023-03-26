@@ -15,7 +15,7 @@ class CardViewModel @Inject constructor(
 
     fun play() {
         _card.value = repository
-            .startNewGame()
-            .joinToString("\n") { "${it.suit}-${it.number}" }
+            .getCards()
+            .joinToString("\n") { "${it.suit.symbol}${it.number}" }
     }
 }

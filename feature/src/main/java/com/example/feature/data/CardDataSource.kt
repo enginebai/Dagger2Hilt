@@ -1,10 +1,9 @@
 package com.example.feature.data
 
-import com.enginebai.core.data.Card
-import com.enginebai.core.data.Poker
+import com.enginebai.core.card.Card
+import com.enginebai.core.card.Poker
 import javax.inject.Inject
 
-// TODO: Singleton in ApiModule
 class CardApi @Inject constructor(
     private val poker: Poker
 ) {
@@ -13,16 +12,19 @@ class CardApi @Inject constructor(
     }
 }
 
-// TODO: Domain
 interface CardRepository {
-    fun startNewGame(): Array<Card>
+    fun getCards(): Array<Card>
 }
 
 class CardRepositoryImpl @Inject constructor(
-    val api: CardApi
+    private val api: CardApi
 ) : CardRepository {
-    override fun startNewGame(): Array<Card> {
-        TODO("Not yet implemented")
+
+    private var cards: Array<Card> = Array(5) {
+        api.getCard()
     }
 
+    override fun getCards(): Array<Card> {
+        return cards
+    }
 }

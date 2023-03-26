@@ -1,4 +1,4 @@
-package com.enginebai.core.data
+package com.enginebai.core.card
 
 enum class Suit(val symbol: String) {
     SPADE("♠️"),

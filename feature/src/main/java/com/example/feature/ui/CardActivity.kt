@@ -1,6 +1,5 @@
 package com.example.feature.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
