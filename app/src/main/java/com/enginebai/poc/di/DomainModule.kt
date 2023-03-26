@@ -2,8 +2,8 @@ package com.enginebai.poc.di
 
 import com.enginebai.core.di.DomainScope
 import com.enginebai.poc.data.DomainApi
-import com.enginebai.poc.data.DomainRepository
-import com.enginebai.poc.data.DomainRepositoryImpl
+import com.enginebai.poc.data.domain.DomainRepository
+import com.enginebai.poc.data.domain.DomainRepositoryImpl
 import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.domain.pickRandomTopic
 import com.enginebai.poc.data.user.User

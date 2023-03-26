@@ -15,6 +15,7 @@ import com.enginebai.poc.ui.dynamic.DynamicFeatureFacadeModule
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
 import com.enginebai.poc.ui.widget.RandomTopicItem
 import com.enginebai.poc.util.ColorMixer
+import com.example.feature.ui.CardActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DateFormat
 import java.util.*

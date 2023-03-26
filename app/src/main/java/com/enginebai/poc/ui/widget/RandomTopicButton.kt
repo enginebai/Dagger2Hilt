@@ -9,7 +9,6 @@ import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import com.enginebai.poc.MyApplication
-import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.pickRandomTopic
 import com.enginebai.poc.data.user.User
 import dagger.hilt.android.AndroidEntryPoint

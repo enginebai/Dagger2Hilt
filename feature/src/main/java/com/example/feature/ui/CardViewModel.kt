@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.enginebai.core.base.BaseViewModel
 import com.example.feature.data.CardRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class CardViewModel @Inject constructor(
     private val repository: CardRepository
 ) : BaseViewModel() {

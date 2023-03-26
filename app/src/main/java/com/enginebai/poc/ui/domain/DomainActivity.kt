@@ -7,14 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.enginebai.core.base.BaseActivity
+import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
-import com.enginebai.poc.data.DomainRepository
-import com.enginebai.core.util.ColorDefinition
+import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.ui.widget.RandomTopicItem
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

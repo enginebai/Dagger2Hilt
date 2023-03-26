@@ -3,11 +3,12 @@ package com.enginebai.poc.di.custom
 import com.enginebai.core.di.DomainColorModule
 import com.enginebai.core.di.DomainCustomDefineComponent
 import com.enginebai.core.util.ColorDefinition
-import com.enginebai.poc.data.DomainRepository
+import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.data.user.User
 import com.enginebai.poc.di.ApiModule
 import com.enginebai.poc.di.DomainModule
 import com.enginebai.poc.ui.widget.RandomTopicItem
+import com.example.feature.data.CardRepository
 import com.example.feature.di.CardApiModule
 import dagger.Module
 import dagger.Provides
@@ -31,6 +32,7 @@ interface DomainCustomComponentEntryPoint : DomainAggregatorModule {
     fun domainRepository(): DomainRepository
     fun domainUser(): User
     fun domainColor(): ColorDefinition.DomainColor
+    fun cardRepository(): CardRepository
 
     fun inject(nonAndroidClass: RandomTopicItem)
 }
@@ -60,6 +62,13 @@ object DomainCustomComponentBridge {
     ): ColorDefinition.DomainColor {
         return componentManager.entryPoint()
             .domainColor()
+    }
+
+    @Provides
+    fun provideCardRepository(
+        componentManager: DomainCustomComponentManager
+    ): CardRepository {
+        return componentManager.entryPoint().cardRepository()
     }
 
     private fun DomainCustomComponentManager.entryPoint() =

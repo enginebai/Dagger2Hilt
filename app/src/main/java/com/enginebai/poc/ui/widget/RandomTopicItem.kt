@@ -1,9 +1,7 @@
 package com.enginebai.poc.ui.widget
 
 import android.content.Context
-import android.graphics.Color
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.LiveData
@@ -11,9 +9,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import com.enginebai.core.base.BaseViewModel
 import com.enginebai.poc.MyApplication
-import com.enginebai.poc.data.DomainRepository
+import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.domain.pickRandomTopic
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 class RandomTopicItem(
@@ -22,7 +21,6 @@ class RandomTopicItem(
 
     @Inject
     lateinit var viewModel: RandomTopicItemViewModel
-
     init {
         (context.applicationContext as MyApplication).domainComponent().inject(this)
     }

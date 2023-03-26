@@ -1,17 +1,13 @@
 package com.enginebai.poc.di
 
 import com.enginebai.core.di.DomainColorModule
-import com.enginebai.core.di.DomainScope
 import com.enginebai.core.util.ColorDefinition
-import com.enginebai.poc.MyApplication
-import com.enginebai.poc.data.DomainRepository
+import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.data.domain.DomainTopic
-import com.enginebai.poc.ui.widget.RandomTopicButton
-import dagger.Module
 import com.enginebai.poc.ui.widget.RandomTopicItem
 import com.example.feature.data.CardRepository
 import com.example.feature.di.CardApiModule
-import dagger.Subcomponent
+import dagger.Module
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent

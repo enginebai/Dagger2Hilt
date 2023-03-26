@@ -3,10 +3,8 @@ package com.enginebai.poc.ui.domain
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.enginebai.core.base.BaseViewModel
-import com.enginebai.core.base.BaseViewModel
-import com.enginebai.poc.data.DomainRepository
+import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.data.user.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.parcelize.Parcelize
@@ -19,8 +17,7 @@ data class DomainFragmentUser(
 
 @HiltViewModel
 class DomainFragmentViewModel @Inject constructor(
-    private val domainRepository: DomainRepository,
-    domainFragmentUser: DomainFragmentUser
+    private val domainRepository: DomainRepository
 ) : BaseViewModel() {
 
     private val _data = MutableLiveData<String>()

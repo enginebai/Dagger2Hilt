@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.poc.R
-import com.enginebai.poc.data.DomainRepository
+import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.data.user.User
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
