@@ -313,3 +313,107 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
     }
 }
 ```
+
+## Migration Non-Android Classes
+For non-android classes, there are two approaches to get injection from Dagger: 
+
+1. Create the instance automatically by Dagger.
+2. Create the instance by yourself and use `inject(XXX)` in component to inject instance.
+
+In the first approach, Dagger will create `ColorMixer` instance automatically for transitive dependency with `@Inject` annotation, just make sure to satisfy the dependencies in the graph, we don't have to do anything for migration:
+
+```kotlin
+class ColorMixer @Inject constructor() {
+    @Inject
+    lateinit var appColor: Color
+
+    fun doSomething() {
+        appColor.xxx
+    }
+}
+
+// It does matter to use `ColorMixer` in Android or non-Android classes, just use Hilt or Dagger inject() function to get injection.
+class XXXClass {
+    // Dagger will create ColorMixer for you automatically
+    @Inject
+    lateinit var colorMixer: ColorMixer
+
+    setAppColors(colorMixer.mixColor(this))
+}
+```
+
+For the second approach, we create the instance (`RandomTopicItem`) by ourselves, and we use the traditional dagger way to inject:
+
+```kotlin
+// The Dagger way
+
+class RandomTopicItem {
+
+    @Inject
+    lateinit var viewModel: RandomTopicItemViewModel
+
+    init {
+        (context.applicationContext as MyApplication).domainComponent().inject(this)
+    }
+
+    fun attach() {
+        viewModel.doSomething()
+        ...
+    }
+}
+
+class RandomTopicItemViewModel @Inject constructor(
+    private val domainRepository: DomainRepository
+): BaseViewModel() {
+    ...
+}
+
+class MyApplication : Application {
+    private lateinit var domainComponent
+
+    fun domainComponent(): DomainCompoment {
+        return domainComponent
+    }
+
+@Subcomponent(modules = {...})
+interface DomainComponent {
+    fun inject(RandomTopicItem nonAndroidClass)
+    ...
+}
+```
+
+In Hilt, we will migrate the component to entry point interface, so we have to keep the same `inject()` function at the entry point interface, then we can keep the classes where got injected the same:
+
+```diff
++// The Hilt way
+
++// As same as Dagger way
+class RandomTopicItem {
+
+    @Inject
+    lateinit var viewModel: RandomTopicItemViewModel
+
+    init {
+        (context.applicationContext as MyApplication).domainComponent().inject(this)
+    }
+
+    fun attach() {
+        viewModel.doSomething()
+        ...
+    }
+}
+
+class MyApplication : Application {
+    private lateinit var domainComponent
+
+    fun domainComponent(): DomainCompoment {
++       return EntryPoint.get(this, DomainComponent::class)
+    }
+
++@InstallIn(SingletonComponent::class)
++@EntryPoint
+interface DomainComponent : DomainAggregatorModule {
+    fun inject(RandomTopicItem nonAndroidClass)
+    ...
+}
+```
