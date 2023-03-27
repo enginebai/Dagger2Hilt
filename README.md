@@ -202,6 +202,81 @@ ava]
 }
 ```
 
+If you inject fragment argument to view model constructor like this:
+
+```kotlin
+@Module
+class DomainFragmentModule {
+    @Provides
+    @MyFragmentScope
+    fun provideFragmentArgument(fragment: DomainFragment): DomainFragmentUser {
+        return DomainFragment.getUserData(fragment.arguments)
+    }
+}
+
+class DomainFragmentViewModel @Inject constructor(
+    private val domainRepository: DomainRepository,
+    domainFragmentUser: DomainFragmentUser
+) : BaseViewModel() {
+    ...
+}
+
+class DomainFragment : BaseFragment(), Injectable {
+    companion object {
+        fun newInstance(user: User) = DomainFragment().apply {
+            arguments = Bundle().apply{
+                putParcelable(KEY_DOMAIN_USER, DomainFragmentUser(user))
+            }
+        }
+
+        fun getUserData(arguments: Bundle?): DomainFragmentUser {
+            return arguments?.get(KEY_DOMAIN_USER) as DomainFragmentUser
+        }
+    }
+    ...
+}
+```
+
+Then you can migrate your view model with `SavedStateHandle` injection, and remove the fragment argument provide function:
+
+```diff
+@Module
+class DomainFragmentModule {
+-   @Provides
+-   @MyFragmentScope
+-   fun provideFragmentArgument(fragment: DomainFragment): DomainFragmentUser {
+-       return DomainFragment.getUserData(fragment.arguments)
+-   }
+}
+
++@HiltViewModel
+class DomainFragmentViewModel @Inject constructor(
+    private val domainRepository: DomainRepository,
+-   domainFragmentUser: DomainFragmentUser
++   state: SavedStateHandle
+) : BaseViewModel() {
+
++   private val domainFragmentUser = state.get<DomainFragmentUser>(KEY_DOMAIN_USER)
+}
+
+class DomainFragment : BaseFragment(), Injectable {
+    companion object {
+        fun newInstance(user: User) = DomainFragment().apply {
+            arguments = Bundle().apply{
+                putParcelable(KEY_DOMAIN_USER, DomainFragmentUser(user))
+            }
+        }
+
+-       fun getUserData(arguments: Bundle?): DomainFragmentUser {
+-            return arguments?.get(KEY_DOMAIN_USER) as DomainFragmentUser
+-       }
+    }
+    ...
+}
+```
+
+> Reference: https://proandroiddev.com/passing-safe-args-to-your-viewmodel-with-hilt-366762ff3f57
+
 ## Migrate Domain Component 
 * Define the custom component anotation and remove `@AliasOf` from `DomainScope`:
 

@@ -26,10 +26,6 @@ class DomainFragment : BaseFragment() {
                 putParcelable(KEY_DOMAIN_USER, DomainFragmentUser(user))
             }
         }
-
-        fun getUserData(arguments: Bundle?): DomainFragmentUser {
-            return arguments?.get(KEY_DOMAIN_USER) as DomainFragmentUser
-        }
     }
 
     private val viewModel: DomainFragmentViewModel by viewModels()
@@ -47,8 +43,6 @@ class DomainFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.setDomainFragmentUser(getUserData(arguments))
-
         view.findViewById<TextView>(R.id.textTitle).text =
             "${DomainFragment::class.java.simpleName}\n${domainRepository.getDataList()}"
 
