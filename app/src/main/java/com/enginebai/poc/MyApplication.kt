@@ -2,6 +2,7 @@ package com.enginebai.poc
 
 import android.app.Application
 import com.enginebai.core.CoreModule.init
+import com.enginebai.core.Initializer
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.delegate.CoreApp
 import com.enginebai.poc.di.*
@@ -68,6 +69,7 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
         userDataHelper.generateNewUser()
         instantiateDomainComponent()
         appInjector.init(this)
+        initDynamicFeatureModule()
     }
 
     // onConfigAvailable() method
@@ -90,4 +92,10 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
 
     override val singletonComponent: MySingletonComponent
         get() = appComponent
+
+    private fun initDynamicFeatureModule() {
+        val implementationName = "com.enginebai.dynamic.DynamicFeatureInitializer"
+        val initializer: Initializer = Class.forName(implementationName).newInstance() as Initializer
+        initializer.initialize(this)
+    }
 }

@@ -2,6 +2,7 @@ package com.enginebai.dynamic.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import com.enginebai.core.ListNode
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.core.card.Card
@@ -19,5 +20,6 @@ class DynamicActivity : BaseActivity() {
         DynamicFeatureComponent.inject(this, DynamicFeatureModule())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dynamic)
+        findViewById<TextView>(R.id.textValue).text = list.toString()
     }
 }

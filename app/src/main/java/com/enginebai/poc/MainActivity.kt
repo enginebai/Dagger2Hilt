@@ -13,6 +13,7 @@ import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.data.user.TimeMachine
 import com.enginebai.poc.ui.domain.DomainActivity
+import com.enginebai.poc.ui.dynamic.DynamicFeatureFacadeModule
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
 import com.enginebai.poc.ui.widget.RandomTopicItem
 import com.enginebai.poc.util.ColorMixer
@@ -63,6 +64,9 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
         }
         findViewById<Button>(R.id.buttonCardFeature).setOnClickListener {
             startActivity(Intent(this, CardActivity::class.java))
+        }
+        findViewById<Button>(R.id.buttonDynamicFeature).setOnClickListener {
+            DynamicFeatureFacadeModule.activityFacade.start(this)
         }
         Toast.makeText(
             this,
