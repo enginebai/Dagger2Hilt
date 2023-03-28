@@ -16,3 +16,4 @@ rootProject.name = "Dagger2Hilt"
 include ':app'
 include ':core'
 include ':feature'
+include ':dynamic'
