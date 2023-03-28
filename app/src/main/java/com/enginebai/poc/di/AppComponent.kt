@@ -53,4 +53,5 @@ interface AppComponent : MySingletonComponent {
     fun appColors(): List<ColorDefinition.AppColor>
     // Provide to dynamic feature
     fun poker(): Poker
+    fun randomNumber(): Int
 }

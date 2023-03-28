@@ -4,8 +4,10 @@ import com.enginebai.core.di.DomainColorModule
 import com.enginebai.core.di.DomainScope
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.DomainRepository
+import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.ui.widget.RandomTopicButton
 import com.enginebai.poc.ui.widget.RandomTopicItem
+import com.example.feature.data.CardRepository
 import com.example.feature.di.CardApiModule
 import dagger.Subcomponent
 
@@ -38,4 +40,8 @@ interface DomainComponent {
      * 2. dagger provider itself or injector
      */
     fun domainRepository(): DomainRepository
+
+    // Provide to dynamic feature
+    fun domainTopic(): DomainTopic
+    fun cardRepository(): CardRepository
 }
