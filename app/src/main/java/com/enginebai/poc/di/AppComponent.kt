@@ -1,5 +1,6 @@
 package com.enginebai.poc.di
 
+import com.enginebai.core.card.Poker
 import com.enginebai.core.di.AppColorModule
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.MyApplication
@@ -50,4 +51,6 @@ interface AppComponent : MySingletonComponent {
      */
     fun userDataHelper(): UserDataHelper
     fun appColors(): List<ColorDefinition.AppColor>
+    // Provide to dynamic feature
+    fun poker(): Poker
 }

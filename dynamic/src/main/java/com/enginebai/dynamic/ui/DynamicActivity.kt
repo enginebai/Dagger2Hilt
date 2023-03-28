@@ -16,8 +16,8 @@ class DynamicActivity : BaseActivity() {
     lateinit var list: ListNode<Card>
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        DynamicFeatureComponent.inject(this, DynamicFeatureModule())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dynamic)
-        DynamicFeatureComponent.inject(this, DynamicFeatureModule())
     }
 }

@@ -5,7 +5,6 @@ import com.enginebai.dynamic.ui.DynamicActivity
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.di.AppComponent
 import com.enginebai.poc.di.DomainComponent
-import com.enginebai.poc.di.MySingletonComponent
 import dagger.BindsInstance
 import dagger.Component
 
