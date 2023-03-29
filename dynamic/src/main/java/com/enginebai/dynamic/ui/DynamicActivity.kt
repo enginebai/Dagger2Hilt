@@ -1,15 +1,14 @@
 package com.enginebai.dynamic.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.enginebai.core.ListNode
-import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.core.card.Card
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.dynamic.R
+import com.enginebai.dynamic.ViewModelFactory
 import com.enginebai.dynamic.di.DynamicFeatureComponent
 import com.enginebai.dynamic.di.DynamicFeatureModule
 import javax.inject.Inject

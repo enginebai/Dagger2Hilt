@@ -4,6 +4,7 @@ import com.enginebai.core.di.DomainColorModule
 import com.enginebai.core.di.DomainCustomDefineComponent
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.data.domain.DomainRepository
+import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.user.User
 import com.enginebai.poc.di.ApiModule
 import com.enginebai.poc.di.DomainModule
@@ -33,6 +34,9 @@ interface DomainCustomComponentEntryPoint : DomainAggregatorModule {
     fun domainUser(): User
     fun domainColor(): ColorDefinition.DomainColor
     fun cardRepository(): CardRepository
+
+    // Provide to dynamic feature
+    fun domainTopic(): DomainTopic
 
     fun inject(nonAndroidClass: RandomTopicItem)
 }

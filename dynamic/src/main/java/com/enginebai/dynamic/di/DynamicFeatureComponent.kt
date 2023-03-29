@@ -1,19 +1,17 @@
 package com.enginebai.dynamic.di
 
-import com.enginebai.core.di.MyActivityScope
 import com.enginebai.dynamic.ui.DynamicActivity
 import com.enginebai.dynamic.ui.DynamicFragment
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.di.AppComponent
-import com.enginebai.poc.di.DomainComponent
+import com.enginebai.poc.di.custom.DomainCustomComponentEntryPoint
 import dagger.BindsInstance
 import dagger.Component
 
-@MyActivityScope
 @Component(
     dependencies = [
         AppComponent::class,
-        DomainComponent::class,
+        DomainCustomComponentEntryPoint::class
     ],
     modules = [
         DynamicFeatureModule::class
@@ -29,7 +27,7 @@ interface DynamicFeatureComponent {
         fun build(
             @BindsInstance activity: DynamicActivity,
             appComponent: AppComponent,
-            domainComponent: DomainComponent,
+            domainComponent: DomainCustomComponentEntryPoint,
             dynamicFeatureModule: DynamicFeatureModule
         ): DynamicFeatureComponent
     }

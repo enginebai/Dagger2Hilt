@@ -449,6 +449,7 @@ class MyApplication : Application {
     fun domainComponent(): DomainCompoment {
         return domainComponent
     }
+}
 
 @Subcomponent(modules = {...})
 interface DomainComponent {

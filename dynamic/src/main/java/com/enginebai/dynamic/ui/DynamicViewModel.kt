@@ -5,9 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.enginebai.core.ListNode
 import com.enginebai.core.base.BaseViewModel
 import com.enginebai.core.card.Card
-import com.enginebai.core.card.Suit
 import com.enginebai.core.util.ColorDefinition
-import com.enginebai.poc.data.DomainRepository
+import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.data.domain.DomainTopic
 import com.example.feature.data.CardRepository
 import javax.inject.Inject
