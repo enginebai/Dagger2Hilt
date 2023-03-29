@@ -85,6 +85,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
         views.add(findViewById<ViewGroup>(R.id.buttonRandomTopic))
         views.add(findViewById<ViewGroup>(R.id.buttonMagic))
         views.add(findViewById<ViewGroup>(R.id.buttonCardFeature))
+        views.add(findViewById<ViewGroup>(R.id.buttonDynamicFeature))
         assert(views.size <= appColors.size)
         for (i in 0 until views.size) {
             views[i].setBackgroundColor(appColors[i].color.toColor())

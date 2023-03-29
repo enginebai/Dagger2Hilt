@@ -2,6 +2,7 @@ package com.enginebai.poc.di
 
 import com.enginebai.core.di.DomainColorModule
 import com.enginebai.core.di.DomainScope
+import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.DomainTopic
@@ -44,4 +45,5 @@ interface DomainComponent {
     // Provide to dynamic feature
     fun domainTopic(): DomainTopic
     fun cardRepository(): CardRepository
+    fun domainColor(): ColorDefinition.DomainColor
 }

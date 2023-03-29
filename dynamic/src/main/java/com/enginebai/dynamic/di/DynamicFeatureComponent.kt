@@ -2,6 +2,7 @@ package com.enginebai.dynamic.di
 
 import com.enginebai.core.di.MyActivityScope
 import com.enginebai.dynamic.ui.DynamicActivity
+import com.enginebai.dynamic.ui.DynamicFragment
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.di.AppComponent
 import com.enginebai.poc.di.DomainComponent
@@ -21,6 +22,7 @@ import dagger.Component
 interface DynamicFeatureComponent {
 
     fun inject(activity: DynamicActivity)
+    fun inject(fragment: DynamicFragment)
 
     @Component.Factory
     interface Factory {
@@ -33,15 +35,15 @@ interface DynamicFeatureComponent {
     }
 
     companion object {
-        fun inject(activity: DynamicActivity, module: DynamicFeatureModule) {
+        fun createComponent(activity: DynamicActivity, module: DynamicFeatureModule): DynamicFeatureComponent {
             val application = (activity.application as MyApplication)
-            DaggerDynamicFeatureComponent.factory()
+            return DaggerDynamicFeatureComponent.factory()
                 .build(
                     activity,
                     application.appComponent(),
                     application.domainComponent(),
                     module
-                ).inject(activity)
+                )
         }
     }
 }
