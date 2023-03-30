@@ -9,6 +9,7 @@ import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.data.domain.DomainRepository
 import com.enginebai.poc.data.domain.DomainTopic
 import com.example.feature.data.CardRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlin.random.Random
 

@@ -19,13 +19,11 @@ import dagger.Component
 )
 interface DynamicFeatureComponent {
 
-    fun inject(activity: DynamicActivity)
     fun inject(fragment: DynamicFragment)
 
     @Component.Factory
     interface Factory {
         fun build(
-            @BindsInstance activity: DynamicActivity,
             appComponent: AppComponent,
             domainComponent: DomainCustomComponentEntryPoint,
             dynamicFeatureModule: DynamicFeatureModule
@@ -37,7 +35,6 @@ interface DynamicFeatureComponent {
             val application = (activity.application as MyApplication)
             return DaggerDynamicFeatureComponent.factory()
                 .build(
-                    activity,
                     application.appComponent(),
                     application.domainComponent(),
                     module
