@@ -1,6 +1,7 @@
 package com.enginebai.poc.di.koin
 
 import android.content.Context
+import android.util.Log
 import com.enginebai.core.card.Poker
 import com.enginebai.core.di.DomainScope
 import com.enginebai.poc.data.DomainRepository
@@ -11,9 +12,12 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.core.module.Module
 import org.koin.dsl.module
 import javax.inject.Inject
 import javax.inject.Provider
+
+private const val dynamicFeatureModulesProvider = "com.enginebai.dynamic.di.DynamicFeatureKoinModulesProvider"
 
 @DomainScope
 class KoinFacade @Inject constructor(
@@ -37,8 +41,11 @@ class KoinFacade @Inject constructor(
             modules(appModule())
             modules(domainModule())
             modules(featureModule())
+            modules(dynamicFeatureModules())
         }
     }
+
+    // Properties provided from Koin (may from Dagger) back to Dagger:
 
     private fun appModule() = module {
         factory { pokerProvider.get() }
@@ -54,4 +61,9 @@ class KoinFacade @Inject constructor(
     private fun featureModule() = module {
         factory { cardRepositoryProvider.get() }
     }
+
+    private fun dynamicFeatureModules(): List<Module> = runCatching {
+        val module = Class.forName(dynamicFeatureModulesProvider).newInstance()
+        (module as KoinModulesProvider).generateModules()
+    }.run { getOrNull() ?: throw IllegalStateException() }
 }
