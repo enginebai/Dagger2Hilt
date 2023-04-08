@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseActivity
+import com.enginebai.core.card.Poker
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.data.user.TimeMachine
@@ -21,6 +22,7 @@ import com.example.feature.ui.CardActivity
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import org.koin.android.ext.android.inject
 import java.text.DateFormat
 import java.util.Calendar
 import javax.inject.Inject
@@ -35,6 +37,8 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
 
     @Inject
     lateinit var colorMixer: ColorMixer
+
+    private val poker: Poker by inject()
 
     @Inject
     lateinit var factory: ViewModelFactory<MainViewModel>
@@ -70,7 +74,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
         }
         Toast.makeText(
             this,
-            "${viewModel.greeting()}. Now is ${dateFormat.format(calendar.time)}",
+            "${viewModel.greeting()}. Now is ${dateFormat.format(calendar.time)}, ${poker.getRandomSuit().symbol}",
             Toast.LENGTH_SHORT
         ).show()
         setAppColors((application as MyApplication).appComponent().appColors())

@@ -9,9 +9,11 @@ import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.core.card.Card
 import com.enginebai.core.util.ColorDefinition
+import com.enginebai.dynamic.DynamicInstance
 import com.enginebai.dynamic.R
 import com.enginebai.dynamic.di.DynamicFeatureComponent
 import com.enginebai.dynamic.di.DynamicFeatureModule
+import org.koin.android.ext.android.inject
 import javax.inject.Inject
 
 class DynamicActivity : BaseActivity() {
@@ -24,6 +26,8 @@ class DynamicActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<DynamicViewModel>
+
+    private val dynamicInstance by inject<DynamicInstance>()
 
     private lateinit var viewModel: DynamicViewModel
 
@@ -54,5 +58,7 @@ class DynamicActivity : BaseActivity() {
             .beginTransaction()
             .add(R.id.fragmentContainer, DynamicFragment())
             .commit()
+
+        findViewById<TextView>(R.id.textDynamicInstance).text = dynamicInstance.toString()
     }
 }
