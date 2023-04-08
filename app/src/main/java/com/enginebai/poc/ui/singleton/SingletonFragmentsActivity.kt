@@ -1,7 +1,6 @@
 package com.enginebai.poc.ui.singleton
 
 import android.os.Bundle
-import android.widget.Toast
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.R
 import com.enginebai.poc.util.getCurrentUser
