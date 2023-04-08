@@ -1,9 +1,7 @@
 package com.enginebai.poc.ui.widget
 
 import android.content.Context
-import android.graphics.Color
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.LiveData

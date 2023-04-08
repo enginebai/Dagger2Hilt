@@ -70,6 +70,7 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
         instantiateDomainComponent()
         appInjector.init(this)
         initDynamicFeatureModule()
+        domainComponent.koinFacade()
     }
 
     // onConfigAvailable() method
