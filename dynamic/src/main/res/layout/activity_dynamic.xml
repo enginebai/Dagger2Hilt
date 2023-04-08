@@ -18,6 +18,12 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:id="@+id/textCardList"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:id="@+id/textDynamicInstance"/>
+
     <FrameLayout android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
