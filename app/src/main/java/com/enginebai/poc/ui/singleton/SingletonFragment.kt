@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.core.di.Injectable
+import com.enginebai.poc.ComplexInjection
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
@@ -25,6 +26,8 @@ class SingletonFragment : BaseFragment(), Injectable {
 
     @Inject
     lateinit var userDataHelper: UserDataHelper
+    @Inject
+    lateinit var complexInjection: ComplexInjection
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +70,7 @@ class SingletonFragment : BaseFragment(), Injectable {
                 }
             }
         }
+        complexInjection.log()
     }
 
     companion object {
