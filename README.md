@@ -43,3 +43,26 @@ This is a POC project to demonstrate how to migrate from Dagger to Hilt, there a
 1. Display card linked list on activity and fragment.
 2. Manipulate the linked list to add new card to head and rear of list.
 3. Re-create the card linked list when the activity is re-created.
+
+## Migration Steps
+### For Destination Dependencies
+```js
+// Dependency Resolving Graph:
+injection -> A -> B -> C
+                       *
+```
+
+1. Keep the provider function of type in Dagger module.
+2. Add Dagger provider of type to `KoinFacade`.
+3. Add type from the provide in Step 2. to Koin module.
+4. Replace the usage of the type with Koin injection.
+5. Remove all expose type in Dagger component.
+6. Remove the provider function of type from Dagger module.
+7. Provide the type directly in Koin module and remove the Dagger provider from `KoinFacade`.
+
+### For Transitive Dependencies
+```js
+// Dependency Resolving Graph:
+injection -> A -> B -> C
+             *    *  
+```

@@ -50,7 +50,6 @@ interface AppComponent : MySingletonComponent {
      *  OneSignal.OSRemoteNotificationReceivedHandler
      */
     fun userDataHelper(): UserDataHelper
-    fun appColors(): List<ColorDefinition.AppColor>
     // Provide to dynamic feature
     fun poker(): Poker
     fun randomNumber(): Int

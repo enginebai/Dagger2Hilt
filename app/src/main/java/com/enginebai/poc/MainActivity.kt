@@ -22,6 +22,7 @@ import com.example.feature.ui.CardActivity
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import java.text.DateFormat
 import java.util.Calendar
@@ -77,7 +78,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
             "${viewModel.greeting()}. Now is ${dateFormat.format(calendar.time)}, ${poker.getRandomSuit().symbol}",
             Toast.LENGTH_SHORT
         ).show()
-        setAppColors((application as MyApplication).appComponent().appColors())
+        setAppColors(get())
     }
 
     private fun setAppColors(appColors: List<ColorDefinition.AppColor>) {
