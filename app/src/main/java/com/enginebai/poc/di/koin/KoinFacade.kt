@@ -16,6 +16,7 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
 import org.koin.dsl.module
+import java.util.UUID
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -41,31 +42,43 @@ class KoinFacade @Inject constructor(
         stopKoin()
         koinApp = startKoin {
             androidContext(context)
-            modules(appModule())
-            modules(domainModule())
-            modules(featureModule())
-            modules(dynamicFeatureModules())
-
-            // For migration
-            modules(appColorModule())
+            modules(provideModules())
         }
+    }
+
+    val id: UUID by lazy { koinApp.koin.get() }
+
+    private fun provideModules(): List<Module> = mutableListOf(
+        appModule(),
+        domainModule(),
+        featureModule(),
+        appColorModule(),
+
+        // For migration
+        utilModule()
+    ).apply {
+        addAll(dynamicFeatureModules())
     }
 
     // Properties provided from Koin (may from Dagger) back to Dagger:
 
     private fun appModule() = module {
-        factory { pokerProvider.get() }
-        factory { usernameProvider.get() }
-        factory { userDataHelperProvider.get() }
+        single { pokerProvider.get() }
+        single { usernameProvider.get() }
+        single { userDataHelperProvider.get() }
+    }
+
+    private fun utilModule() = module {
+        single { UUID.randomUUID() }
     }
 
     private fun domainModule() = module {
-        factory { domainTopicProvider.get() }
-        factory { domainRepositoryProvider.get() }
+        single { domainTopicProvider.get() }
+        single { domainRepositoryProvider.get() }
     }
 
     private fun featureModule() = module {
-        factory { cardRepositoryProvider.get() }
+        single { cardRepositoryProvider.get() }
     }
 
     private fun dynamicFeatureModules(): List<Module> = runCatching {
