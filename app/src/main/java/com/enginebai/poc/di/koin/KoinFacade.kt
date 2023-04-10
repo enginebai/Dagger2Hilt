@@ -9,9 +9,11 @@ import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.user.UserDataHelper
 import com.example.feature.data.CardRepository
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.core.logger.Level
 import org.koin.core.module.Module
 import org.koin.dsl.module
 import javax.inject.Inject
@@ -38,10 +40,12 @@ class KoinFacade @Inject constructor(
         stopKoin()
         koinApp = startKoin {
             androidContext(context)
+            androidLogger(Level.DEBUG)
             modules(appModule())
             modules(domainModule())
             modules(featureModule())
             modules(dynamicFeatureModules())
+            modules(myScopeModules())
         }
     }
 
@@ -66,4 +70,10 @@ class KoinFacade @Inject constructor(
         val module = Class.forName(dynamicFeatureModulesProvider).newInstance()
         (module as KoinModulesProvider).generateModules()
     }.run { getOrNull() ?: throw IllegalStateException() }
+
+    private fun myScopeModules() = module {
+        scope<MyKoinScopeComponent> {
+            scoped { DomainInstance() }
+        }
+    }
 }

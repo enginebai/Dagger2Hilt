@@ -13,25 +13,33 @@ import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.di.koin.DomainInstance
+import com.enginebai.poc.di.koin.MyKoinScopeComponent
+import com.enginebai.poc.di.koin.myScopeName
 import com.enginebai.poc.ui.widget.RandomTopicItem
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import org.koin.core.component.KoinScopeComponent
+import org.koin.core.component.createScope
+import org.koin.core.component.get
+import org.koin.core.scope.Scope
 import javax.inject.Inject
 
 class DomainActivity : BaseActivity(), HasAndroidInjector {
 
     companion object {
         fun start(context: Context) {
-            (context.applicationContext as MyApplication).appComponent().userDataHelper().getUser().age = 0
+            (context.applicationContext as MyApplication).appComponent().userDataHelper()
+                .getUser().age = 0
             context.startActivity(Intent(context, DomainActivity::class.java))
         }
     }
 
     @Inject
     lateinit var domainRepository: DomainRepository
+
     @Inject
     lateinit var domainColor: ColorDefinition.DomainColor
 
@@ -40,7 +48,9 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
-    private val domainInstance by inject<DomainInstance>()
+    private val domainInstance by lazy {
+        (application as MyApplication).myKoinScopeComponent?.get<DomainInstance>()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +62,7 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
         }
         addRandomTopicItem()
 
-        Toast.makeText(this, "${domainInstance.number}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${domainInstance?.number}", Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {
