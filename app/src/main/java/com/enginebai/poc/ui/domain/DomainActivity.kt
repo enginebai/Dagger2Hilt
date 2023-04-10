@@ -7,27 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import com.enginebai.core.base.BaseActivity
+import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
-import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.di.koin.DomainInstance
-import com.enginebai.poc.di.koin.MyKoinScopeComponent
-import com.enginebai.poc.di.koin.myScopeName
 import com.enginebai.poc.ui.widget.RandomTopicItem
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
-import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
-import org.koin.core.component.KoinScopeComponent
-import org.koin.core.component.createScope
-import org.koin.core.component.get
-import org.koin.core.scope.Scope
+import org.koin.androidx.scope.ScopeActivity
 import javax.inject.Inject
 
-class DomainActivity : BaseActivity(), HasAndroidInjector {
+class DomainActivity : ScopeActivity(), HasAndroidInjector {
 
     companion object {
         fun start(context: Context) {
@@ -48,11 +41,12 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
-    private val domainInstance by lazy {
-        (application as MyApplication).myKoinScopeComponent?.get<DomainInstance>()
-    }
+    private val domainInstance by inject<DomainInstance>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as MyApplication).myKoinScopeComponent?.let {
+            scope.linkTo(it.scope)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         findViewById<View>(R.id.root).setBackgroundColor(domainColor.color.toColor())
