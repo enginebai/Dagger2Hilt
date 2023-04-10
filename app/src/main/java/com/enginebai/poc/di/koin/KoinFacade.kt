@@ -5,6 +5,7 @@ import android.util.Log
 import com.enginebai.core.card.Poker
 import com.enginebai.core.di.DomainScope
 import com.enginebai.core.util.ColorDefinition
+import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.user.UserDataHelper
@@ -33,7 +34,6 @@ class KoinFacade @Inject constructor(
     // Feature
     private val cardRepositoryProvider: Provider<CardRepository>,
     // For migration
-    private val appColorsProvider: Provider<List<ColorDefinition.AppColor>>
 ) {
     private val koinApp: KoinApplication
 
@@ -74,6 +74,6 @@ class KoinFacade @Inject constructor(
     }.run { getOrNull() ?: throw IllegalStateException() }
 
     private fun appColorModule() = module {
-        single { appColorsProvider.get() }
+        single { ColorManager.generateColors().map { ColorDefinition.AppColor(it) } }
     }
 }

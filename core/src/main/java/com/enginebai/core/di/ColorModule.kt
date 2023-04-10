@@ -10,12 +10,6 @@ import javax.inject.Singleton
 class AppColorModule {
     @Provides
     @Singleton
-    fun provideAppColor(): List<ColorDefinition.AppColor> {
-        return ColorManager.generateColors().map { ColorDefinition.AppColor(it) }
-    }
-
-    @Provides
-    @Singleton
     fun provideSingletonColor(): ColorDefinition.SingletonColor {
         return ColorDefinition.SingletonColor(ColorManager.generateColor())
     }

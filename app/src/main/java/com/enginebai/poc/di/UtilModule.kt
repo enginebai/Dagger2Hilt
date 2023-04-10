@@ -36,9 +36,4 @@ class UtilModule {
     fun provideRandomNumber(): Int {
         return Random.nextInt(0..100)
     }
-
-    @Provides
-    fun provideRGB(): RGB {
-        return ColorManager.generateColor()
-    }
 }

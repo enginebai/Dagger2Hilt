@@ -46,6 +46,9 @@ This is a POC project to demonstrate how to migrate from Dagger to Hilt, there a
 
 ## Migration Steps
 ### For Destination Dependencies
+
+#### Direct Injection
+
 ```js
 // Dependency Resolving Graph:
 injection -> A -> B -> C
@@ -53,14 +56,80 @@ injection -> A -> B -> C
 ```
 
 1. Keep the provider function of type in Dagger module.
-2. Add Dagger provider of type to `KoinFacade`.
-3. Add type from the provide in Step 2. to Koin module.
-4. Replace the usage of the type with Koin injection.
-5. Remove all expose type in Dagger component.
-6. Remove the provider function of type from Dagger module.
-7. Provide the type directly in Koin module and remove the Dagger provider from `KoinFacade`.
+```kotlin
+@Module
+class AppColorModule {
+    @Provides
+    @Singleton
+    fun provideAppColor(): List<ColorDefinition.AppColor> {
+        return ColorManager.generateColors().map { ColorDefinition.AppColor(it) }
+    }
+}
+```
 
-### For Transitive Dependencies
+2. Add Dagger provider of type to `KoinFacade`.
+```diff
+@DomainScope
+class KoinFacade @Inject constructor(
+    ...
++   private val appColorsProvider: Provider<List<ColorDefinition.AppColor>>,
+    ...
+) { ... }
+```
+
+3. Add type from the provide in Step 2. to Koin module in `KoinFacade`.
+```kotlin
+koinApp = startKoin {
+    ...
+    modules(module {
+        appColorsProvider.get()
+    })
+    ...
+}
+```
+
+4. Replace the usage of the type with Koin injection.
+
+```diff
+-setAppColors((application as MyApplication).appComponent().appColors())
++setAppColors(get<List<ColorDefinition.AppColor>())
+```
+
+5. Remove all expose type in Dagger component.
+
+```diff
+interface AppComponent : MySingletonComponent {
+-   fun appColors(): List<ColorDefinition.AppColor>
+}
+```
+6. Remove the provider function of type from Dagger module.
+
+```diff
+@Provides
+-    @Singleton
+-    fun provideAppColor(): List<ColorDefinition.AppColor> {
+-        return ColorManager.generateColors().map { ColorDefinition.AppColor(it) }
+-    }
+```
+7. Provide the type directly in Koin module and remove the Dagger provider from `KoinFacade` and its provider function in Dagger module.
+
+```diff
+
+@DomainScope
+class KoinFacade @Inject constructor(
+    ...
+-    private val appColorsProvider: Provider<List<ColorDefinition.AppColor>>,
+    ...
+) { 
++    single { ColorManager.generateColors().map { ColorDefinition.AppColor(it) } }
+}
+
+```
+
+#### Injection For Others
+
+
+### For Intermediate Dependencies
 ```js
 // Dependency Resolving Graph:
 injection -> A -> B -> C
