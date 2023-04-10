@@ -6,9 +6,13 @@ import com.enginebai.core.Initializer
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.delegate.CoreApp
 import com.enginebai.poc.di.*
+import com.enginebai.poc.di.koin.DomainInstance
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
+import org.koin.dsl.module
 import javax.inject.Inject
 
 /**
@@ -56,6 +60,10 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
         return dispatchingAndroidInjector
     }
 
+    private val scopeTestModule = module {
+        single { DomainInstance() }
+    }
+
     override fun onCreate() {
         super.onCreate()
         appComponent = DaggerAppComponent
@@ -67,16 +75,18 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
 
         // call function from injected filed
         userDataHelper.generateNewUser()
-        instantiateDomainComponent()
         appInjector.init(this)
         initDynamicFeatureModule()
-        domainComponent.koinFacade()
+        instantiateDomainComponent()
     }
 
     // onConfigAvailable() method
     fun instantiateDomainComponent() {
         domainComponent = appComponent.plus(DomainModule())
         domainComponent.inject(this)
+        domainComponent.koinFacade()
+        unloadKoinModules(scopeTestModule)
+        loadKoinModules(scopeTestModule)
     }
 
     fun appComponent(): AppComponent {
