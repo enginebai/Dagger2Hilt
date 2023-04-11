@@ -27,8 +27,8 @@ class UtilModule {
 
     @SuppressLint("SimpleDateFormat")
     @Provides
-    fun provideDateFormatter(): DateFormat {
-        return SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+    fun provideDateFormatter(koinFacade: AppKoinFacade): DateFormat {
+        return koinFacade.dateFormat
     }
 
     @Provides

@@ -30,8 +30,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
 
     private val calendar: Calendar by inject()
 
-    @Inject
-    lateinit var dateFormat: DateFormat
+    private val dateFormat: DateFormat by inject()
 
     @Inject
     lateinit var colorMixer: ColorMixer

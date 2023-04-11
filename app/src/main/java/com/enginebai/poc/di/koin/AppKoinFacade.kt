@@ -1,5 +1,6 @@
 package com.enginebai.poc.di.koin
 
+import android.annotation.SuppressLint
 import android.content.Context
 import com.enginebai.core.card.Poker
 import com.enginebai.core.util.ColorDefinition
@@ -12,7 +13,10 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.logger.Level
 import org.koin.core.module.Module
+import org.koin.dsl.bind
 import org.koin.dsl.module
+import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
@@ -44,6 +48,7 @@ class AppKoinFacade @Inject constructor(
     val id: UUID by lazy { koinApp.koin.get() }
     val randomNumber: Int by lazy { koinApp.koin.get() }
     val calendar: Calendar by lazy { koinApp.koin.get() }
+    val dateFormat: DateFormat by lazy { koinApp.koin.get() }
 
     private fun provideModules(): List<Module> = mutableListOf(
         appModule(),
@@ -61,10 +66,12 @@ class AppKoinFacade @Inject constructor(
         single { userDataHelperProvider.get() }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun utilModule() = module {
         single { UUID.randomUUID() }
         factory { Random.nextInt(0..100) }
-        single {  Calendar.getInstance() }
+        single { Calendar.getInstance() }
+        single { SimpleDateFormat("yyyy/MM/dd HH:mm:ss") } bind DateFormat::class
     }
 
     private fun appColorModule() = module {
