@@ -30,10 +30,9 @@ class AppModule {
 
     @Provides
     fun provideUserName(
-        calendar: Calendar,
-        formatter: DateFormat
+        koinFacade: AppKoinFacade
     ): String {
-        return formatter.format(calendar.time)
+        return koinFacade.dateFormat.format(koinFacade.calendar.time)
     }
 
     @Provides

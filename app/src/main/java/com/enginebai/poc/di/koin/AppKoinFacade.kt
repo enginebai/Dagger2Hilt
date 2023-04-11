@@ -31,7 +31,6 @@ class AppKoinFacade @Inject constructor(
     private val context: Context,
     // Singleton
     private val pokerProvider: Provider<Poker>,
-    private val usernameProvider: Provider<String>,
     private val userDataHelperProvider: Provider<UserDataHelper>,
 ){
     private val koinApp: KoinApplication
@@ -62,7 +61,6 @@ class AppKoinFacade @Inject constructor(
 
     private fun appModule() = module {
         single { pokerProvider.get() }
-        single { usernameProvider.get() }
         single { userDataHelperProvider.get() }
     }
 
