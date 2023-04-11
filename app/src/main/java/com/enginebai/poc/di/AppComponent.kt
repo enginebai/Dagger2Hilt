@@ -50,7 +50,6 @@ interface AppComponent {
      *  SafeJobIntentService
      *  OneSignal.OSRemoteNotificationReceivedHandler
      */
-    fun userDataHelper(): UserDataHelper
     // Provide to dynamic feature
     fun poker(): Poker
     fun randomNumber(): Int

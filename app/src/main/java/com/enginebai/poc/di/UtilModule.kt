@@ -14,12 +14,6 @@ import kotlin.random.nextInt
 @Module
 class UtilModule {
 
-    @Singleton
-    @Provides
-    fun provideId(koinFacade: AppKoinFacade): UUID {
-        return koinFacade.id
-    }
-
     @Provides
     fun provideRandomNumber(koinFacade: AppKoinFacade): Int {
         return koinFacade.randomNumber

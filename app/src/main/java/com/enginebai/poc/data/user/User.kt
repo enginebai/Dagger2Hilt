@@ -5,6 +5,8 @@ import android.os.Parcelable
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.MyApplication
 import kotlinx.parcelize.Parcelize
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import javax.inject.Inject
 
 @Parcelize
@@ -14,7 +16,7 @@ data class User(
     var age: Int
 ) : Parcelable
 
-object TimeMachine {
+object TimeMachine : KoinComponent {
 
     // NOTE: Dagger does not support injection into Kotlin objects
     // NOTE: Dagger does not support injection into static fields
@@ -23,7 +25,7 @@ object TimeMachine {
 
     fun becomeYounger(context: Context) {
         val user =
-            (context.applicationContext as MyApplication).appComponent().userDataHelper().getUser()
+            get<UserDataHelper>().getUser()
         user.age -= 10
     }
 }

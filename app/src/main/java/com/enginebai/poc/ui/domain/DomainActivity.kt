@@ -11,17 +11,20 @@ import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.core.util.ColorDefinition
+import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.ui.widget.RandomTopicItem
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
 import javax.inject.Inject
 
 class DomainActivity : BaseActivity(), HasAndroidInjector {
 
-    companion object {
+    companion object : KoinComponent {
         fun start(context: Context) {
-            (context.applicationContext as MyApplication).appComponent().userDataHelper().getUser().age = 0
+            get<UserDataHelper>().getUser().age = 0
             context.startActivity(Intent(context, DomainActivity::class.java))
         }
     }
