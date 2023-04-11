@@ -98,6 +98,7 @@ class AppModule {
 ### For Destination Dependencies
 
 #### Direct Injection
+For these types, we can migrate from Dagger to Koin directly, we don't have to keep the provider function in Dagger.
 
 ```js
 // Dependency Resolving Graph:
@@ -127,7 +128,7 @@ class KoinFacade @Inject constructor(
 ) { ... }
 ```
 
-3. Add type from the provide in Step 2. to Koin module in `KoinFacade`. **Now you can get type from Koin, and we are still able to get type from Dagger.**
+3. Add type from the provider to Koin module in `KoinFacade`. **Now you can get type from Koin, and we are still able to get type from Dagger.**
 ```kotlin
 koinApp = startKoin {
     ...
@@ -177,7 +178,16 @@ class KoinFacade @Inject constructor(
 ```
 
 #### Injection in Other Classes
-* Most steps are as same as above, except that we don't remove the provide function from Dagger, instead, we have to expose the type from `KoinFacade` and use the field in provide function in Dagger:
+For these types that are the injection in other classes, for example, the following class:
+```kotlin
+class Repository(
+    private val api: ApiService,
+    private val database: LocalDatabase
+)
+```
+The two fields `api` and `database` instance belong to this kind of injection.
+
+Most steps are as same as above, except that we don't remove the provide function from Dagger, instead, we have to expose the type from `KoinFacade` and use the field in provide function in Dagger:
 
 ```kotlin
 class KoinFacade {
@@ -221,6 +231,17 @@ class UserDataHelper @Inject constructor(
 +   private val id: UUID by inject()
 }
 ```
+
+Once we provide all types that injected in constructor in Koin, then we can migrate the type to Koin, for example: 
+
+```kotlin
+class Repository(
+    private val api: ApiService,
+    private val database: LocalDatabase
+)
+```
+
+We could migrate `Repository` to Koin once both `ApiService` and `LocalDatabase` are provided in Koin.
 
 ### For Intermediate Dependencies
 ```js

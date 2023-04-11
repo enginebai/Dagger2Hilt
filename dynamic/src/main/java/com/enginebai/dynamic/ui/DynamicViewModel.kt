@@ -34,7 +34,8 @@ class DynamicViewModel @Inject constructor(
     private val singletonColor: ColorDefinition.SingletonColor by inject()
 
     init {
-        Log.d("$this", """
+        Log.d(
+            this.javaClass.simpleName, """
             Random Number = $randomNumber
             Domain Repository = ${domainRepository.getDataList()}
             Domain Topic = ${domainTopic.courseName}

@@ -21,8 +21,8 @@ class UtilModule {
     }
 
     @Provides
-    fun provideCalendar(): Calendar {
-        return Calendar.getInstance()
+    fun provideCalendar(koinFacade: AppKoinFacade): Calendar {
+        return koinFacade.calendar
     }
 
     @SuppressLint("SimpleDateFormat")

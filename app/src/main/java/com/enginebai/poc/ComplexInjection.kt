@@ -15,7 +15,8 @@ class ComplexInjection @Inject constructor(
     private val cardRepository: CardRepository,
 ) {
     fun log() {
-        Log.i("Log", """
+        Log.i(
+            ComplexInjection::class.java.simpleName, """
             Username = $username\n
             ${poker::class.java.simpleName} = ${poker.getRandomSuit().symbol}${poker.getRandomNumber()}
             ${userDataHelper::class.java.simpleName} = ${userDataHelper.getUser()}

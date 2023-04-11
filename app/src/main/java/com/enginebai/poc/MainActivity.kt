@@ -28,8 +28,7 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity(), HasAndroidInjector {
 
-    @Inject
-    lateinit var calendar: Calendar
+    private val calendar: Calendar by inject()
 
     @Inject
     lateinit var dateFormat: DateFormat

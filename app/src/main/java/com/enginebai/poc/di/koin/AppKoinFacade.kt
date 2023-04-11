@@ -28,7 +28,7 @@ class AppKoinFacade @Inject constructor(
     // Singleton
     private val pokerProvider: Provider<Poker>,
     private val usernameProvider: Provider<String>,
-    private val userDataHelperProvider: Provider<UserDataHelper>
+    private val userDataHelperProvider: Provider<UserDataHelper>,
 ){
     private val koinApp: KoinApplication
 
@@ -43,6 +43,7 @@ class AppKoinFacade @Inject constructor(
 
     val id: UUID by lazy { koinApp.koin.get() }
     val randomNumber: Int by lazy { koinApp.koin.get() }
+    val calendar: Calendar by lazy { koinApp.koin.get() }
 
     private fun provideModules(): List<Module> = mutableListOf(
         appModule(),
@@ -63,6 +64,7 @@ class AppKoinFacade @Inject constructor(
     private fun utilModule() = module {
         single { UUID.randomUUID() }
         factory { Random.nextInt(0..100) }
+        single {  Calendar.getInstance() }
     }
 
     private fun appColorModule() = module {
