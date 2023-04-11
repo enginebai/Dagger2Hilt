@@ -13,12 +13,12 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import javax.inject.Inject
 
 class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
 
-    @Inject
-    lateinit var userDataHelper: UserDataHelper
+    private val userDataHelper: UserDataHelper by inject()
 
     // For dagger.android
     @Inject

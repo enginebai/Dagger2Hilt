@@ -21,17 +21,6 @@ class UtilModule {
     }
 
     @Provides
-    fun provideCalendar(koinFacade: AppKoinFacade): Calendar {
-        return koinFacade.calendar
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    @Provides
-    fun provideDateFormatter(koinFacade: AppKoinFacade): DateFormat {
-        return koinFacade.dateFormat
-    }
-
-    @Provides
     fun provideRandomNumber(koinFacade: AppKoinFacade): Int {
         return koinFacade.randomNumber
     }

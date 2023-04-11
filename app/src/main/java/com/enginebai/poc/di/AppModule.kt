@@ -7,6 +7,7 @@ import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.domain.PokerGame
+import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.di.koin.AppKoinFacade
 import dagger.Module
 import dagger.Provides
@@ -26,12 +27,18 @@ class AppModule {
     fun provideUserName(
         koinFacade: AppKoinFacade
     ): String {
-        return koinFacade.dateFormat.format(koinFacade.calendar.time)
+        return koinFacade.username
     }
 
     @Provides
     @Singleton
     fun provideCardPoker(impl: PokerGame): Poker {
         return impl
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserDataHelper(koinFacade: AppKoinFacade): UserDataHelper {
+        return koinFacade.userDataHelper
     }
 }

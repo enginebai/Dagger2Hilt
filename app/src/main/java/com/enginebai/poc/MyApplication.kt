@@ -9,6 +9,7 @@ import com.enginebai.poc.di.*
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import org.koin.android.ext.android.inject
 import javax.inject.Inject
 
 /**
@@ -42,8 +43,7 @@ class MyApplication : Application(), HasAndroidInjector {
     private lateinit var appComponent: AppComponent
     private lateinit var domainComponent: DomainComponent
 
-    @Inject
-    lateinit var userDataHelper: UserDataHelper
+    private val userDataHelper: UserDataHelper by inject()
 
     @Inject
     lateinit var appInjector: AppInjector

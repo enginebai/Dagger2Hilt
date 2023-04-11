@@ -15,6 +15,7 @@ import com.enginebai.poc.ComplexInjection
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
 import org.koin.android.ext.android.get
+import org.koin.android.ext.android.inject
 import javax.inject.Inject
 
 private const val PAGE_INDEX = "page_index"
@@ -23,8 +24,8 @@ class SingletonFragment : BaseFragment(), Injectable {
 
     private var pageIndex: Int = 0
 
-    @Inject
-    lateinit var userDataHelper: UserDataHelper
+    private val userDataHelper: UserDataHelper by inject()
+    
     @Inject
     lateinit var complexInjection: ComplexInjection
 

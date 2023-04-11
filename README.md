@@ -102,7 +102,7 @@ For these types, we can migrate from Dagger to Koin directly, we don't have to k
 
 ```js
 // Dependency Resolving Graph:
-injection -> A -> B -> C
+Injection -> A -> B -> C
                        *
 ```
 
@@ -246,6 +246,34 @@ We could migrate `Repository` to Koin once both `ApiService` and `LocalDatabase`
 ### For Intermediate Dependencies
 ```js
 // Dependency Resolving Graph:
-injection -> A -> B -> C
+Injection -> A -> B -> C
              *    *  
 ```
+
+For `UserDataHelper`, there are some dependencies injected from constructor:
+
+```kotlin
+@Singleton
+class UserDataHelper @Inject constructor(
+    private val context: Context,
+    private val id: UUID,
+    private val name: String,
+    private val age: Int) { ... }
+```
+
+We migrate all fields to Koin so that all dependencies could be come from Koin, now we can provide `UserDataHelper` type from Koin. We add type to koin module and expose type from `KoinFacade`:
+
+```diff
+class KoinFacade {
++   val userDataHelper: UserDataHelper by lazy { koinApp.koin.get() }
+
+    private fun appModule() = module {
+        single { pokerProvider.get() }
++       singleOf(::UserDataHelper)
+    }
+}
+```
+
+In some case, the type is still the dependencies of other class (The `B` type of above dependency graph `Injection -> A -> B -> C`), we have to provide type to Dagger if `UserDataHelper` is the dependency of other classes that is provided from Dagger and not migrated to Koin)
+
+> It's fine to keep `@Inject constructor` annotation after migrating the type to Koin.
