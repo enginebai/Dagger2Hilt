@@ -77,12 +77,14 @@ class KoinFacade @Inject constructor(...) {
         startKoin {
             modules(module {
                 single { User() }
+                factory { Product() }
             })
         }
     }
 
     // Expose here
     val user: User by lazy { koinApp.koin.get() }
+    val product: Produce get() = koinApp.koin.get()
 }
 
 @Module
@@ -91,8 +93,15 @@ class AppModule {
     fun provideUser(koinFacade: KoinFacade): User {
         return koinFacade.user
     }
+
+    @Provides
+    fun provideProduct(koinFacade: KoinFacade): Product {
+        return koinFacade.product
+    }
 }
 ```
+
+> **NOTE**: If you use factory method to create new instance, then make sure you use `get() = koinApp.koin.get()` to call getter every time to get new instance.
 
 ## Migration Steps
 ### For Destination Dependencies

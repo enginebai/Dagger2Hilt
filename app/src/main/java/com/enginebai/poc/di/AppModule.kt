@@ -26,8 +26,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideCardPoker(impl: PokerGame): Poker {
-        return impl
+    fun provideCardPoker(koinFacade: AppKoinFacade): Poker {
+        return koinFacade.poker
     }
 
     @Provides

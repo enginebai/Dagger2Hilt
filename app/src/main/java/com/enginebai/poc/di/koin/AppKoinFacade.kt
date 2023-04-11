@@ -2,9 +2,12 @@ package com.enginebai.poc.di.koin
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.enginebai.core.ListNode
+import com.enginebai.core.card.Card
 import com.enginebai.core.card.Poker
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
+import com.enginebai.poc.data.domain.PokerGame
 import com.enginebai.poc.data.user.UserDataHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -30,8 +33,6 @@ private const val dynamicFeatureModulesProvider = "com.enginebai.dynamic.di.Dyna
 @Singleton
 class AppKoinFacade @Inject constructor(
     private val context: Context,
-    // Singleton
-    private val pokerProvider: Provider<Poker>
 ){
     private val koinApp: KoinApplication
 
@@ -48,6 +49,8 @@ class AppKoinFacade @Inject constructor(
     val randomNumber: Int by lazy { koinApp.koin.get() }
     val username: String by lazy { koinApp.koin.get() }
     val userDataHelper: UserDataHelper by lazy { koinApp.koin.get() }
+    val poker: Poker by lazy { koinApp.koin.get() }
+    val linkedListHead: ListNode<Card> get() = koinApp.koin.get()
 
     private fun provideModules(): List<Module> = mutableListOf(
         // NOTE: The order of modules does NOT matter!!
@@ -61,7 +64,7 @@ class AppKoinFacade @Inject constructor(
     }
 
     private fun appModule() = module {
-        single { pokerProvider.get() }
+        singleOf<Poker>(::PokerGame)
         singleOf(::UserDataHelper)
     }
 
