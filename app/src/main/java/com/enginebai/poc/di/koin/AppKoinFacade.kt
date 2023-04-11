@@ -21,7 +21,7 @@ import javax.inject.Singleton
 private const val dynamicFeatureModulesProvider = "com.enginebai.dynamic.di.DynamicFeatureKoinModulesProvider"
 
 @Singleton
-class SingletonKoinFacade @Inject constructor(
+class AppKoinFacade @Inject constructor(
     private val context: Context,
     // Singleton
     private val pokerProvider: Provider<Poker>,

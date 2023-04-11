@@ -126,8 +126,37 @@ class KoinFacade @Inject constructor(
 
 ```
 
-#### Injection For Others
+#### Injection in Other Classes
+* Most steps are as same as above, except that we don't remove the provide function from Dagger, instead, we have to expose the type from `KoinFacade` and use the field in provide function in Dagger:
 
+```kotlin
+class KoinFacade {
+    // Expose this type from Koin
+    val id: UUID by lazy { koinApp.koin.get() }
+}
+
+// Dagger module
+@Module
+class AppModule {
+    // We have to keep this function for Dagger injection for other class
+    @Singleton
+    @Provides
+    fun provideId(koinFacade: SingletonKoinFacade): UUID {
+        // Provide from facade
+        return koinFacade.id
+    }
+}
+
+// `name` and `age` are not migrated to Koin, `UserDataHelper` is generated from Dagger, but `id` is generated from Koin and provided by facade from Dagger.
+@Singleton
+class UserDataHelper @Inject constructor(
+    private val context: Context,
+    private val id: UUID,
+    private val name: String,
+    private val age: Int) { ... } 
+```
+
+> **NOTE**: Here we might need to create different facade classes for different Dagger scopes, one scope to one facade class to avoid the imcompatible scope definition.
 
 ### For Intermediate Dependencies
 ```js

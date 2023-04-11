@@ -1,5 +1,6 @@
 package com.enginebai.dynamic.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.enginebai.core.ListNode
@@ -15,9 +16,9 @@ import kotlin.random.Random
 
 class DynamicViewModel @Inject constructor(
     singletonColor: ColorDefinition.SingletonColor,
-    private val randomNumber: Int,
-    private val domainRepository: DomainRepository,
-    private val domainTopic: DomainTopic,
+    randomNumber: Int,
+    domainRepository: DomainRepository,
+    domainTopic: DomainTopic,
     private var cardListHead: ListNode<Card>,
     private val cardRepository: CardRepository,
 ): BaseViewModel() {
@@ -29,6 +30,11 @@ class DynamicViewModel @Inject constructor(
     val cardList: LiveData<String> = _cardList
 
     init {
+        Log.d("$this", """
+            Random Number = $randomNumber
+            Domain Repository = ${domainRepository.getDataList()}
+            Domain Topic = ${domainTopic.courseName}
+        """.trimIndent())
         _textColor.value = singletonColor.color.toColor()
         refreshCardList()
     }

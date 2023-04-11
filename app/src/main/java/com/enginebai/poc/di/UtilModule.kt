@@ -1,8 +1,7 @@
 package com.enginebai.poc.di
 
 import android.annotation.SuppressLint
-import com.enginebai.poc.di.koin.DomainKoinFacade
-import com.enginebai.poc.di.koin.SingletonKoinFacade
+import com.enginebai.poc.di.koin.AppKoinFacade
 import dagger.Module
 import dagger.Provides
 import java.text.DateFormat
@@ -17,7 +16,7 @@ class UtilModule {
 
     @Singleton
     @Provides
-    fun provideId(koinFacade: SingletonKoinFacade): UUID {
+    fun provideId(koinFacade: AppKoinFacade): UUID {
         return koinFacade.id
     }
 
