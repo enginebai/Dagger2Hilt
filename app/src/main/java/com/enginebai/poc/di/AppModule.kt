@@ -18,12 +18,6 @@ import javax.inject.Singleton
 @Module
 class AppModule {
     @Provides
-    @Singleton
-    fun provideApplication(app: MyApplication): Application {
-        return app
-    }
-
-    @Provides
     fun provideUserName(
         koinFacade: AppKoinFacade
     ): String {
