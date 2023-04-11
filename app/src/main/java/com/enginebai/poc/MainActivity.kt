@@ -11,12 +11,10 @@ import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.core.card.Poker
 import com.enginebai.core.util.ColorDefinition
-import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.data.user.TimeMachine
 import com.enginebai.poc.ui.domain.DomainActivity
 import com.enginebai.poc.ui.dynamic.DynamicFeatureFacadeModule
 import com.enginebai.poc.ui.singleton.SingletonFragmentsActivity
-import com.enginebai.poc.ui.widget.RandomTopicItem
 import com.enginebai.poc.util.ColorMixer
 import com.example.feature.ui.CardActivity
 import dagger.android.AndroidInjector
@@ -65,7 +63,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
         }
         findViewById<Button>(R.id.buttonMagic).setOnClickListener {
             TimeMachine.becomeYounger(this)
-            setAppColors(colorMixer.mixColor(this))
+            setAppColors(colorMixer.mixColor())
         }
         findViewById<Button>(R.id.buttonCardFeature).setOnClickListener {
             startActivity(Intent(this, CardActivity::class.java))

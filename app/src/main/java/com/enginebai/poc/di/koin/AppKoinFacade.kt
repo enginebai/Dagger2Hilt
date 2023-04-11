@@ -27,6 +27,7 @@ class AppKoinFacade @Inject constructor(
     private val pokerProvider: Provider<Poker>,
     private val usernameProvider: Provider<String>,
     private val userDataHelperProvider: Provider<UserDataHelper>,
+    private val singletonColorProvider: Provider<ColorDefinition.SingletonColor>
 ){
     private val koinApp: KoinApplication
 
@@ -63,6 +64,7 @@ class AppKoinFacade @Inject constructor(
 
     private fun appColorModule() = module {
         single { ColorManager.generateColors().map { ColorDefinition.AppColor(it) } }
+        single { singletonColorProvider.get() }
     }
 
     private fun dynamicFeatureModules(): List<Module> = runCatching {
