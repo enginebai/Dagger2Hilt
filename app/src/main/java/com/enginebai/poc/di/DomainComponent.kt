@@ -6,7 +6,7 @@ import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.DomainTopic
-import com.enginebai.poc.di.koin.KoinFacade
+import com.enginebai.poc.di.koin.DomainKoinFacade
 import com.enginebai.poc.ui.widget.RandomTopicButton
 import com.enginebai.poc.ui.widget.RandomTopicItem
 import com.example.feature.data.CardRepository
@@ -42,7 +42,7 @@ interface DomainComponent {
      * 2. dagger provider itself or injector
      */
     fun domainRepository(): DomainRepository
-    fun koinFacade(): KoinFacade
+    fun koinFacade(): DomainKoinFacade
 
     // Provide to dynamic feature
     fun domainTopic(): DomainTopic

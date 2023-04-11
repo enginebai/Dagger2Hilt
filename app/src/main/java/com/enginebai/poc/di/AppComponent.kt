@@ -5,6 +5,7 @@ import com.enginebai.core.di.AppColorModule
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.user.UserDataHelper
+import com.enginebai.poc.di.koin.SingletonKoinFacade
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -53,4 +54,6 @@ interface AppComponent : MySingletonComponent {
     // Provide to dynamic feature
     fun poker(): Poker
     fun randomNumber(): Int
+
+    fun koinFacade(): SingletonKoinFacade
 }

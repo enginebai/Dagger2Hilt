@@ -64,6 +64,7 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
             .build()
         appComponent.inject(this)
         initDelegate()
+        appComponent.koinFacade()
 
         // call function from injected filed
         userDataHelper.generateNewUser()

@@ -1,47 +1,40 @@
 package com.enginebai.poc.di.koin
 
 import android.content.Context
-import android.util.Log
 import com.enginebai.core.card.Poker
-import com.enginebai.core.di.DomainScope
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
-import com.enginebai.poc.data.DomainRepository
-import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.user.UserDataHelper
-import com.example.feature.data.CardRepository
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
+import org.koin.core.logger.Level
 import org.koin.core.module.Module
 import org.koin.dsl.module
-import java.util.UUID
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
+import javax.inject.Singleton
 
 private const val dynamicFeatureModulesProvider = "com.enginebai.dynamic.di.DynamicFeatureKoinModulesProvider"
 
-@DomainScope
-class KoinFacade @Inject constructor(
+@Singleton
+class SingletonKoinFacade @Inject constructor(
     private val context: Context,
     // Singleton
     private val pokerProvider: Provider<Poker>,
     private val usernameProvider: Provider<String>,
     private val userDataHelperProvider: Provider<UserDataHelper>,
-    // Domain
-    private val domainTopicProvider: Provider<DomainTopic>,
-    private val domainRepositoryProvider: Provider<DomainRepository>,
-    // Feature
-    private val cardRepositoryProvider: Provider<CardRepository>,
-    // For migration
-) {
+){
     private val koinApp: KoinApplication
 
     init {
         stopKoin()
         koinApp = startKoin {
             androidContext(context)
+            androidLogger(Level.DEBUG)
             modules(provideModules())
         }
     }
@@ -50,8 +43,6 @@ class KoinFacade @Inject constructor(
 
     private fun provideModules(): List<Module> = mutableListOf(
         appModule(),
-        domainModule(),
-        featureModule(),
         appColorModule(),
 
         // For migration
@@ -59,8 +50,6 @@ class KoinFacade @Inject constructor(
     ).apply {
         addAll(dynamicFeatureModules())
     }
-
-    // Properties provided from Koin (may from Dagger) back to Dagger:
 
     private fun appModule() = module {
         single { pokerProvider.get() }
@@ -72,21 +61,12 @@ class KoinFacade @Inject constructor(
         single { UUID.randomUUID() }
     }
 
-    private fun domainModule() = module {
-        single { domainTopicProvider.get() }
-        single { domainRepositoryProvider.get() }
-    }
-
-    private fun featureModule() = module {
-        single { cardRepositoryProvider.get() }
+    private fun appColorModule() = module {
+        single { ColorManager.generateColors().map { ColorDefinition.AppColor(it) } }
     }
 
     private fun dynamicFeatureModules(): List<Module> = runCatching {
         val module = Class.forName(dynamicFeatureModulesProvider).newInstance()
         (module as KoinModulesProvider).generateModules()
     }.run { getOrNull() ?: throw IllegalStateException() }
-
-    private fun appColorModule() = module {
-        single { ColorManager.generateColors().map { ColorDefinition.AppColor(it) } }
-    }
 }
