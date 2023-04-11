@@ -1,7 +1,6 @@
 package com.enginebai.poc.ui.singleton
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +10,11 @@ import android.widget.Button
 import android.widget.TextView
 import com.enginebai.core.base.BaseFragment
 import com.enginebai.core.di.Injectable
+import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.ComplexInjection
-import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
-import com.enginebai.poc.di.singletonComponent
+import org.koin.android.ext.android.get
 import javax.inject.Inject
 
 private const val PAGE_INDEX = "page_index"
@@ -47,7 +46,7 @@ class SingletonFragment : BaseFragment(), Injectable {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val color = view.context.singletonComponent.singletonColor.color.toColor()
+        val color = get<ColorDefinition.SingletonColor>().color.toColor()
         view.findViewById<TextView>(R.id.textTitle).apply {
             text = "${SingletonFragment::class.java.simpleName}-$pageIndex"
             setTextColor(color)

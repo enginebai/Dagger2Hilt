@@ -4,16 +4,15 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import com.enginebai.core.CoreModule
 import com.enginebai.core.base.BaseActivity
+import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.UserDataHelper
-import com.enginebai.poc.data.user.TimeMachine
-import com.enginebai.poc.di.singletonComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import org.koin.android.ext.android.get
 import javax.inject.Inject
 
 class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
@@ -33,7 +32,7 @@ class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
         findViewById<TextView>(R.id.textTitle).text = this::class.java.simpleName
         val textValue = findViewById<TextView>(R.id.textValue)
         textValue.text = userDataHelper.getUser().toString()
-        val color = this.singletonComponent.singletonColor.color.toColor()
+        val color = get<ColorDefinition.SingletonColor>().color.toColor()
         findViewById<ViewGroup>(R.id.root).apply {
             setBackgroundColor(color)
             setOnClickListener {

@@ -37,7 +37,7 @@ import javax.inject.Inject
  * RGB -> SingletonColor -> SingletonComponent interface
  * -> SingleFragment / SingletonDetailActivity.backgroundColor
  */
-class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
+class MyApplication : Application(), HasAndroidInjector {
     // Accessing the interfaces
     private lateinit var appComponent: AppComponent
     private lateinit var domainComponent: DomainComponent
@@ -91,9 +91,6 @@ class MyApplication : Application(), HasAndroidInjector, HasSingletonComponent {
     private fun initDelegate() {
         init(CoreApp(this))
     }
-
-    override val singletonComponent: MySingletonComponent
-        get() = appComponent
 
     private fun initDynamicFeatureModule() {
         val implementationName = "com.enginebai.dynamic.DynamicFeatureInitializer"

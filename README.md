@@ -158,6 +158,20 @@ class UserDataHelper @Inject constructor(
 
 > **NOTE**: Here we might need to create different facade classes for different Dagger scopes, one scope to one facade class to avoid the imcompatible scope definition.
 
+If you don't provide type from Dagger via `KoinFacade`, then you can move the field from constructor injection to field injection, where could be inject from Koin, then you can remove the provide function from Dagger.
+
+```diff
+@Singleton
+class UserDataHelper @Inject constructor(
+    private val context: Context,
+-   private val id: UUID,
+    private val name: String,
+    private val age: Int)
++ : KoinComponent { 
++   private val id: UUID by inject()
+}
+```
+
 ### For Intermediate Dependencies
 ```js
 // Dependency Resolving Graph:

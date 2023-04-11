@@ -17,7 +17,7 @@ import javax.inject.Singleton
         UtilModule::class
     ]
 )
-interface AppComponent : MySingletonComponent {
+interface AppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance

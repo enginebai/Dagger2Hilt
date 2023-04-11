@@ -41,10 +41,4 @@ class AppModule {
     fun provideCardPoker(impl: PokerGame): Poker {
         return impl
     }
-
-    @Provides
-    @Singleton
-    fun provideSingletonColor(koinFacade: AppKoinFacade): ColorDefinition.SingletonColor {
-        return koinFacade.singletonColor
-    }
 }

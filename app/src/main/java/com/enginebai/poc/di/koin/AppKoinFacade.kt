@@ -40,7 +40,6 @@ class AppKoinFacade @Inject constructor(
     }
 
     val id: UUID by lazy { koinApp.koin.get() }
-    val singletonColor: ColorDefinition.SingletonColor by lazy { koinApp.koin.get()}
 
     private fun provideModules(): List<Module> = mutableListOf(
         appModule(),

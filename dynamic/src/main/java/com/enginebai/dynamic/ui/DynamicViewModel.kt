@@ -11,23 +11,27 @@ import com.enginebai.core.util.ColorDefinition
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.DomainTopic
 import com.example.feature.data.CardRepository
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.component.inject
 import javax.inject.Inject
 import kotlin.random.Random
 
 class DynamicViewModel @Inject constructor(
-    singletonColor: ColorDefinition.SingletonColor,
     randomNumber: Int,
     domainRepository: DomainRepository,
     domainTopic: DomainTopic,
     private var cardListHead: ListNode<Card>,
     private val cardRepository: CardRepository,
-): BaseViewModel() {
+): BaseViewModel(), KoinComponent {
 
     private val _textColor = MutableLiveData<Int>()
     val textColor: LiveData<Int> = _textColor
 
     private val _cardList = MutableLiveData<String>()
     val cardList: LiveData<String> = _cardList
+
+    private val singletonColor: ColorDefinition.SingletonColor by inject()
 
     init {
         Log.d("$this", """
