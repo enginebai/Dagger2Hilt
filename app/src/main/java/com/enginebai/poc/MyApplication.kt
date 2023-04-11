@@ -61,6 +61,7 @@ class MyApplication : Application(), HasAndroidInjector {
         appComponent = DaggerAppComponent
             .builder()
             .application(this)
+            .context(this)
             .build()
         appComponent.inject(this)
         initDelegate()

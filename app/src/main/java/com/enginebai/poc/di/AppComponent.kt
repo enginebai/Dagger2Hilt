@@ -1,5 +1,6 @@
 package com.enginebai.poc.di
 
+import android.content.Context
 import com.enginebai.core.card.Poker
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.user.UserDataHelper
@@ -22,6 +23,8 @@ interface AppComponent {
     interface Builder {
         @BindsInstance
         fun application(application: MyApplication): Builder
+        @BindsInstance
+        fun context(context: Context): Builder
         fun build(): AppComponent
     }
 
