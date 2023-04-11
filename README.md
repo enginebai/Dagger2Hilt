@@ -44,6 +44,56 @@ This is a POC project to demonstrate how to migrate from Dagger to Hilt, there a
 2. Manipulate the linked list to add new card to head and rear of list.
 3. Re-create the card linked list when the activity is re-created.
 
+## Facade Class
+This class acts as interface between Dagger and Koin, it can bridges the dependency provide function from Dagger to Koin and vice versa.
+
+* Provide instance from Dagger and available in Koin:
+```kotlin
+@Module
+class AppModule {
+    @Provides
+    fun provideUser(): User {
+        return User()
+    }
+}
+
+class KoinFacade @Inject constructor(
+    private val userProvider: Provider<User>
+) {
+    init {
+        startKoin {
+            modules(module {
+                single { userProvider.get() }
+            })
+        }
+    }
+}
+```
+
+* Provide instance from Koin and avilable in Dagger:
+```kotlin
+class KoinFacade @Inject constructor(...) {
+    init {
+        startKoin {
+            modules(module {
+                single { User() }
+            })
+        }
+    }
+
+    // Expose here
+    val user: User by lazy { koinApp.koin.get() }
+}
+
+@Module
+class AppModule {
+    @Provides
+    fun provideUser(koinFacade: KoinFacade): User {
+        return koinFacade.user
+    }
+}
+```
+
 ## Migration Steps
 ### For Destination Dependencies
 
@@ -77,7 +127,7 @@ class KoinFacade @Inject constructor(
 ) { ... }
 ```
 
-3. Add type from the provide in Step 2. to Koin module in `KoinFacade`.
+3. Add type from the provide in Step 2. to Koin module in `KoinFacade`. **Now you can get type from Koin, and we are still able to get type from Dagger.**
 ```kotlin
 koinApp = startKoin {
     ...
@@ -102,7 +152,7 @@ interface AppComponent : MySingletonComponent {
 -   fun appColors(): List<ColorDefinition.AppColor>
 }
 ```
-6. Remove the provider function of type from Dagger module.
+6. Once all usages of type are migrated to Koin, we can remove the provider function of type from Dagger module.
 
 ```diff
 @Provides
