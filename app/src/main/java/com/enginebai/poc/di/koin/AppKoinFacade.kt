@@ -26,8 +26,7 @@ class AppKoinFacade @Inject constructor(
     // Singleton
     private val pokerProvider: Provider<Poker>,
     private val usernameProvider: Provider<String>,
-    private val userDataHelperProvider: Provider<UserDataHelper>,
-    private val singletonColorProvider: Provider<ColorDefinition.SingletonColor>
+    private val userDataHelperProvider: Provider<UserDataHelper>
 ){
     private val koinApp: KoinApplication
 
@@ -41,6 +40,7 @@ class AppKoinFacade @Inject constructor(
     }
 
     val id: UUID by lazy { koinApp.koin.get() }
+    val singletonColor: ColorDefinition.SingletonColor by lazy { koinApp.koin.get()}
 
     private fun provideModules(): List<Module> = mutableListOf(
         appModule(),
@@ -64,7 +64,7 @@ class AppKoinFacade @Inject constructor(
 
     private fun appColorModule() = module {
         single { ColorManager.generateColors().map { ColorDefinition.AppColor(it) } }
-        single { singletonColorProvider.get() }
+        single { ColorDefinition.SingletonColor(ColorManager.generateColor()) }
     }
 
     private fun dynamicFeatureModules(): List<Module> = runCatching {

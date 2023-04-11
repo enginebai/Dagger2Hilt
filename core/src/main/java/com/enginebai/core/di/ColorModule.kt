@@ -7,15 +7,6 @@ import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppColorModule {
-    @Provides
-    @Singleton
-    fun provideSingletonColor(): ColorDefinition.SingletonColor {
-        return ColorDefinition.SingletonColor(ColorManager.generateColor())
-    }
-}
-
-@Module
 class DomainColorModule {
     @Provides
     @DomainScope

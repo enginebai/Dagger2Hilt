@@ -1,7 +1,6 @@
 package com.enginebai.poc.di
 
 import com.enginebai.core.card.Poker
-import com.enginebai.core.di.AppColorModule
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.di.koin.AppKoinFacade
@@ -15,8 +14,7 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         AppModule::class,
-        UtilModule::class,
-        AppColorModule::class
+        UtilModule::class
     ]
 )
 interface AppComponent : MySingletonComponent {
