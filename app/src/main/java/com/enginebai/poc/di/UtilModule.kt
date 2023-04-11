@@ -32,7 +32,7 @@ class UtilModule {
     }
 
     @Provides
-    fun provideRandomNumber(): Int {
-        return Random.nextInt(0..100)
+    fun provideRandomNumber(koinFacade: AppKoinFacade): Int {
+        return koinFacade.randomNumber
     }
 }

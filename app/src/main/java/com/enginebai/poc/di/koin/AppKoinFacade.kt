@@ -17,6 +17,8 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 import javax.inject.Singleton
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 private const val dynamicFeatureModulesProvider = "com.enginebai.dynamic.di.DynamicFeatureKoinModulesProvider"
 
@@ -40,6 +42,7 @@ class AppKoinFacade @Inject constructor(
     }
 
     val id: UUID by lazy { koinApp.koin.get() }
+    val randomNumber: Int by lazy { koinApp.koin.get() }
 
     private fun provideModules(): List<Module> = mutableListOf(
         appModule(),
@@ -59,6 +62,7 @@ class AppKoinFacade @Inject constructor(
 
     private fun utilModule() = module {
         single { UUID.randomUUID() }
+        factory { Random.nextInt(0..100) }
     }
 
     private fun appColorModule() = module {
