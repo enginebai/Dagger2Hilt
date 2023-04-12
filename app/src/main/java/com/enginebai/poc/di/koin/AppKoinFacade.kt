@@ -54,9 +54,6 @@ class AppKoinFacade @Inject constructor(
         }
     }
 
-    val randomNumber: Int by inject()
-    val linkedListHead: ListNode<Card> get() = get()
-
     private fun provideModules(): List<Module> = mutableListOf(
         // NOTE: The order of modules does NOT matter!!
         // UserDataHelper in appModule() uses the dependencies in `utilModule(), it's OK.

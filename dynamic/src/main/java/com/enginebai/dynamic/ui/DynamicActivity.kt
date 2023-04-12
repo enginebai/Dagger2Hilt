@@ -1,45 +1,26 @@
 package com.enginebai.dynamic.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import com.enginebai.core.ListNode
-import com.enginebai.core.ViewModelFactory
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.core.card.Card
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.dynamic.DynamicInstance
 import com.enginebai.dynamic.R
-import com.enginebai.dynamic.di.DynamicFeatureComponent
-import com.enginebai.dynamic.di.DynamicFeatureModule
 import org.koin.android.ext.android.inject
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DynamicActivity : BaseActivity() {
 
-    @Inject
-    lateinit var list: ListNode<Card>
-
+    private val list: ListNode<Card> by inject()
     private val domainColor: ColorDefinition.DomainColor by inject()
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<DynamicViewModel>
-
-    private val dynamicInstance by inject<DynamicInstance>()
-
-    private lateinit var viewModel: DynamicViewModel
-
-    // Shared the component between activity and fragment
-    lateinit var component: DynamicFeatureComponent
+    private val dynamicInstance: DynamicInstance by inject()
+    private val viewModel: DynamicViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        component = DynamicFeatureComponent.createComponent(this, DynamicFeatureModule())
-        component.inject(this)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dynamic)
-        viewModel = ViewModelProvider(this, viewModelFactory)[DynamicViewModel::class.java]
 
         val textValue = findViewById<TextView>(R.id.textValue)
         val textCardList = findViewById<TextView>(R.id.textCardList)

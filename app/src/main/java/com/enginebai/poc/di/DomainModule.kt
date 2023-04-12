@@ -18,19 +18,7 @@ import kotlin.random.Random
 class DomainModule {
     @Provides
     @DomainScope
-    fun provideDefaultDomainType(facade: DomainKoinFacade): DomainTopic {
-        return facade.domainTopic
-    }
-
-    @Provides
-    @DomainScope
     fun provideDomainRepository(facade: DomainKoinFacade): DomainRepository {
         return facade.domainRepository
-    }
-
-    @Provides
-    @DomainScope
-    fun provideCardRepository(facade: DomainKoinFacade): CardRepository {
-        return facade.cardRepository
     }
 }

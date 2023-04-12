@@ -45,6 +45,4 @@ interface DomainComponent {
     fun koinFacade(): DomainKoinFacade
 
     // Provide to dynamic feature
-    fun domainTopic(): DomainTopic
-    fun cardRepository(): CardRepository
 }

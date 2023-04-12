@@ -17,7 +17,7 @@ import org.koin.core.component.inject
 import javax.inject.Inject
 import kotlin.random.Random
 
-class DynamicViewModel @Inject constructor(
+class DynamicViewModel(
     randomNumber: Int,
     domainRepository: DomainRepository,
     domainTopic: DomainTopic,

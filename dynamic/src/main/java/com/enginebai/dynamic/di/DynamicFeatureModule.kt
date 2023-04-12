@@ -8,9 +8,4 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class DynamicFeatureModule {
-    @Provides
-    fun provideCardLinkedList(koinFacade: AppKoinFacade): ListNode<Card> {
-        return koinFacade.linkedListHead
-    }
-}
+class DynamicFeatureModule

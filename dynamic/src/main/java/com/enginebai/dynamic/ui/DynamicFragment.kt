@@ -14,23 +14,13 @@ import com.enginebai.core.base.BaseFragment
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.dynamic.R
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import javax.inject.Inject
 
 class DynamicFragment : BaseFragment() {
 
-    private lateinit var viewModel: DynamicViewModel
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<DynamicViewModel>
-
+    private val viewModel: DynamicViewModel by activityViewModel()
     private val domainColor: ColorDefinition.DomainColor by inject()
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        val activity = (requireActivity() as DynamicActivity)
-        activity.component.inject(this)
-        viewModel = ViewModelProvider(activity, viewModelFactory)[DynamicViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

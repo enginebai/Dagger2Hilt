@@ -6,7 +6,7 @@ import com.enginebai.core.base.BaseViewModel
 import com.example.feature.data.CardRepository
 import javax.inject.Inject
 
-class CardViewModel @Inject constructor(
+class CardViewModel(
     private val repository: CardRepository
 ) : BaseViewModel() {
 

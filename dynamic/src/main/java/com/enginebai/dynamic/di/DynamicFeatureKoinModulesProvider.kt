@@ -4,7 +4,9 @@ import com.enginebai.core.ListNode
 import com.enginebai.core.card.Card
 import com.enginebai.core.card.Poker
 import com.enginebai.dynamic.DynamicInstance
+import com.enginebai.dynamic.ui.DynamicViewModel
 import com.enginebai.poc.di.koin.KoinModulesProvider
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -19,6 +21,7 @@ class DynamicFeatureKoinModulesProvider : KoinModulesProvider {
                 head.next = ListNode(Card(poker.getRandomSuit(), poker.getRandomNumber()))
                 head
             }
+            viewModelOf(::DynamicViewModel)
         })
     }
 }
