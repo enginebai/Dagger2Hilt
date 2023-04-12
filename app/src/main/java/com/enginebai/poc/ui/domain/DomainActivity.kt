@@ -32,8 +32,8 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
         }
     }
 
-    @Inject
-    lateinit var domainRepository: DomainRepository
+    private val domainRepository: DomainRepository by inject()
+
     @Inject
     lateinit var domainColor: ColorDefinition.DomainColor
 

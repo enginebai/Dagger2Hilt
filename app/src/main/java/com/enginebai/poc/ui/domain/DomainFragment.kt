@@ -17,6 +17,7 @@ import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.user.User
 import com.google.android.material.snackbar.Snackbar
 import dagger.Module
+import org.koin.android.ext.android.inject
 import javax.inject.Inject
 
 const val KEY_DOMAIN_USER = "domain_user"
@@ -37,8 +38,7 @@ class DomainFragment : BaseFragment(), Injectable {
 
     private lateinit var viewModel: DomainFragmentViewModel
 
-    @Inject
-    lateinit var domainRepository: DomainRepository
+    private val domainRepository: DomainRepository by inject()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<DomainFragmentViewModel>

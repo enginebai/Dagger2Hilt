@@ -24,8 +24,8 @@ class DomainModule {
 
     @Provides
     @DomainScope
-    fun provideDomainRepository(api: DomainApi): DomainRepository {
-        return DomainRepositoryImpl(api)
+    fun provideDomainRepository(facade: DomainKoinFacade): DomainRepository {
+        return facade.domainRepository
     }
 
     @Provides

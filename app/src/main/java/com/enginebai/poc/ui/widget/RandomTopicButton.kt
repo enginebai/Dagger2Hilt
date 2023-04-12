@@ -11,6 +11,9 @@ import androidx.appcompat.widget.AppCompatButton
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.pickRandomTopic
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.java.KoinJavaComponent.inject
 import javax.inject.Inject
 
 @SuppressLint("SetTextI18n")
@@ -18,12 +21,11 @@ class RandomTopicButton @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyle: Int = 0
-) : AppCompatButton(context, attrs, defStyle) {
+) : AppCompatButton(context, attrs, defStyle), KoinComponent {
 
     private var count = 0
 
-    @Inject
-    lateinit var domainRepository: DomainRepository
+    private val domainRepository: DomainRepository by inject()
 
     init {
         (context.applicationContext as MyApplication).domainComponent().inject(this)
