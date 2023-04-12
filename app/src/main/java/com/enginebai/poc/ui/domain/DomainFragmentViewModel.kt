@@ -17,7 +17,7 @@ data class DomainFragmentUser(
     val user: User
 ) : Parcelable
 
-class DomainFragmentViewModel @Inject constructor(
+class DomainFragmentViewModel(
     private val domainRepository: DomainRepository,
     state: SavedStateHandle,
     private val complexInjection: ComplexInjection

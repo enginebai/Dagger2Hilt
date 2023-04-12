@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 private const val PAGE_INDEX = "page_index"
 
-class SingletonFragment : BaseFragment(), Injectable {
+class SingletonFragment : BaseFragment() {
 
     private var pageIndex: Int = 0
 

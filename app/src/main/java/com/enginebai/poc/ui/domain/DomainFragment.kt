@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 const val KEY_DOMAIN_USER = "domain_user"
 
-class DomainFragment : BaseFragment(), Injectable {
+class DomainFragment : BaseFragment() {
 
     companion object {
         fun newInstance(user: User) = DomainFragment().apply {

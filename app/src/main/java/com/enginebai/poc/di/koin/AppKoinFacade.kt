@@ -54,7 +54,6 @@ class AppKoinFacade @Inject constructor(
     }
 
     val randomNumber: Int by inject()
-    val complexInjection: ComplexInjection by inject()
     val linkedListHead: ListNode<Card> get() = get()
 
     private fun provideModules(): List<Module> = mutableListOf(

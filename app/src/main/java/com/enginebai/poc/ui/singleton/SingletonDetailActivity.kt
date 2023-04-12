@@ -16,14 +16,9 @@ import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
 import javax.inject.Inject
 
-class SingletonDetailActivity : BaseActivity(), HasAndroidInjector {
+class SingletonDetailActivity : BaseActivity() {
 
     private val userDataHelper: UserDataHelper by inject()
-
-    // For dagger.android
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {

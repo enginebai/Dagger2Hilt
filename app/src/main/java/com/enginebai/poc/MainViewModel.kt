@@ -6,7 +6,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class MainViewModel(
     private val complexInjection: ComplexInjection
 ) : BaseViewModel(), KoinComponent {
     fun greeting(): String {
