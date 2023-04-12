@@ -1,6 +1,8 @@
 package com.enginebai.poc.di.koin
 
 import com.enginebai.core.di.DomainScope
+import com.enginebai.core.util.ColorDefinition
+import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.data.DomainApi
 import com.enginebai.poc.data.DomainApiInMemory
 import com.enginebai.poc.data.DomainRepository
@@ -25,7 +27,7 @@ import kotlin.random.Random
 
 @DomainScope
 class DomainKoinFacade @Inject constructor(
-): KoinComponent {
+) : KoinComponent {
 
     val domainTopic: DomainTopic by inject()
     val domainRepository: DomainRepository by inject()
@@ -59,5 +61,6 @@ class DomainKoinFacade @Inject constructor(
     }
 
     private fun featureModule() = module {
+        single { ColorDefinition.DomainColor(ColorManager.generateColor()) }
     }
 }

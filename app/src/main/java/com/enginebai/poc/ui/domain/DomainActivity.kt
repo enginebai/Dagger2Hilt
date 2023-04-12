@@ -34,8 +34,7 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
 
     private val domainRepository: DomainRepository by inject()
 
-    @Inject
-    lateinit var domainColor: ColorDefinition.DomainColor
+    private val domainColor: ColorDefinition.DomainColor by inject()
 
     // For dagger.android
     @Inject

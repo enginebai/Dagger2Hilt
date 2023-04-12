@@ -47,5 +47,4 @@ interface DomainComponent {
     // Provide to dynamic feature
     fun domainTopic(): DomainTopic
     fun cardRepository(): CardRepository
-    fun domainColor(): ColorDefinition.DomainColor
 }

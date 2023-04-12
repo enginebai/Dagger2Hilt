@@ -21,8 +21,7 @@ class DynamicActivity : BaseActivity() {
     @Inject
     lateinit var list: ListNode<Card>
 
-    @Inject
-    lateinit var domainColor: ColorDefinition.DomainColor
+    private val domainColor: ColorDefinition.DomainColor by inject()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory<DynamicViewModel>
