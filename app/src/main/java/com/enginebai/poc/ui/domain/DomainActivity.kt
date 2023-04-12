@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.R
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.core.util.ColorDefinition
+import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.ui.widget.RandomTopicItem
 import dagger.android.AndroidInjector
@@ -18,6 +20,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
+import org.koin.core.component.inject
 import javax.inject.Inject
 
 class DomainActivity : BaseActivity(), HasAndroidInjector {
@@ -39,6 +42,8 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
+    private val domainTopic: DomainTopic by inject()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -48,6 +53,7 @@ class DomainActivity : BaseActivity(), HasAndroidInjector {
             startActivity(Intent(this, DomainFragmentsActivity::class.java))
         }
         addRandomTopicItem()
+        Toast.makeText(this, "$domainTopic", Toast.LENGTH_SHORT).show()
     }
 
     override fun onResume() {

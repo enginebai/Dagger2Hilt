@@ -1,11 +1,11 @@
 package com.enginebai.poc.di
 
 import com.enginebai.core.di.DomainScope
-import com.enginebai.poc.data.*
+import com.enginebai.poc.data.DomainApi
+import com.enginebai.poc.data.DomainRepository
+import com.enginebai.poc.data.DomainRepositoryImpl
 import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.domain.pickRandomTopic
-import com.enginebai.core.util.ColorDefinition
-import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.data.user.User
 import com.example.feature.data.CardRepository
 import com.example.feature.data.CardRepositoryImpl
