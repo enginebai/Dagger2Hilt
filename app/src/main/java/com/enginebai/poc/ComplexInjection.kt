@@ -7,7 +7,7 @@ import com.enginebai.poc.data.user.UserDataHelper
 import com.example.feature.data.CardRepository
 import javax.inject.Inject
 
-class ComplexInjection @Inject constructor(
+class ComplexInjection(
     private val username: String,
     private val poker: Poker,
     private val userDataHelper: UserDataHelper,

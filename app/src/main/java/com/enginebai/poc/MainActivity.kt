@@ -22,34 +22,23 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import org.koin.android.ext.android.get
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DateFormat
 import java.util.Calendar
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), HasAndroidInjector {
+class MainActivity : BaseActivity() {
 
     private val calendar: Calendar by inject()
-
     private val dateFormat: DateFormat by inject()
-
-    @Inject
-    lateinit var colorMixer: ColorMixer
-
+    private val colorMixer: ColorMixer by inject()
     private val poker: Poker by inject()
 
-    @Inject
-    lateinit var factory: ViewModelFactory<MainViewModel>
-    private lateinit var viewModel: MainViewModel
-
-    // For dagger.android
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
         findViewById<Button>(R.id.buttonStartSingleton).setOnClickListener {
             startActivity(Intent(this, SingletonFragmentsActivity::class.java))
         }

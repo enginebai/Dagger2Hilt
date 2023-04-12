@@ -335,3 +335,6 @@ ComplexInjection
 ```
 
 We have to migrate all intermediate dependencies (all the fields in constructor) to provide type in Koin and expose to Dagger via `KoinFacade`. Then we can provide `ComplexInjection` in Koin and expose to Dagger provider function. Now we can remove all provider functions from Dagger and expose fields from `KoinFacade` that injected in `ComplexInjection` constructor.
+
+### For ViewModel
+Once we migrate all dependencies injected from ViewModel constructor, we can provide the ViewModel in Koin and injected by Koin `viewModel()` delegation function and remove the ViewModel factory and instantiation in Android or Fragment.

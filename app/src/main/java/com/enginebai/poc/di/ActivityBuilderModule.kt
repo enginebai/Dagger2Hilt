@@ -13,9 +13,6 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class ActivityBuilderModule {
 
-    @ContributesAndroidInjector
-    abstract fun contributeMainActivity(): MainActivity
-
     @MyActivityScope
     @ContributesAndroidInjector
     abstract fun contributeSingletonFragmentsActivity(): SingletonFragmentsActivity

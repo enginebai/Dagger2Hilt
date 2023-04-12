@@ -8,10 +8,14 @@ import com.enginebai.core.card.Poker
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.ComplexInjection
+import com.enginebai.poc.MainViewModel
 import com.enginebai.poc.data.domain.PokerGame
 import com.enginebai.poc.data.user.UserDataHelper
+import com.enginebai.poc.util.ColorMixer
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.KoinApplication
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
@@ -58,6 +62,7 @@ class AppKoinFacade @Inject constructor(
         appModule(),
         appColorModule(),
         utilModule(),
+        viewModelModules()
     ).apply {
         addAll(dynamicFeatureModules())
     }
@@ -80,10 +85,15 @@ class AppKoinFacade @Inject constructor(
     private fun appColorModule() = module {
         single { ColorManager.generateColors().map { ColorDefinition.AppColor(it) } }
         single { ColorDefinition.SingletonColor(ColorManager.generateColor()) }
+        single { ColorMixer() }
     }
 
     private fun dynamicFeatureModules(): List<Module> = runCatching {
         val module = Class.forName(dynamicFeatureModulesProvider).newInstance()
         (module as KoinModulesProvider).generateModules()
     }.run { getOrNull() ?: throw IllegalStateException() }
+
+    private fun viewModelModules() = module {
+        viewModelOf(::MainViewModel)
+    }
 }
