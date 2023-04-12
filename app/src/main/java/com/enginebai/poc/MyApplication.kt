@@ -72,13 +72,18 @@ class MyApplication : Application(), HasAndroidInjector {
         instantiateDomainComponent()
         appInjector.init(this)
         initDynamicFeatureModule()
-        domainComponent.koinFacade()
     }
 
     // onConfigAvailable() method
-    fun instantiateDomainComponent() {
+    private fun instantiateDomainComponent() {
         domainComponent = appComponent.plus(DomainModule())
         domainComponent.inject(this)
+        domainComponent.koinFacade().loadModules()
+    }
+
+    fun changeDomain() {
+        domainComponent.koinFacade().unloadModules()
+        instantiateDomainComponent()
     }
 
     fun appComponent(): AppComponent {

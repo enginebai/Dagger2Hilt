@@ -7,6 +7,7 @@ import com.enginebai.poc.data.DomainRepositoryImpl
 import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.domain.pickRandomTopic
 import com.enginebai.poc.data.user.User
+import com.enginebai.poc.di.koin.DomainKoinFacade
 import com.example.feature.data.CardRepository
 import com.example.feature.data.CardRepositoryImpl
 import dagger.Module
@@ -17,8 +18,8 @@ import kotlin.random.Random
 class DomainModule {
     @Provides
     @DomainScope
-    fun provideDefaultDomainType(): DomainTopic {
-        return pickRandomTopic()
+    fun provideDefaultDomainType(facade: DomainKoinFacade): DomainTopic {
+        return facade.domainTopic
     }
 
     @Provides

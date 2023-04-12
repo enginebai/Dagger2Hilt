@@ -16,21 +16,24 @@ import javax.inject.Provider
 
 @DomainScope
 class DomainKoinFacade @Inject constructor(
-    private val domainTopicProvider: Provider<DomainTopic>
 ): KoinComponent {
 
-//    val domainTopic: DomainTopic by inject()
+    val domainTopic: DomainTopic by inject()
 
     private val domainAggregatorModules = module {
         includes(domainModule(), featureModule())
     }
 
-    init {
+    fun loadModules() {
         loadKoinModules(domainAggregatorModules)
     }
 
+    fun unloadModules() {
+        unloadKoinModules(domainAggregatorModules)
+    }
+
     private fun domainModule() = module {
-        single { domainTopicProvider.get() }
+        single { pickRandomTopic() }
     }
 
     private fun featureModule() = module {

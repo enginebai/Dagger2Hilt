@@ -57,7 +57,7 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
             DomainActivity.start(this)
         }
         findViewById<Button>(R.id.buttonChangeDomain).setOnClickListener {
-            (application as MyApplication).instantiateDomainComponent()
+            (application as MyApplication).changeDomain()
         }
         findViewById<Button>(R.id.buttonMagic).setOnClickListener {
             TimeMachine.becomeYounger(this)
