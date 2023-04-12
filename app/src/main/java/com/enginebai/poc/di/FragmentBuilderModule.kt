@@ -21,9 +21,4 @@ abstract class FragmentBuilderModule {
 
 @Module
 class DomainFragmentModule {
-    @Provides
-    @MyFragmentScope
-    fun provideFragmentArgument(fragment: DomainFragment): DomainFragmentUser {
-        return DomainFragment.getUserData(fragment.arguments)
-    }
 }

@@ -18,6 +18,7 @@ import com.enginebai.poc.data.user.User
 import com.google.android.material.snackbar.Snackbar
 import dagger.Module
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import javax.inject.Inject
 
 const val KEY_DOMAIN_USER = "domain_user"
@@ -30,18 +31,10 @@ class DomainFragment : BaseFragment(), Injectable {
                 putParcelable(KEY_DOMAIN_USER, DomainFragmentUser(user))
             }
         }
-
-        fun getUserData(arguments: Bundle?): DomainFragmentUser {
-            return arguments?.get(KEY_DOMAIN_USER) as DomainFragmentUser
-        }
     }
 
-    private lateinit var viewModel: DomainFragmentViewModel
-
+    private val viewModel: DomainFragmentViewModel by viewModel()
     private val domainRepository: DomainRepository by inject()
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory<DomainFragmentViewModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +46,6 @@ class DomainFragment : BaseFragment(), Injectable {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[DomainFragmentViewModel::class.java]
 
         view.findViewById<TextView>(R.id.textTitle).text =
             "${DomainFragment::class.java.simpleName}\n${domainRepository.getDataList()}"

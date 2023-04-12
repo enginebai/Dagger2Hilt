@@ -337,4 +337,21 @@ ComplexInjection
 We have to migrate all intermediate dependencies (all the fields in constructor) to provide type in Koin and expose to Dagger via `KoinFacade`. Then we can provide `ComplexInjection` in Koin and expose to Dagger provider function. Now we can remove all provider functions from Dagger and expose fields from `KoinFacade` that injected in `ComplexInjection` constructor.
 
 ### For ViewModel
-Once we migrate all dependencies injected from ViewModel constructor, we can provide the ViewModel in Koin and injected by Koin `viewModel()` delegation function and remove the ViewModel factory and instantiation in Android or Fragment.
+* Once we migrate all dependencies injected from ViewModel constructor, we can provide the ViewModel in Koin and injected by Koin `viewModel()` delegation function and remove the ViewModel factory and instantiation in Android or Fragment.
+* For fragment argument injection: We can use `SavedStateHandle` to help (as same step as we implement in Hilt, [source](https://proandroiddev.com/passing-safe-args-to-your-viewmodel-with-hilt-366762ff3f57)):
+
+```diff
+class DomainFragmentViewModel @Inject constructor(
+    private val domainRepository: DomainRepository,
+-    domainFragmentUser: DomainFragmentUser,
++    state: SavedStateHandle,
+     ...
+) {
++   val domainFragmentUser: DomainFragmentUser? = state.get<DomainFragmentUser>(KEY_DOMAIN_USER)
+    ...
+)
+```
+
+Then provide in Koin and injected as view model usual injection.
+
+> This feature is supported since [`Koin 3.3.0`](https://insert-koin.io/docs/reference/koin-android/viewmodel#savedstatehandle-injection-330).

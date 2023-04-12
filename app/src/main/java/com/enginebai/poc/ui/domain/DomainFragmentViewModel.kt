@@ -3,6 +3,7 @@ package com.enginebai.poc.ui.domain
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.enginebai.core.base.BaseViewModel
 import com.enginebai.poc.ComplexInjection
@@ -18,7 +19,7 @@ data class DomainFragmentUser(
 
 class DomainFragmentViewModel @Inject constructor(
     private val domainRepository: DomainRepository,
-    domainFragmentUser: DomainFragmentUser,
+    state: SavedStateHandle,
     private val complexInjection: ComplexInjection
 ) : BaseViewModel() {
 
@@ -26,6 +27,7 @@ class DomainFragmentViewModel @Inject constructor(
     val data: LiveData<String> = _data
 
     init {
+        val domainFragmentUser: DomainFragmentUser? = state.get<DomainFragmentUser>(KEY_DOMAIN_USER)
         _data.value = "Injected domain user $domainFragmentUser"
         complexInjection.log()
     }
