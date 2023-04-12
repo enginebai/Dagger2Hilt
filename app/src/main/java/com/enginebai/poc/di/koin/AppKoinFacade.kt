@@ -13,6 +13,7 @@ import com.enginebai.poc.data.domain.PokerGame
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.ui.domain.DomainFragmentViewModel
 import com.enginebai.poc.util.ColorMixer
+import com.example.feature.ui.CardViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -96,5 +97,6 @@ class AppKoinFacade @Inject constructor(
     private fun viewModelModules() = module {
         viewModelOf(::MainViewModel)
         viewModelOf(::DomainFragmentViewModel)
+        viewModelOf(::CardViewModel)
     }
 }
