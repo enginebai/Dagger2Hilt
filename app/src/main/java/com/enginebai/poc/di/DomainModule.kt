@@ -30,14 +30,7 @@ class DomainModule {
 
     @Provides
     @DomainScope
-    fun provideDomainUser(): User {
-        val n = Random.nextInt(10000)
-        return User("$n", "Domain User $n", n)
-    }
-
-    @Provides
-    @DomainScope
-    fun provideCardRepository(impl: CardRepositoryImpl): CardRepository {
-        return impl
+    fun provideCardRepository(facade: DomainKoinFacade): CardRepository {
+        return facade.cardRepository
     }
 }

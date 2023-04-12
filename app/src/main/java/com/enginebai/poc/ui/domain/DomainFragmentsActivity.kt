@@ -4,15 +4,16 @@ import android.os.Bundle
 import com.enginebai.core.base.BaseActivity
 import com.enginebai.poc.R
 import com.enginebai.poc.data.user.User
+import dagger.android.AndroidInjection.inject
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import org.koin.android.ext.android.inject
 import javax.inject.Inject
 
 class DomainFragmentsActivity : BaseActivity(), HasAndroidInjector {
 
-    @Inject
-    lateinit var domainUser: User
+    private val domainUser: User by inject()
 
     // For dagger.android
     @Inject

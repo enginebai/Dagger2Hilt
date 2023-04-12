@@ -4,7 +4,7 @@ import com.enginebai.core.card.Card
 import com.enginebai.core.card.Poker
 import javax.inject.Inject
 
-class CardApi @Inject constructor(
+class CardApi(
     private val poker: Poker
 ) {
     fun getCard(): Card {

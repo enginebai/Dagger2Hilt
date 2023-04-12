@@ -7,7 +7,10 @@ import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.DomainRepositoryImpl
 import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.domain.pickRandomTopic
+import com.enginebai.poc.data.user.User
+import com.example.feature.data.CardApi
 import com.example.feature.data.CardRepository
+import com.example.feature.data.CardRepositoryImpl
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.loadKoinModules
@@ -18,6 +21,7 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import javax.inject.Inject
 import javax.inject.Provider
+import kotlin.random.Random
 
 @DomainScope
 class DomainKoinFacade @Inject constructor(
@@ -25,6 +29,7 @@ class DomainKoinFacade @Inject constructor(
 
     val domainTopic: DomainTopic by inject()
     val domainRepository: DomainRepository by inject()
+    val cardRepository: CardRepository by inject()
 
     private val domainAggregatorModules = module {
         includes(domainModule(), featureModule(), apiModule())
@@ -41,10 +46,16 @@ class DomainKoinFacade @Inject constructor(
     private fun domainModule() = module {
         single { pickRandomTopic() }
         singleOf(::DomainRepositoryImpl) bind DomainRepository::class
+        single {
+            val n = Random.nextInt(10000)
+            User("$n", "Domain User $n", n)
+        }
+        singleOf(::CardRepositoryImpl) bind CardRepository::class
     }
 
     private fun apiModule() = module {
         singleOf(::DomainApiInMemory) bind DomainApi::class
+        singleOf(::CardApi)
     }
 
     private fun featureModule() = module {
