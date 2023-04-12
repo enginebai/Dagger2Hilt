@@ -12,6 +12,9 @@ import com.enginebai.poc.data.user.UserDataHelper
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.KoinApplication
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.core.logger.Level
@@ -33,31 +36,28 @@ private const val dynamicFeatureModulesProvider = "com.enginebai.dynamic.di.Dyna
 @Singleton
 class AppKoinFacade @Inject constructor(
     private val context: Context,
-){
-    private val koinApp: KoinApplication
+) : KoinComponent {
 
     init {
         stopKoin()
-        koinApp = startKoin {
+        startKoin {
             androidContext(context)
             androidLogger(Level.DEBUG)
             modules(provideModules())
         }
     }
 
-    val id: UUID by lazy { koinApp.koin.get() }
-    val randomNumber: Int by lazy { koinApp.koin.get() }
-    val username: String by lazy { koinApp.koin.get() }
-    val userDataHelper: UserDataHelper by lazy { koinApp.koin.get() }
-    val poker: Poker by lazy { koinApp.koin.get() }
-    val linkedListHead: ListNode<Card> get() = koinApp.koin.get()
+    val randomNumber: Int by inject()
+    val username: String by inject()
+    val userDataHelper: UserDataHelper by inject()
+    val poker: Poker by inject()
+    val linkedListHead: ListNode<Card> get() = get()
 
     private fun provideModules(): List<Module> = mutableListOf(
         // NOTE: The order of modules does NOT matter!!
         // UserDataHelper in appModule() uses the dependencies in `utilModule(), it's OK.
         appModule(),
         appColorModule(),
-        // For migration
         utilModule(),
     ).apply {
         addAll(dynamicFeatureModules())
