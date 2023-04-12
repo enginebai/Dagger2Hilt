@@ -5,6 +5,7 @@ import android.content.Context
 import com.enginebai.core.card.Poker
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
+import com.enginebai.poc.ComplexInjection
 import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.domain.PokerGame
 import com.enginebai.poc.data.user.UserDataHelper
@@ -18,21 +19,8 @@ import javax.inject.Singleton
 @Module
 class AppModule {
     @Provides
-    fun provideUserName(
-        koinFacade: AppKoinFacade
-    ): String {
-        return koinFacade.username
-    }
-
-    @Provides
     @Singleton
-    fun provideCardPoker(koinFacade: AppKoinFacade): Poker {
-        return koinFacade.poker
-    }
-
-    @Provides
-    @Singleton
-    fun provideUserDataHelper(koinFacade: AppKoinFacade): UserDataHelper {
-        return koinFacade.userDataHelper
+    fun provideComplexInjection(facade: AppKoinFacade): ComplexInjection {
+        return facade.complexInjection
     }
 }

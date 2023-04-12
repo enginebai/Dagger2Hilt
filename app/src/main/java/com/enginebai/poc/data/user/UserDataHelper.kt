@@ -7,7 +7,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class UserDataHelper @Inject constructor(
+class UserDataHelper(
     private val context: Context,
     private val id: UUID,
     private val name: String,

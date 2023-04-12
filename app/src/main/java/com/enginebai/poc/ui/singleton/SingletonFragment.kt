@@ -26,8 +26,7 @@ class SingletonFragment : BaseFragment(), Injectable {
 
     private val userDataHelper: UserDataHelper by inject()
     
-    @Inject
-    lateinit var complexInjection: ComplexInjection
+    private val complexInjection: ComplexInjection by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

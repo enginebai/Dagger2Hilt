@@ -51,7 +51,6 @@ interface AppComponent {
      *  OneSignal.OSRemoteNotificationReceivedHandler
      */
     // Provide to dynamic feature
-    fun poker(): Poker
     fun randomNumber(): Int
 
     fun koinFacade(): AppKoinFacade

@@ -7,6 +7,7 @@ import com.enginebai.core.card.Card
 import com.enginebai.core.card.Poker
 import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
+import com.enginebai.poc.ComplexInjection
 import com.enginebai.poc.data.domain.PokerGame
 import com.enginebai.poc.data.user.UserDataHelper
 import org.koin.android.ext.koin.androidContext
@@ -48,9 +49,7 @@ class AppKoinFacade @Inject constructor(
     }
 
     val randomNumber: Int by inject()
-    val username: String by inject()
-    val userDataHelper: UserDataHelper by inject()
-    val poker: Poker by inject()
+    val complexInjection: ComplexInjection by inject()
     val linkedListHead: ListNode<Card> get() = get()
 
     private fun provideModules(): List<Module> = mutableListOf(
@@ -66,6 +65,7 @@ class AppKoinFacade @Inject constructor(
     private fun appModule() = module {
         singleOf<Poker>(::PokerGame)
         singleOf(::UserDataHelper)
+        singleOf(::ComplexInjection)
     }
 
     @SuppressLint("SimpleDateFormat")
