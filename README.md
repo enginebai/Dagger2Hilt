@@ -1,8 +1,11 @@
-This is a POC project to demonstrate how to migrate from Dagger to Hilt, there are several branches/tags served as different purposes that you can checkout:
+This is a POC project to demonstrate how to migrate from Dagger to Hilt/Koin, there are several branches/tags served as different purposes that you can checkout:
 
 * `dagger`: The Dagger implementation, it finished the project with Dagger injection, and you can start migration from here.
-* `hilt-migration/gradually`: We migrate the modules gradually to `Hilt`, including modules, android classes, custom components and non-android classes.
-* `koin-migration/gradually`: We migrate the modules gradually to `Koin`, including modules, android classes, custom components and non-android classes (via `KoinFacade` classes).
+* `hilt-migration/gradually`: We migrate the modules to Hilt gradually to `Hilt`, including modules, android classes, custom components and non-android classes.
+* `koin-migration/gradually`: We migrate the modules gradually to `Koin` to Hilt, including modules, android classes, custom components and non-android classes (via `KoinFacade` classes).
+
+# Koin Migration
+To achieve gradulally migration, we utilitize the `KoinFacade` for us to bridge the type provider functions between Dagger and Koin, so that we can keep either the Dagger provider function or instance injection from Dagger, and move the instance creation to Koin or change the instance injection from Koin gradually.
 
 ## Specifications
 ### `SingletonFragmentsActivity`
@@ -45,10 +48,11 @@ This is a POC project to demonstrate how to migrate from Dagger to Hilt, there a
 3. Re-create the card linked list when the activity is re-created.
 
 ## Facade Class
-This class acts as interface between Dagger and Koin, it can bridges the dependency provide function from Dagger to Koin and vice versa.
+This class acts as bridge between Dagger and Koin, it can provide the dependency from Dagger to Koin and vice versa.
 
-* Provide instance from Dagger and available in Koin:
+* Provide instance from Dagger and injectable in Koin:
 ```kotlin
+// Dagger
 @Module
 class AppModule {
     @Provides
@@ -58,219 +62,285 @@ class AppModule {
 }
 
 class KoinFacade @Inject constructor(
+    // This is from Dagger
     private val userProvider: Provider<User>
 ) {
     init {
+        // Koin
         startKoin {
             modules(module {
+                // Bridge from Dagger to Koin
                 single { userProvider.get() }
             })
         }
     }
 }
+
+// Now you can use Koin injection
+class MyActivity : Activity {
+    // Injected from Koin   
+    private val user by inject<User>()
+    ...
+}
 ```
 
-* Provide instance from Koin and avilable in Dagger:
+* Provide instance from Koin and injectable in Dagger:
 ```kotlin
+// We have to make sure the facade object is created by dagger.
 class KoinFacade @Inject constructor(...) {
     init {
         startKoin {
             modules(module {
-                single { User() }
+                // Available in Koin
                 factory { Product() }
             })
         }
     }
 
-    // Expose here
-    val user: User by lazy { koinApp.koin.get() }
+    // Expose here from Koin to Dagger
     val product: Produce get() = koinApp.koin.get()
+}
+
+// Dagger
+@Component
+class AppComponent {
+    // Expose facade object
+    @Singleton
+    fun koinFacade(): KoinFacade
 }
 
 @Module
 class AppModule {
     @Provides
-    fun provideUser(koinFacade: KoinFacade): User {
-        return koinFacade.user
-    }
-
-    @Provides
     fun provideProduct(koinFacade: KoinFacade): Product {
         return koinFacade.product
     }
+}
+
+class MyActivity : Activity {
+    // Dagger
+    @Inject
+    lateinit var product: Product
 }
 ```
 
 > **NOTE**: If you use factory method to create new instance, then make sure you use `get() = koinApp.koin.get()` to call getter every time to get new instance.
 
 ## Migration Steps
-### For Destination Dependencies
+There are different type of injection and we shall migrate in the following order:
 
-#### Direct Injection
-For these types, we can migrate from Dagger to Koin directly, we don't have to keep the provider function in Dagger.
-
+1. The type is the destination component of dependency graph, and is not the dependency of other class (destination component):
 ```js
-// Dependency Resolving Graph:
+// Dependency Resolving Path:
+Injection -> A
+             *
+```
+
+2. The type is the destination component of dependency graph, and is the dependency of other class:
+```js
+// Dependency Resolving Path:
 Injection -> A -> B -> C
                        *
 ```
 
+3. The type is the intermediate node of dependency graph, and is the dependency of other class:
+```js
+// Dependency Resolving Path:
+Injection -> A -> B -> C
+                  *  
+```
+
+4. The type is the intermediate node of dependency graph, and is not the dependency of other class:
+```js
+// Dependency Resolving Path:
+Injection -> A -> B -> C
+             *      
+```
+
+### For Destination Component & Not Dependency of Other Class
+```js
+// Dependency Resolving Path:
+Injection -> A
+             *
+```
+For these types, we can migrate from Dagger to Koin directly, we don't have to keep the provider function in Dagger.
+
 1. Keep the provider function of type in Dagger module.
 ```kotlin
 @Module
-class AppColorModule {
+class UtilModule {
     @Provides
     @Singleton
-    fun provideAppColor(): List<ColorDefinition.AppColor> {
-        return ColorManager.generateColors().map { ColorDefinition.AppColor(it) }
+    fun provideDateFormat(): DateFormat {
+        return SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
     }
 }
 ```
 
 2. Add Dagger provider of type to `KoinFacade`.
 ```diff
-@DomainScope
 class KoinFacade @Inject constructor(
     ...
-+   private val appColorsProvider: Provider<List<ColorDefinition.AppColor>>,
++   private val dateFormatProvider: Provider<DateFormat>,
     ...
 ) { ... }
 ```
 
 3. Add type from the provider to Koin module in `KoinFacade`. **Now you can get type from Koin, and we are still able to get type from Dagger.**
-```kotlin
-koinApp = startKoin {
-    ...
-    modules(module {
-        appColorsProvider.get()
-    })
-    ...
+```diff
+class KoinFacade @Inject constructor(...) {
+    koinApp = startKoin {
+        ...
+        modules(module {
++           dateFormatProvider.get()
+        })
+        ...
+    }
 }
 ```
 
 4. Replace the usage of the type with Koin injection.
 
 ```diff
--setAppColors((application as MyApplication).appComponent().appColors())
-+setAppColors(get<List<ColorDefinition.AppColor>())
-```
-
-5. Remove all expose type in Dagger component.
-
-```diff
-interface AppComponent : MySingletonComponent {
--   fun appColors(): List<ColorDefinition.AppColor>
+class MyActivity {
+-   @Inject
+-   lateinit var dateFormat: DateFormat
++   private val dateFormat by inject<DateFormat>()
+    ...
 }
 ```
-6. Once all usages of type are migrated to Koin, we can remove the provider function of type from Dagger module.
+
+6. Once all usages of type are migrated to Koin, we can remove the provider function of type from Dagger module and expose type in Dagger component (if there is).
 
 ```diff
+interface AppComponent : ... {
+-   fun dateFormat(): DateFormat
+}
+
 @Provides
--    @Singleton
--    fun provideAppColor(): List<ColorDefinition.AppColor> {
--        return ColorManager.generateColors().map { ColorDefinition.AppColor(it) }
--    }
+class UtilModule {
+-   @Provides
+-   @Singleton
+-   fun provideDateFormat(): DateFormat {
+-       return SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+-   }
+}
 ```
-7. Provide the type directly in Koin module and remove the Dagger provider from `KoinFacade` and its provider function in Dagger module.
+
+7. Provide the type directly in Koin module (`KoinFacade`) and remove the Dagger provider field from `KoinFacade` and its provider function in Dagger module.
 
 ```diff
 
 @DomainScope
 class KoinFacade @Inject constructor(
     ...
--    private val appColorsProvider: Provider<List<ColorDefinition.AppColor>>,
+-   private val dateFormatProvider: Provider<DateFormat>,
     ...
 ) { 
-+    single { ColorManager.generateColors().map { ColorDefinition.AppColor(it) } }
+
+    koinApp = startKoin {
+        ...
+        modules(module {
++           single<DateFormat> { SimpleDateFormat("yyyy/MM/dd HH:mm:ss") }
+        })
+        ...
+    }
 }
-
 ```
 
-#### Injection in Other Classes
-For these types that are the injection in other classes, for example, the following class:
+### For Destination Component & Is Dependency of Other Class
+```js
+// Dependency Resolving Path:
+Injection -> A -> B -> C
+                       *
+```
+
+These types are the detination node of dependency graph and it is the dependency of other class, for example, the following class:
 ```kotlin
-class Repository(
-    private val api: ApiService,
-    private val database: LocalDatabase
+class DateFormatter @Inject constructor(
+    val dateFormat: DateFormat,
+    val calendar: Calendar
 )
-```
-The two fields `api` and `database` instance belong to this kind of injection.
 
-Most steps are as same as above, except that we don't remove the provide function from Dagger, instead, we have to expose the type from `KoinFacade` and use the field in provide function in Dagger:
+@Module
+class UtilModule {
+    @Provides
+    fun provideDateFormat(): DateFormat {
+        return SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+    }
+
+    @Provides
+    fun provideCalendar(): Calendar {
+        return Calendar.getInstance()
+    }
+}
+```
+The two fields `calendar` and `dateFormat` belong to this kind of injection. They have no dependency on other class, but they are the dependencies of other class.
+
+The migration steps are almost the same as those above, except for that we still have keep the provide function from Dagger, expose the type from `KoinFacade` and use the field in the original provider function in Dagger:
 
 ```kotlin
 class KoinFacade {
     // Expose this type from Koin
-    val id: UUID by lazy { koinApp.koin.get() }
+    val dateFormat: DateFormat by lazy { koinApp.koin.get() }
 }
 
 // Dagger module
 @Module
-class AppModule {
+class UtilModule {
     // We have to keep this function for Dagger injection for other class
-    @Singleton
     @Provides
-    fun provideId(koinFacade: SingletonKoinFacade): UUID {
+    fun provideDateFormat(koinFacade: KoinFacade): DateFormat {
         // Provide from facade
-        return koinFacade.id
+        return koinFacade.dateFormat
     }
 }
 
-// `name` and `age` are not migrated to Koin, `UserDataHelper` is generated from Dagger, but `id` is generated from Koin and provided by facade from Dagger.
-@Singleton
-class UserDataHelper @Inject constructor(
-    private val context: Context,
-    private val id: UUID,
-    private val name: String,
-    private val age: Int) { ... } 
+// The field `calendar` is not migrated to Koin, `DateFormatter` is generated from Dagger, but `dateFormat` is generated from Koin and provided by facade from Dagger.
+class DateFormatter @Inject constructor(
+    val dateFormat: DateFormat,
+    val calendar: Calendar
+)
 ```
 
 > **NOTE**: Here we might need to create different facade classes for different Dagger scopes, one scope to one facade class to avoid the imcompatible scope definition.
 
-If you don't provide type from Dagger via `KoinFacade`, then you can move the field from constructor injection to field injection, where could be inject from Koin, then you can remove the provide function from Dagger.
+> If you don't want to provide type from Dagger via `KoinFacade`, then you can move the field from constructor injection to field injection where could be injected from Koin, then you can remove the provide function from Dagger.
 
 ```diff
-@Singleton
-class UserDataHelper @Inject constructor(
-    private val context: Context,
--   private val id: UUID,
-    private val name: String,
-    private val age: Int)
+class DateFormatter @Inject constructor(
+-   val dateFormat: DateFormat,
+    val calendar: Calendar)
 + : KoinComponent { 
-+   private val id: UUID by inject()
++   private val dataFormat: DateFormat by inject()
 }
 ```
 
-Once we provide all types that injected in constructor in Koin, then we can migrate the type to Koin, for example: 
+### For Intermediate Dependencies & Is Dependency of Other Class
+After migrating all destination components (whether it is or is not the dependency of other class), then we can start migrating the intermediate dependencies. 
 
-```kotlin
-class Repository(
-    private val api: ApiService,
-    private val database: LocalDatabase
-)
-```
-
-We could migrate `Repository` to Koin once both `ApiService` and `LocalDatabase` are provided in Koin.
-
-### For Intermediate Dependencies
 ```js
-// Dependency Resolving Graph:
+// Dependency Resolving Path:
 Injection -> A -> B -> C
-             *    *  
+                  *  
 ```
+
+After migrating `C`, we can start migrating `B`, and we have to migrate `B` first and later migrate `A` and the injection in order.
 
 For `UserDataHelper`, there are some dependencies injected from constructor:
 
 ```kotlin
 @Singleton
-class UserDataHelper @Inject constructor(
+class UserRepository @Inject constructor(
     private val context: Context,
-    private val id: UUID,
-    private val name: String,
-    private val age: Int) { ... }
+    private val userApi: UserApiService,
+    private val userDatabase: UserDatabase,
+    private val cacheManager: CacheManager) { 
+    ...
+}
 ```
 
-We migrate all fields to Koin so that all dependencies could be come from Koin, now we can provide `UserDataHelper` type from Koin. We add type to koin module and remove all provider function of dependencies from Dagger for that type :
+We migrate all fields to Koin so that all dependencies could be injected from Koin, now we can provide `UserDataHelper` type from Koin. We add type to koin module and remove all provider function of dependencies from Dagger for that type :
 
 ```diff
 
@@ -291,7 +361,7 @@ class KoinFacade {
 }
 ```
 
-In some case, the type is still the dependencies of other class (The `B` type of above dependency graph `Injection -> A -> B -> C`), we have to provide type to Dagger if `UserDataHelper` is the dependency of other classes that is provided from Dagger and not migrated to Koin) by exposing type from `KoinFacade`.
+In some case, the type is still the dependencies of other class (The `B` type of above dependency graph `Injection -> A -> B -> C`), we have to provide type to Dagger if `UserDataHelper` is the dependency of other class that is provided from Dagger and not migrated to Koin) by exposing type from `KoinFacade`.
 
 ```diff
 class KoinFacade {
@@ -355,3 +425,36 @@ class DomainFragmentViewModel @Inject constructor(
 Then provide in Koin and injected as view model usual injection.
 
 > This feature is supported since [`Koin 3.3.0`](https://insert-koin.io/docs/reference/koin-android/viewmodel#savedstatehandle-injection-330).
+
+### Remove Facade Classes
+After migrating all types to Koin and won't injected from Dagger
+
+### Clean-up Dagger Implementation
+, our codebase will be structured as shown below:
+
+* All modules contain no any provider functions, including from `KoinFacade`.
+```diff
+@Module
+class AppModule {
+-   @Providers
+-   fun provideUser(): User {
+-       ...
+-   }
+-
+-   @Providers
+-   fun provideProduct(facade: KoinFacade): Product {
+-       ...
+-   }
+}
+```
+
+* No any expose types in component except for `KoinFacade`.
+```diff
+@Component
+interface AppComponent {
+-   fun user(): User
+}
+```
+
+
+We are able to remove all Dagger implementation:
