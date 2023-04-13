@@ -29,8 +29,6 @@ import kotlin.random.Random
 class DomainKoinFacade @Inject constructor(
 ) : KoinComponent {
 
-    val domainRepository: DomainRepository by inject()
-
     private val domainAggregatorModules = module {
         includes(domainModule(), featureModule(), apiModule())
     }

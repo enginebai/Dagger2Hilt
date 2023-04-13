@@ -41,7 +41,6 @@ interface DomainComponent {
      * 1. interface
      * 2. dagger provider itself or injector
      */
-    fun domainRepository(): DomainRepository
     fun koinFacade(): DomainKoinFacade
 
     // Provide to dynamic feature

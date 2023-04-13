@@ -42,8 +42,7 @@ class RandomTopicButton @JvmOverloads constructor(
             count++
             text = "${topic.courseName}-$count"
             Log.d(RandomTopicButton::class.java.simpleName, "Add random topic $topic to domain repository.")
-            val repo = (context.applicationContext as MyApplication).domainComponent().domainRepository();
-            Toast.makeText(context, "${repo.getDataList()}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "${domainRepository.getDataList()}", Toast.LENGTH_SHORT).show()
         }
     }
 }

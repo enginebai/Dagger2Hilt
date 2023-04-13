@@ -12,17 +12,18 @@ import com.enginebai.poc.MyApplication
 import com.enginebai.poc.data.DomainRepository
 import com.enginebai.poc.data.domain.DomainTopic
 import com.enginebai.poc.data.domain.pickRandomTopic
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import javax.inject.Inject
 
 class RandomTopicItem(
     private val context: Context,
-) {
+) : KoinComponent {
 
-    @Inject
-    lateinit var viewModel: RandomTopicItemViewModel
+    private val viewModel: RandomTopicItemViewModel by inject()
 
     init {
-        (context.applicationContext as MyApplication).domainComponent().inject(this)
+//        (context.applicationContext as MyApplication).domainComponent().inject(this)
     }
 
     fun attach(parentView: ViewGroup, onClickListener: () -> Unit) {
@@ -43,7 +44,7 @@ class RandomTopicItem(
     }
 }
 
-class RandomTopicItemViewModel @Inject constructor(
+class RandomTopicItemViewModel(
     private val domainRepository: DomainRepository
 ): BaseViewModel() {
 
