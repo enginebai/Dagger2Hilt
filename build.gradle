@@ -5,3 +5,23 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
     id 'com.android.dynamic-feature' version '7.4.1' apply false
 }
+
+plugins {
+    id "scabbard.gradle" version "0.5.0"
+}
+
+scabbard {
+    enabled true
+    outputFormat "svg"
+}
+
+allprojects {
+    configurations.all {
+        resolutionStrategy.eachDependency {
+            if (requested.group == "com.github.kittinunf.result" && requested.name == "result" && requested.version == "3.0.0") {
+                useVersion("3.0.1")
+                because("Transitive dependency of Scabbard, currently not available on mavenCentral()")
+            }
+        }
+    }
+}
