@@ -19,18 +19,18 @@ data class DomainFragmentUser(
 
 class DomainFragmentViewModel(
     private val domainRepository: DomainRepository,
-    state: SavedStateHandle,
     private val complexInjection: ComplexInjection
 ) : BaseViewModel() {
 
     private val _data = MutableLiveData<String>()
     val data: LiveData<String> = _data
 
-    init {
-        val domainFragmentUser: DomainFragmentUser? = state.get<DomainFragmentUser>(KEY_DOMAIN_USER)
-        _data.value = "Injected domain user $domainFragmentUser"
-        complexInjection.log()
-    }
+    var domainFragmentUser: DomainFragmentUser? = null
+        set(value) {
+            field = value
+            _data.value = "Injected domain user $domainFragmentUser"
+            complexInjection.log()
+        }
 
     fun addData() {
         domainRepository.addRandomTopic()

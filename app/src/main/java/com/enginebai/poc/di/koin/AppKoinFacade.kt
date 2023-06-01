@@ -7,6 +7,7 @@ import com.enginebai.core.util.ColorDefinition
 import com.enginebai.core.util.ColorManager
 import com.enginebai.poc.ComplexInjection
 import com.enginebai.poc.MainViewModel
+import com.enginebai.poc.Missing
 import com.enginebai.poc.data.domain.PokerGame
 import com.enginebai.poc.data.user.UserDataHelper
 import com.enginebai.poc.ui.domain.DomainFragmentViewModel
@@ -43,7 +44,7 @@ fun appAggregatorModules(): List<Module> = mutableListOf(
     utilModule(),
     viewModelModules()
 ).apply {
-    addAll(dynamicFeatureModules())
+//    addAll(dynamicFeatureModules())
 }
 
 fun appModule() = module {
@@ -89,7 +90,10 @@ class AppKoinFacade @Inject constructor(
         startKoin {
             androidContext(context)
             androidLogger(Level.DEBUG)
-            modules(appAggregatorModules())
+            modules(module {
+                includes(appAggregatorModules())
+                includes(dynamicFeatureModules())
+            })
         }
     }
 }

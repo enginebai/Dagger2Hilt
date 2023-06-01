@@ -25,13 +25,32 @@ import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.random.Random
 
+val domainAggregatorModules = module {
+    includes(domainModule(), featureModule(), apiModule())
+}
+
+private fun domainModule() = module {
+    single { pickRandomTopic() }
+    singleOf(::DomainRepositoryImpl) bind DomainRepository::class
+    single {
+        val n = Random.nextInt(10000)
+        User("$n", "Domain User $n", n)
+    }
+    singleOf(::CardRepositoryImpl) bind CardRepository::class
+}
+
+private fun apiModule() = module {
+    singleOf(::DomainApiInMemory) bind DomainApi::class
+    singleOf(::CardApi)
+}
+
+private fun featureModule() = module {
+    single { ColorDefinition.DomainColor(ColorManager.generateColor()) }
+}
+
 @DomainScope
 class DomainKoinFacade @Inject constructor(
 ) : KoinComponent {
-
-    private val domainAggregatorModules = module {
-        includes(domainModule(), featureModule(), apiModule())
-    }
 
     fun loadModules() {
         loadKoinModules(domainAggregatorModules)
@@ -39,24 +58,5 @@ class DomainKoinFacade @Inject constructor(
 
     fun unloadModules() {
         unloadKoinModules(domainAggregatorModules)
-    }
-
-    private fun domainModule() = module {
-        single { pickRandomTopic() }
-        singleOf(::DomainRepositoryImpl) bind DomainRepository::class
-        single {
-            val n = Random.nextInt(10000)
-            User("$n", "Domain User $n", n)
-        }
-        singleOf(::CardRepositoryImpl) bind CardRepository::class
-    }
-
-    private fun apiModule() = module {
-        singleOf(::DomainApiInMemory) bind DomainApi::class
-        singleOf(::CardApi)
-    }
-
-    private fun featureModule() = module {
-        single { ColorDefinition.DomainColor(ColorManager.generateColor()) }
     }
 }

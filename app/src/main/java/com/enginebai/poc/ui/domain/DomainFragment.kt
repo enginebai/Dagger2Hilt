@@ -46,7 +46,7 @@ class DomainFragment : BaseFragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.domainFragmentUser = arguments?.getParcelable(KEY_DOMAIN_USER)
         view.findViewById<TextView>(R.id.textTitle).text =
             "${DomainFragment::class.java.simpleName}\n${domainRepository.getDataList()}"
 

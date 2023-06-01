@@ -27,8 +27,11 @@ import java.text.DateFormat
 import java.util.Calendar
 import javax.inject.Inject
 
+class Missing
+
 class MainActivity : BaseActivity() {
 
+    private val missing: Missing by inject()
     private val calendar: Calendar by inject()
     private val dateFormat: DateFormat by inject()
     private val colorMixer: ColorMixer by inject()
