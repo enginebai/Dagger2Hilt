@@ -50,4 +50,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+    implementation "com.google.devtools.ksp:symbol-processing-api:$ksp_version"
+    implementation project(":ksp-processor")
+    ksp project(":ksp-processor")
 }
