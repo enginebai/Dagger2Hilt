@@ -1,0 +1,11 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+}
+
+sourceSets.main {
+    java.srcDirs("src/main/kotlin")
+}
+
+dependencies {
+    implementation 'com.google.devtools.ksp:symbol-processing-api:1.8.0-1.0.9'
+}
