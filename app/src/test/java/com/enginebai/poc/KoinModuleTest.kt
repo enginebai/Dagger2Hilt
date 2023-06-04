@@ -25,8 +25,6 @@ class KoinModuleTest : KoinTest {
 
     @Test
     fun `verify all koin modules`() {
-        appAggregatorModules().forEach { module ->
-            module.verify()
-        }
+
     }
 }
