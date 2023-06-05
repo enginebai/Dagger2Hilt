@@ -12,7 +12,6 @@ import org.koin.core.component.inject
 import java.util.Calendar
 import java.util.UUID
 
-@Yo
 class AClass(private val a: Int, val b: String, val c: Double) {
     val p = "$a, $b, $c"
     fun foo() = p
@@ -25,14 +24,8 @@ class Test constructor(
 ) : BaseViewModel(), KoinComponent {
     private val uuid: UUID by inject()
 
-    init {
-        val a = AClassBuilder()
-            .withA(1)
-            .withB("2")
-            .withC(3.0)
-            .build()
-        a.foo()
-    }
+    // TODO: get() eager fetch
+    // TODO: Companion object : KoinComponent
 }
 
 class Test2(val test: DomainRepository, test2: Calendar,
@@ -40,3 +33,7 @@ class Test2(val test: DomainRepository, test2: Calendar,
 ) : BaseViewModel(), KoinComponent {
     private val appColor by inject<ColorDefinition.AppColor>()
 }
+
+// TODO: Object : KoinComponent
+// TODO: Top-level function that gets types from koin
+// TODO: Extension function that gets types from koin
