@@ -1,3 +1,4 @@
+import com.google.devtools.ksp.getDeclaredProperties
 import com.google.devtools.ksp.processing.CodeGenerator
 import com.google.devtools.ksp.processing.Dependencies
 import com.google.devtools.ksp.processing.KSPLogger
@@ -5,18 +6,20 @@ import com.google.devtools.ksp.processing.Resolver
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment
 import com.google.devtools.ksp.processing.SymbolProcessorProvider
+import com.google.devtools.ksp.symbol.FileLocation
 import com.google.devtools.ksp.symbol.KSAnnotated
 import com.google.devtools.ksp.symbol.KSClassDeclaration
 import com.google.devtools.ksp.symbol.KSFile
 import com.google.devtools.ksp.symbol.KSFunctionDeclaration
+import com.google.devtools.ksp.symbol.KSValueParameter
 import com.google.devtools.ksp.symbol.KSVisitorVoid
 import com.google.devtools.ksp.symbol.Nullability
-import com.google.devtools.ksp.validate
+import java.io.File
 import java.io.OutputStream
 
-class MySymbolProcessorProvider : SymbolProcessorProvider {
+class KoinProviderTestCodeSymbolProcessorProvider : SymbolProcessorProvider {
     override fun create(environment: SymbolProcessorEnvironment): SymbolProcessor {
-        return MyCodeGenerator(environment.codeGenerator, environment.logger)
+        return KoinProviderTestCodeGenerator(environment.codeGenerator, environment.logger)
     }
 }
 
@@ -24,45 +27,68 @@ fun OutputStream.appendText(str: String) {
     this.write(str.toByteArray())
 }
 
-class MyCodeGenerator(
+class KoinProviderTestCodeGenerator(
     val codeGenerator: CodeGenerator,
     private val logger: KSPLogger
 ) : SymbolProcessor {
 
-    private val visitor = MyVisitor()
+    private val visitor = SourceCodeFileVisitor()
 
     override fun process(resolver: Resolver): List<KSAnnotated> {
         val symbols = resolver.getAllFiles()
-        val ret = symbols.filter { !it.validate() }.toList()
         symbols.forEach {
-            logger.info("qwer file: $it")
+//            logger.info("qwer file: $it")
             it.accept(visitor, Unit)
         }
-        logger.info("qwer retrun $ret")
-        return ret
+        return emptyList()
     }
 
-    inner class MyVisitor : KSVisitorVoid() {
+    inner class SourceCodeFileVisitor : KSVisitorVoid() {
+        override fun visitFile(file: KSFile, data: Unit) {
+            if (file.fileName == "TestInjection.kt") {
+                file.declarations.forEach {
+                    it.accept(visitor, Unit)
+                }
+            }
+        }
+
         override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) {
             logger.info("qwer\tclass: $classDeclaration")
-            classDeclaration.primaryConstructor?.parameters?.forEach { param ->
-                val parameterName = param.name?.asString()
-                val parameterType = param.type.resolve()
-                val packageName = parameterType.declaration.packageName.asString()
-                val typeName = param.type.toString()
 
-                logger.info("qwer\t\tparam: $packageName, $typeName")
+            val injectedProperties = mutableListOf<String>()
+            val injectionPattern = Regex("private\\s+val\\s+\\w+:\\s+(\\w+\\b)(?=\\s+by\\s+inject)", RegexOption.IGNORE_CASE)
+
+            if (classDeclaration.location is FileLocation) {
+                val filePath = (classDeclaration.location as FileLocation).filePath
+                val sourceCodeFile = File(filePath)
+                sourceCodeFile.forEachLine { line ->
+                    val matchResult = injectionPattern.find(line)
+                    matchResult?.groups?.forEach {
+                        logger.info("qwer***$it")
+                    }
+                }
+                classDeclaration.getDeclaredProperties().filter { property ->
+                    property.isDelegated()
+                }.forEach {
+                    val resolvedType = it.type.resolve()
+                    logger.info(
+                        "qwer\t\t${resolvedType.declaration.qualifiedName?.asString()},"
+                    )
+                }
             }
         }
 
-        override fun visitFile(file: KSFile, data: Unit) {
-            file.declarations.forEach {
-                it.accept(this, Unit)
-            }
+        private fun generateTestForType(param: KSValueParameter): String {
+            val parameterType = param.type.resolve()
+            val packageName = parameterType.declaration.packageName.asString()
+            val typeName = param.type.toString()
+
+            val fullName = if (packageName.isNotEmpty()) "$packageName.$typeName" else typeName
+            return "assertNotNull(get<$fullName>())"
         }
     }
 
-    inner class BuilderVisitor : KSVisitorVoid() {
+    inner class SampleBuilderVisitor : KSVisitorVoid() {
         override fun visitClassDeclaration(classDeclaration: KSClassDeclaration, data: Unit) {
             classDeclaration.primaryConstructor!!.accept(this, data)
         }

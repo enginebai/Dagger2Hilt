@@ -71,7 +71,7 @@ class MyApplication : Application(), HasAndroidInjector {
         userDataHelper.generateNewUser()
         instantiateDomainComponent()
         appInjector.init(this)
-//        initDynamicFeatureModule()
+        initDynamicFeatureModule()
     }
 
     // onConfigAvailable() method

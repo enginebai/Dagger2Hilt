@@ -24,6 +24,7 @@ import org.koin.core.logger.Level
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import java.text.DateFormat
@@ -36,6 +37,10 @@ import kotlin.random.nextInt
 
 private const val dynamicFeatureModulesProvider = "com.enginebai.dynamic.di.DynamicFeatureKoinModulesProvider"
 
+enum class DIStringType {
+    DEBUG, RELEASE
+}
+
 fun appAggregatorModules(): List<Module> = mutableListOf(
     // NOTE: The order of modules does NOT matter!!
     // UserDataHelper in appModule() uses the dependencies in `utilModule(), it's OK.
@@ -43,14 +48,12 @@ fun appAggregatorModules(): List<Module> = mutableListOf(
     appColorModule(),
     utilModule(),
     viewModelModules()
-).apply {
-//    addAll(dynamicFeatureModules())
-}
+)
 
 fun appModule() = module {
     singleOf<Poker>(::PokerGame)
-    singleOf(::UserDataHelper)
-    singleOf(::ComplexInjection)
+    single { UserDataHelper(androidContext(), get(), get(named(DIStringType.RELEASE)), get()) }
+    single { ComplexInjection(get(named(DIStringType.RELEASE)), get(), get(), get(), get()) }
     factoryOf(::RandomTopicItemViewModel)
 }
 
@@ -60,7 +63,8 @@ fun utilModule() = module {
     factory { Random.nextInt(0..100) }
     single<Calendar> { Calendar.getInstance() }
     single<DateFormat> { SimpleDateFormat("yyyy/MM/dd HH:mm:ss") } bind DateFormat::class
-    single<String> { get<DateFormat>().format(get<Calendar>().time) }
+    single<String>(named(DIStringType.RELEASE)) { get<DateFormat>().format(get<Calendar>().time) }
+    single<String>(named(DIStringType.DEBUG)) { "I'm Testing Label" }
 }
 
 fun appColorModule() = module {
